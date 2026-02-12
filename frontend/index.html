@@ -4,9 +4,52 @@
   <title>Home</title>
   <link rel="stylesheet" href=".\assets\style.css">
 </head>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll(".count");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const target = +counter.dataset.target;
+        let current = 0;
+        const speed = 200;
+        const increment = target / speed;
+
+        function update() {
+          current += increment;
+          if (current < target) {
+            counter.textContent = Math.ceil(current);
+            requestAnimationFrame(update);
+          } else {
+            counter.textContent = target;
+          }
+        }
+
+        update();
+        observer.unobserve(counter);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => observer.observe(counter));
+});
+</script>
+
+
 <body>
+
+
+
+
+
 <header class="navbar">
-  <div class="logo">AgriSmart</div>
+  <div class="logo">
+  <img src="assets/logo.png" alt="Logo">
+  <span>AgriSmart</span>
+</div>
+
 
   <nav class="nav-links">
     <a href="index.html">Home</a>
@@ -37,9 +80,52 @@
 
 <main>
   <section>
-    <h2>Welcome</h2>
-    <p>Smart agriculture insights using AI.</p>
+   <section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/bg_video.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-content">
+    <h1>Farming for the future needs a <span>whole new</span><br>kind of power</h1>
+    <p>AgriSmart Cloud - smart agriculture powered by AI.</p>
+    <a href="dashboard.html" class="hero-btn">Explore AgriSmart</a>
+  </div>
+</section>
   </section>
+
+<section class="stats">
+  <h2>We're not just another agri-tech company</h2>
+  <p>Smart agriculture impact in numbers</p>
+
+  <div class="stats-grid">
+    <div class="stat">
+      <span class="count" data-target="30">0</span><span class="unit">M</span>
+      <p>Acres digitized</p>
+    </div>
+
+    <div class="stat">
+      <span class="count" data-target="92">0</span><span class="unit">%</span>
+      <p>Climate resilient farming</p>
+    </div>
+
+    <div class="stat">
+      <span class="count" data-target="25">0</span><span class="unit">%</span>
+      <p>Increase in crop yield</p>
+    </div>
+
+    <div class="stat">
+      <span class="count" data-target="80">0</span><span class="unit">%</span>
+      <p>Drop in pest & disease</p>
+    </div>
+
+    <div class="stat">
+      <span class="count" data-target="30">0</span><span class="unit">%</span>
+      <p>Rise in farmer income</p>
+    </div>
+  </div>
+</section>
+
+
 </main>
 
 <footer>© 2026 AgriSmart</footer>
