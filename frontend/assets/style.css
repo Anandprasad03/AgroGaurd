@@ -362,8 +362,40 @@ footer {
 .b5  { top: 290px; right: -170px; }       /*Building climate resilience*/
 .b6  { bottom: 50px; right: 450px; }      /*Ensure risk coverage & access to finance*/
 .b7  { bottom: 30px; left: 450px; }      /*Surety of supply*/
-.b8  { bottom: -30px; left: 280px; }      /*Market expansion*/
+.b8  { bottom: -30px; left: 330px; }      /*Market expansion*/
 .b9  { bottom: 0px; left: 120px; }       /*Resilient sourcing*/
 .b10 { top: 280px; left: -190px; }           /*Manage market or price volatility*/
 .b11 { top: 150px; left: -110px; }        /*Crop loss management*/
+
+.diagram-box {
+  position: absolute;
+  background: #ffffff;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f4d00;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.4s ease;
+
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+/* Image size control */
+.diagram-box img {
+  width: 22px;      
+  height: 22px;
+  object-fit: contain;
+}
+
+/* Hover gradient */
+.diagram-box:hover {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  transform: scale(1.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
 
