@@ -1,19 +1,307 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Crop Planner</title>
-  <link rel="stylesheet" href=".\assets\style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart AI Planner</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #2F855A; /* Green */
+            --bg: #F0F4F8;
+            --card-bg: #FFFFFF;
+            --text-main: #2D3748;
+            --text-light: #718096;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        header p {
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        /* --- Input Card --- */
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4A5568;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box; /* Fix padding issues */
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #276749;
+        }
+
+        /* --- Result Section --- */
+        #result-section {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Soil Health Meter */
+        .soil-meter-container {
+            background: #EDF2F7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .soil-info h3 { margin: 0; font-size: 1.1rem; }
+        .soil-info span { font-size: 0.9rem; color: var(--text-light); }
+
+        .progress-bar-bg {
+            width: 60%;
+            height: 12px;
+            background: #CBD5E0;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #F6E05E, #48BB78);
+            width: 0%; /* Animate this */
+            transition: width 1.5s ease-out;
+            border-radius: 6px;
+        }
+
+        /* Markdown Content Styling */
+        .ai-content {
+            line-height: 1.7;
+        }
+        .ai-content h1, .ai-content h2, .ai-content h3 {
+            color: #2D3748;
+            margin-top: 20px;
+        }
+        .ai-content strong {
+            color: var(--primary);
+        }
+        .ai-content ul {
+            background: #F0FFF4;
+            padding: 20px 40px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+        }
+
+        /* Loading Spinner */
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: auto;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .progress-bar-bg { width: 50%; }
+        }
+    </style>
 </head>
 <body>
-<header>...</header>
 
-<main>
-  <section>
-    <h2>Crop Rotation & Soil Advisor</h2>
-    <p>AI-based crop planning.</p>
-  </section>
-</main>
+<div class="container">
+    <header>
+        <h1>🌱 AgriSmart Planner</h1>
+        <p>AI-Powered Crop & Soil Intelligence</p>
+    </header>
 
-<footer>© 2026 AgriSmart</footer>
+    <div class="card">
+        <div class="form-grid">
+            <div>
+                <label>🌾 Last Crop Grown</label>
+                <input type="text" id="last_crop" placeholder="e.g. Rice">
+            </div>
+            <div>
+                <label>🧪 Soil Type</label>
+                <select id="soil_type">
+                    <option value="Alluvial Soil">Alluvial Soil</option>
+                    <option value="Black Soil">Black Soil</option>
+                    <option value="Red Soil">Red Soil</option>
+                    <option value="Clay Soil">Clay Soil</option>
+                </select>
+            </div>
+            <div>
+                <label>💧 Rainfall Conditions</label>
+                <select id="rainfall">
+                    <option value="High">High (>200mm)</option>
+                    <option value="Medium">Medium (100-200mm)</option>
+                    <option value="Low">Low (<100mm)</option>
+                </select>
+            </div>
+            <div>
+                <label>🌤️ Growing Season</label>
+                <select id="season">
+                    <option value="Kharif">Kharif (Monsoon)</option>
+                    <option value="Rabi">Rabi (Winter)</option>
+                    <option value="Zaid">Zaid (Summer)</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="generatePlan()">Generate AI Crop Plan</button>
+    </div>
+
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p style="margin-top:15px; color: #718096;">Consulting Agricultural AI Models...</p>
+    </div>
+
+    <div id="result-section" class="card">
+        
+        <div class="soil-meter-container">
+            <div class="soil-info">
+                <h3>Soil Regeneration Score</h3>
+                <span>Based on history & soil type</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="soil-bar"></div>
+            </div>
+            <h2 id="soil-score-text" style="color:var(--primary); margin:0;">0%</h2>
+        </div>
+
+        <hr style="border:0; border-top:1px solid #eee; margin: 20px 0;">
+
+        <div id="ai-output" class="ai-content"></div>
+
+    </div>
+</div>
+
+<script>
+    async function generatePlan() {
+        // 1. Get Values
+        const last_crop = document.getElementById("last_crop").value;
+        const soil_type = document.getElementById("soil_type").value;
+        const rainfall = document.getElementById("rainfall").value;
+        const season = document.getElementById("season").value;
+
+        // Validation
+        if (!last_crop) { alert("Please enter the last crop grown!"); return; }
+
+        // 2. UI: Show Loader, Hide Result
+        document.getElementById("loader").style.display = "block";
+        document.getElementById("result-section").style.display = "none";
+
+        try {
+            // 3. Call API
+            const response = await fetch("http://localhost:8000/agent/plan", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ last_crop, soil_type, rainfall, season })
+            });
+
+            const data = await response.json();
+
+            // 4. Update UI
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("result-section").style.display = "block";
+
+            // A) Animate Soil Bar
+            // Note: If your API returns "soil_score" or just "score", adjust here. 
+            // Based on previous files, I assume "soil_score".
+            const score = data.soil_score || 0; 
+            document.getElementById("soil-score-text").innerText = score + "/100";
+            document.getElementById("soil-bar").style.width = score + "%";
+
+            // B) Render Markdown Text using marked.js
+            // Note: Check if your API returns "analysis", "plan", or "response". 
+            // I am assuming "analysis" based on your previous python files.
+            const rawText = data.analysis || data.response || "No analysis received.";
+            document.getElementById("ai-output").innerHTML = marked.parse(rawText);
+
+        } catch (error) {
+            console.error(error);
+            document.getElementById("loader").style.display = "none";
+            alert("Error connecting to AI Agent. Is the backend running?");
+        }
+    }
+</script>
+
 </body>
 </html>

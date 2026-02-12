@@ -13,9 +13,10 @@ app = FastAPI(title="Agri Decision Intelligence Backend")
 # Allow all frontend origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],  # Allows all origins (good for testing)
+    allow_credentials=True,
     allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Mount all APIs
