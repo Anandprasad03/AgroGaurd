@@ -1,0 +1,71 @@
+{
+  "Rice": {
+    "category": "Cereal",
+    "next_crops": ["Wheat", "Mustard", "Potato", "Chickpea"],
+    "avoid_after": ["Rice"],
+    "benefits": [
+      "Improves nitrogen fixation when rotated with legumes",
+      "Breaks pest cycle of rice stem borer"
+    ]
+  },
+
+  "Wheat": {
+    "category": "Cereal",
+    "next_crops": ["Pulses", "Maize", "Vegetables"],
+    "avoid_after": ["Wheat"],
+    "benefits": [
+      "Balances nutrient usage",
+      "Reduces fungal disease build-up"
+    ]
+  },
+
+  "Maize": {
+    "category": "Cereal",
+    "next_crops": ["Potato", "Peas", "Groundnut"],
+    "avoid_after": ["Maize"],
+    "benefits": [
+      "Improves soil structure",
+      "Supports nitrogen-fixing rotations"
+    ]
+  },
+
+  "Cotton": {
+    "category": "Fiber",
+    "next_crops": ["Groundnut", "Soybean", "Pulses"],
+    "avoid_after": ["Cotton"],
+    "benefits": [
+      "Restores soil nitrogen when followed by legumes",
+      "Reduces bollworm infestation"
+    ]
+  },
+
+  "Sugarcane": {
+    "category": "Cash Crop",
+    "next_crops": ["Pulses", "Wheat", "Vegetables"],
+    "avoid_after": ["Sugarcane"],
+    "benefits": [
+      "Improves organic content when followed by legumes",
+      "Breaks pest cycles"
+    ]
+  },
+
+  "Potato": {
+    "category": "Vegetable",
+    "next_crops": ["Maize", "Pulses", "Onion"],
+    "avoid_after": ["Potato"],
+    "benefits": [
+      "Restores phosphorus when rotated with legumes",
+      "Reduces nematode populations"
+    ]
+  },
+
+  "Tomato": {
+    "category": "Vegetable",
+    "next_crops": ["Cabbage", "Peas", "Carrot"],
+    "avoid_after": ["Tomato", "Potato", "Chilli"],
+    "benefits": [
+      "Breaks fungal pathogen cycle",
+      "Improves soil organic matter"
+    ]
+  }
+}

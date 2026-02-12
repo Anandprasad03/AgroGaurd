@@ -1,0 +1,66 @@
+{
+  "Black Soil": {
+    "description": "Volcanic soil found in Maharashtra, MP, Gujarat. Rich in clay and moisture retention.",
+    "ph": 6.5,
+    "organic_matter": "High",
+    "fertility_score": 85,
+    "best_crops": ["Cotton", "Soybean", "Maize", "Jowar", "Pulses"],
+    "regeneration_tips": [
+      "Add gypsum to improve aeration",
+      "Rotate with pulses to fix nitrogen",
+      "Avoid over-irrigation"
+    ]
+  },
+
+  "Alluvial Soil": {
+    "description": "Fertile soil found in Indo-Gangetic plains. Best for diverse crops.",
+    "ph": 7.2,
+    "organic_matter": "Medium",
+    "fertility_score": 92,
+    "best_crops": ["Wheat", "Rice", "Sugarcane", "Potato", "Vegetables"],
+    "regeneration_tips": [
+      "Use green manure during off-season",
+      "Add compost for long-term fertility",
+      "Alternate cereals with legumes"
+    ]
+  },
+
+  "Red Soil": {
+    "description": "Common in Tamil Nadu, Karnataka, Odisha. Low nitrogen and humus.",
+    "ph": 6.0,
+    "organic_matter": "Low",
+    "fertility_score": 55,
+    "best_crops": ["Groundnut", "Millets", "Castor", "Potato", "Pulses"],
+    "regeneration_tips": [
+      "Add organic compost frequently",
+      "Rotate with legumes",
+      "Mulching to conserve moisture"
+    ]
+  },
+
+  "Laterite Soil": {
+    "description": "Found in Kerala, Karnataka hills; acidic and rich in iron.",
+    "ph": 5.5,
+    "organic_matter": "Low",
+    "fertility_score": 45,
+    "best_crops": ["Tea", "Coffee", "Cashew", "Rubber", "Coconut"],
+    "regeneration_tips": [
+      "Add lime to reduce acidity",
+      "Plant cover crops to prevent erosion",
+      "Apply organic manure regularly"
+    ]
+  },
+
+  "Desert Soil": {
+    "description": "Sandy soil found in Rajasthan; low moisture retention.",
+    "ph": 8.5,
+    "organic_matter": "Very Low",
+    "fertility_score": 35,
+    "best_crops": ["Bajra", "Guar", "Barley", "Mustard"],
+    "regeneration_tips": [
+      "Use drip irrigation",
+      "Add biochar to improve moisture retention",
+      "Grow hardy drought-resistant crops"
+    ]
+  }
+}
