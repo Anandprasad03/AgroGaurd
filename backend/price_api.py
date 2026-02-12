@@ -1,5 +1,3 @@
-# backend/price_api.py
-
 from fastapi import APIRouter
 from pydantic import BaseModel
 import pandas as pd
@@ -7,44 +5,33 @@ import joblib
 
 router = APIRouter(prefix="/price", tags=["Price Forecast"])
 
-# Load ML model + metadata
+# Load Model
 model = joblib.load("ml_models/price/price_model.pkl")
-features = joblib.load("ml_models/price/price_scaler.pkl")
 
 class PriceInput(BaseModel):
-    date: str
-    crop: str
-    mandi: str
+    Crop: str
+    Location: str
+    Supply_Tonnes: float
+    Transport_Cost_Per_Km: float
+    Fuel_Price: float
+    Date: str  # Format: YYYY-MM-DD
 
 @router.post("/predict")
 def predict_price(data: PriceInput):
+    # Convert to DataFrame
+    input_data = data.dict()
+    df = pd.DataFrame([input_data])
+    
+    # Process Date (Same logic as training)
+    df["Date"] = pd.to_datetime(df["Date"])
+    df["Month"] = df["Date"].dt.month
+    df["Year"] = df["Date"].dt.year
+    df = df.drop(columns=["Date"])
 
-    df = pd.DataFrame([{
-        "date": pd.to_datetime(data.date),
-        "crop": data.crop,
-        "mandi": data.mandi
-    }])
-
-    # Feature Engineering
-    df["day"] = df["date"].dt.day
-    df["month"] = df["date"].dt.month
-    df["year"] = df["date"].dt.year
-    df["day_of_year"] = df["date"].dt.dayofyear
-    df["week"] = df["date"].dt.isocalendar().week.astype(int)
-    df = df.drop(columns=["date"])
-
-    df = pd.get_dummies(df)
-
-    # Add missing columns
-    for col in features:
-        if col not in df.columns:
-            df[col] = 0
-
-    df = df[features]
-
-    price = model.predict(df)[0]
+    # Predict
+    predicted_price = model.predict(df)[0]
 
     return {
-        "predicted_price": float(price),
+        "predicted_price": round(float(predicted_price), 2),
         "currency": "INR"
     }

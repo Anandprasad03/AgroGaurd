@@ -1,82 +1,40 @@
 import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.compose import ColumnTransformer
 import joblib
 
-# ----------------------------
-# 1. Load Dataset
-# ----------------------------
+# 1. Load Data
 df = pd.read_csv("data/price_history.csv")
 
-# Expected columns:
-# date, crop, mandi, price
-# You can easily adapt any dataset.
-
-# ----------------------------
 # 2. Feature Engineering
-# ----------------------------
-df["date"] = pd.to_datetime(df["date"])
-df["day"] = df["date"].dt.day
-df["month"] = df["date"].dt.month
-df["year"] = df["date"].dt.year
-df["day_of_year"] = df["date"].dt.dayofyear
-df["week"] = df["date"].dt.isocalendar().week.astype(int)
+df["Date"] = pd.to_datetime(df["Date"])
+df["Month"] = df["Date"].dt.month
+df["Year"] = df["Date"].dt.year
+# Drop Date (model can't read dates directly) and Target
+X = df.drop(columns=["Date", "Market_Price"]) 
+y = df["Market_Price"]
 
-# Drop original date
-df = df.drop(columns=["date"])
+# 3. Define Preprocessor
+numeric_features = ["Supply_Tonnes", "Transport_Cost_Per_Km", "Fuel_Price", "Month", "Year"]
+categorical_features = ["Crop", "Location"]
 
-# ----------------------------
-# 3. Encode categorical
-# ----------------------------
-df = pd.get_dummies(df, columns=["crop", "mandi"], drop_first=True)
-
-# ----------------------------
-# 4. Split Features/Target
-# ----------------------------
-X = df.drop(columns=["price"])
-y = df["price"]
-
-numeric_cols = X.columns.tolist()
-
-# ----------------------------
-# 5. Pipeline
-# ----------------------------
-pipeline = Pipeline([
-    ("scaler", StandardScaler()),
-    ("rf", RandomForestRegressor())
+preprocessor = ColumnTransformer([
+    ("num", StandardScaler(), numeric_features),
+    ("cat", OneHotEncoder(handle_unknown='ignore'), categorical_features)
 ])
 
-params = {
-    "rf__n_estimators": [200, 300],
-    "rf__max_depth": [10, 15, None],
-    "rf__min_samples_split": [2, 4]
-}
+# 4. Pipeline
+model = Pipeline([
+    ("preprocessor", preprocessor),
+    ("regressor", RandomForestRegressor(n_estimators=100, random_state=42))
+])
 
-grid = GridSearchCV(
-    pipeline,
-    param_grid=params,
-    cv=4,
-    scoring="neg_mean_absolute_error",
-    n_jobs=-1
-)
+# 5. Train
+print("Training Price Model...")
+model.fit(X, y)
 
-grid.fit(X, y)
-
-pred = grid.predict(X)
-
-print("\nMAE:", mean_absolute_error(y, pred))
-print("R2 Score:", r2_score(y, pred))
-print("Best Params:", grid.best_params_)
-
-# ----------------------------
-# 6. Save Model + Metadata
-# ----------------------------
-joblib.dump(grid.best_estimator_, "ml_models/price/price_model.pkl")
-print("\nPrice model saved!")
-
-joblib.dump(numeric_cols, "ml_models/price/feature_meta.pkl")
-print("Feature metadata saved!")
+# 6. Save
+joblib.dump(model, "ml_models/price/price_model.pkl")
+print("✅ Price model saved to ml_models/price/price_model.pkl")

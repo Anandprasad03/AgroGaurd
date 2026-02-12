@@ -1,81 +1,43 @@
 import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
 import joblib
 
-# ----------------------------
-# 1. Load Dataset
-# ----------------------------
+# 1. Load Data
 df = pd.read_csv("data/crop_loss_dataset.csv")
 
-# ----------------------------
-# 2. Feature & Target
-# ----------------------------
-target = "spoilage_risk"
-features = df.columns.drop(target)
+# 2. Features & Target
+# We drop ID and Timestamp as they don't cause spoilage
+X = df[["city", "temperature", "humidity", "rainfall"]]
+y = df["spoilage_risk"]
 
-X = df[features]
-y = df[target]
-
-# Columns
-numeric_cols = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
-categorical_cols = X.select_dtypes(include=['object']).columns.tolist()
-
-# ----------------------------
 # 3. Preprocessing
-# ----------------------------
+# Numeric: Temp, Humidity, Rain
+# Categorical: City
+numeric_features = ["temperature", "humidity", "rainfall"]
+categorical_features = ["city"]
+
 preprocessor = ColumnTransformer([
-    ("num", StandardScaler(), numeric_cols),
-    ("cat", OneHotEncoder(handle_unknown='ignore'), categorical_cols)
+    ("num", StandardScaler(), numeric_features),
+    ("cat", OneHotEncoder(handle_unknown='ignore'), categorical_features)
 ])
 
-# ----------------------------
-# 4. Model + Pipeline
-# ----------------------------
-rf = RandomForestClassifier(class_weight="balanced")
-
+# 4. Pipeline
+# We use RandomForest to handle the complex interactions
 pipeline = Pipeline([
     ("preprocessor", preprocessor),
-    ("rf", rf)
+    ("classifier", RandomForestClassifier(n_estimators=100, random_state=42))
 ])
 
-# Hyperparameters
-params = {
-    "rf__n_estimators": [150, 250],
-    "rf__max_depth": [10, 15, None],
-    "rf__min_samples_split": [2, 5],
-}
+# 5. Train
+print("Training on Real-World Structure...")
+pipeline.fit(X, y)
 
-grid = GridSearchCV(
-    pipeline,
-    param_grid=params,
-    cv=4,
-    scoring='f1_macro',
-    n_jobs=-1
-)
-
-grid.fit(X, y)
-
-print("\nBest Params:", grid.best_params_)
-print("\nClassification Report:")
-print(classification_report(y, grid.predict(X)))
-
-# ----------------------------
-# 5. Save Model
-# ----------------------------
-joblib.dump(grid.best_estimator_, "ml_models/spoilage/model.pkl")
-print("\nSpoilage model saved!")
-
-# ----------------------------
-# 6. Export feature names
-# ----------------------------
-joblib.dump({
-    "numeric": numeric_cols,
-    "categorical": categorical_cols
-}, "ml_models/spoilage/feature_meta.pkl")
-print("Feature metadata saved!")
+# 6. Save Model
+joblib.dump(pipeline, "ml_models/spoilage/model.pkl")
+print("✅ Model Saved! Classification Report:")
+print(classification_report(y, pipeline.predict(X)))
