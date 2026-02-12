@@ -203,6 +203,23 @@ footer {
 }
 
 .stat .count {
+  position: relative;
+  padding-top: 15px;
+}
+
+.stat .count::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;        
+  height: 5px;          
+  background: #0f3a00;    
+  transform: translateX(-50%);
+}
+
+
+.stat .count {
   font-size: 64px;
   font-weight: bold;
   color: #1f4d0a;
@@ -286,8 +303,67 @@ footer {
   transition: width 0.3s ease;
 }
 
-/* show line on hover */
 .challenge-card:hover h3::after {
   width: 60%;
 }
+
+/* value section */
+
+ .diagram-section {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.diagram-section h2 {
+  color: #1f4d00;
+  margin-bottom: 40px;
+}
+
+.diagram-container {
+  position: relative;
+  width: 550px;
+  margin: auto;
+}
+
+.diagram-bg {
+  width: 100%;
+  display: block;
+}
+
+/* Box style */
+.diagram-box {
+  position: absolute;
+  background: #ffffff;
+  padding: 12px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f4d00;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+
+  transition: all 0.4s ease;
+}
+
+/* Gradient hover */
+.diagram-box:hover {
+  background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+  
+  color: black;
+  transform: scale(1.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+/* POSITIONING  */
+.b1  { top: -30px; left: 180px; }       /*Yield & quality improvement*/
+.b2  { top: 20px; left: 400px; }         /*Supply chain efficiency*/
+.b3  { top: 15px; right: 350px; }        /*Ensure regenerative & sustainable practices*/
+.b4  { top: 150px; right: -250px; }        /*Ensure traceability, certification & compliance*/
+.b5  { top: 290px; right: -170px; }       /*Building climate resilience*/
+.b6  { bottom: 50px; right: 450px; }      /*Ensure risk coverage & access to finance*/
+.b7  { bottom: 30px; left: 450px; }      /*Surety of supply*/
+.b8  { bottom: -30px; left: 280px; }      /*Market expansion*/
+.b9  { bottom: 0px; left: 120px; }       /*Resilient sourcing*/
+.b10 { top: 280px; left: -190px; }           /*Manage market or price volatility*/
+.b11 { top: 150px; left: -110px; }        /*Crop loss management*/
 
