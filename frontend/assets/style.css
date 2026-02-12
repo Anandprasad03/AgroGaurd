@@ -183,7 +183,8 @@ footer {
 .stats {
   padding: 80px 40px;
   text-align: center;
-  background: #fff;
+  
+   background:  linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
 }
 
 .stats h2 {
@@ -232,6 +233,20 @@ footer {
 
 /* challengs card display */
  
+
+.challenges {
+  border-radius: 25px;
+  background: linear-gradient(90deg,
+    #f6fff6 0%,
+    #e6f4ec 16.667%,
+    #f5ece6 33.333%,
+    #fde9e5 50%,
+    #ebe9e7 66.667%,
+    #ebeeee 83.333%,
+    #fef6f9 100%
+  );
+}
+
 .challenge-grid {
   display: grid;
   grid-template-columns: repeat(4,1fr);
@@ -243,9 +258,12 @@ footer {
   border-radius: 20px;
   padding: 30px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-
   opacity: 0;
   transform: translateY(40px);
+  transition: 
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .challenge-card.animate {
@@ -258,21 +276,15 @@ footer {
     transform: translateY(0);
   }
 }
-.challenge-card {
 
-  transition: 
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    background-color 0.3s ease;
-}
 .challenge-card h3 {
-    border-left: 5px solid #0FBED8; 
-    padding-left: 5px;   
+    border-left: 7px solid #0FBED8; 
+    padding-left: 3px;   
 }
 
 /* HOVER EFFECT */
 .challenge-card:hover {
-  background-color: #0FBED8;
+  background: linear-gradient(315deg, #ffd3d7 0.000%, #fde5eb 20.000%, #edefee 40.000%, #dbf1e2 60.000%, #d2ecc5 80.000%, #d8de9a 100.000%);
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 15px 35px rgba(128, 180, 37, 0.5);
   
@@ -307,11 +319,29 @@ footer {
   width: 60%;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* value section */
 
  .diagram-section {
   padding: 50px 20px;
   text-align: center;
+  background:  linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
 }
 
 .diagram-section h2 {
@@ -345,9 +375,9 @@ footer {
   transition: all 0.4s ease;
 }
 
-/* Gradient hover */
+/* Gradient hover on value div */
 .diagram-box:hover {
-  background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+background: linear-gradient(315deg, #fcb8e2 0.000%, #ffc8ed 20.000%, #fbe8f9 40.000%, #e8f9ff 60.000%, #d0ecff 80.000%, #b8cdfa 100.000%);
   
   color: black;
   transform: scale(1.08);
@@ -391,11 +421,6 @@ footer {
   object-fit: contain;
 }
 
-/* Hover gradient */
-.diagram-box:hover {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: white;
-  transform: scale(1.08);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-}
+
+
 
