@@ -41,7 +41,6 @@ footer {
   padding: 10px;
   background: #2c7a7b;
   color: white;
-  position: fixed;
   bottom: 0;
   width: 100%;
 }
@@ -212,5 +211,83 @@ footer {
 .unit {
   font-size: 40px;
   color: #1f4d0a;
+}
+
+/* challengs card display */
+ 
+.challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 30px;
+}
+
+.challenge-card {
+  background: rgba(255,255,255,0.8);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.challenge-card.animate {
+  animation: slideUp 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.challenge-card {
+
+  transition: 
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+.challenge-card h3 {
+    border-left: 5px solid #0FBED8; 
+    padding-left: 5px;   
+}
+
+/* HOVER EFFECT */
+.challenge-card:hover {
+  background-color: #0FBED8;
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(128, 180, 37, 0.5);
+  
+}
+
+.challenge-card:hover h3 {
+  color: #393e46;
+ 
+  
+}
+.challenge-card.animate {
+  animation: slideUp 0.8s ease forwards;
+}
+.challenge-card h3 {
+  position: relative;
+  padding-bottom: 10px;
+}
+
+/* hidden line */
+.challenge-card h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background: #2e7d32; /* green line */
+  transition: width 0.3s ease;
+}
+
+/* show line on hover */
+.challenge-card:hover h3::after {
+  width: 60%;
 }
 

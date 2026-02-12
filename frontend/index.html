@@ -4,6 +4,7 @@
   <title>Home</title>
   <link rel="stylesheet" href=".\assets\style.css">
 </head>
+<!--script of data showing animations-->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const counters = document.querySelectorAll(".count");
@@ -43,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
 <header class="navbar">
   <div class="logo">
   <img src="assets/logo.png" alt="Logo">
@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <a href="price.html">Price Forecast</a>
       </div>
     </div>
+
 
     <div class="dropdown">
       <button>Solutions ▾</button>
@@ -125,9 +126,56 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 </section>
 
+<section class="challenges">
+  <h2>Challenges we solve</h2>
+
+  <div class="challenge-grid">
+    <div class="challenge-card">
+      <h3>Unpredictable Post-Harvest Spoilage</h3>
+      <p>Farmers lack tools to estimate how long crops will remain fresh under different storage conditions, leading to unnecessary waste.</p>
+    </div>
+
+    <div class="challenge-card">
+      <h3>Inefficient Logistics & Transport Timing</h3>
+      <p>Delayed or poorly planned transportation causes crops to rot before reaching markets, increasing financial loss.</p>
+    </div>
+
+    <div class="challenge-card">
+      <h3>Unreliable Market Demand & Price Awareness</h3>
+      <p>Farmers sell without knowing future demand or price trends, often resulting in distress sales or overproduction.</p>
+    </div>
+
+    <div class="challenge-card">
+      <h3>Repetitive Crop Cycles & Soil Degradation</h3>
+      <p>Continuous cultivation of the same crops reduces soil nutrients and increases pest risk, lowering long-term productivity.</p>
+    </div>
+  </div>
+</section>
+
+
+
 
 </main>
 
 <footer>© 2026 AgriSmart</footer>
+<!--challenges card js-->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const cards = document.querySelectorAll(".challenge-card");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animate");
+      } else {
+        entry.target.classList.remove("animate");
+      }
+    });
+  }, { threshold: 0.3 });
+
+  cards.forEach(card => observer.observe(card));
+});
+</script>
+
 </body>
 </html>
