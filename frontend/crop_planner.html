@@ -1,62 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriSmart AI Planner</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <title>Crop Planner | AgroAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
+        /* Theme Variables */
         :root {
-            --primary: #2F855A; /* Green */
-            --bg: #F0F4F8;
+            --primary: #2F855A;
+            --bg-color: #F7FAFC;
             --card-bg: #FFFFFF;
             --text-main: #2D3748;
-            --text-light: #718096;
+            --border: #E2E8F0;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
+            background: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 0;
+        }
+
+        .navbar {
+            background: var(--primary);
+            padding: 1rem 2rem;
             display: flex;
-            justify-content: center;
-            min-height: 100vh;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .navbar a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+
+        .navbar a:hover {
+            color: white;
         }
 
         .container {
-            width: 100%;
-            max-width: 800px;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        /* --- Header --- */
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        header h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin: 0;
-        }
-        header p {
-            color: var(--text-light);
-            margin-top: 5px;
-        }
-
-        /* --- Input Card --- */
         .card {
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-            transition: transform 0.2s;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-top: 0;
+            border-bottom: 2px solid #EDF2F7;
+            padding-bottom: 15px;
         }
 
         .form-grid {
@@ -69,239 +77,215 @@
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #4A5568;
             font-size: 0.9rem;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 12px;
-            border: 2px solid #E2E8F0;
+            border: 1px solid var(--border);
             border-radius: 8px;
-            font-size: 1rem;
-            box-sizing: border-box; /* Fix padding issues */
-            transition: border-color 0.2s;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
+            box-sizing: border-box;
+            background: #FAFAFA;
         }
 
         button {
-            width: 100%;
+            grid-column: span 2;
             background: var(--primary);
             color: white;
             padding: 15px;
             border: none;
             border-radius: 8px;
-            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             margin-top: 20px;
-            transition: background 0.3s;
         }
 
         button:hover {
-            background: #276749;
+            opacity: 0.9;
         }
 
-        /* --- Result Section --- */
-        #result-section {
-            display: none; /* Hidden by default */
-            animation: fadeIn 0.5s ease-in-out;
+        #result {
+            display: none;
+            margin-top: 30px;
         }
 
-        /* Soil Health Meter */
-        .soil-meter-container {
-            background: #EDF2F7;
-            border-radius: 10px;
+        .score-badge {
+            background: #F0FFF4;
+            border: 1px solid #C6F6D5;
             padding: 20px;
+            border-radius: 10px;
+            text-align: center;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .soil-info h3 { margin: 0; font-size: 1.1rem; }
-        .soil-info span { font-size: 0.9rem; color: var(--text-light); }
-
-        .progress-bar-bg {
-            width: 60%;
-            height: 12px;
-            background: #CBD5E0;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #F6E05E, #48BB78);
-            width: 0%; /* Animate this */
-            transition: width 1.5s ease-out;
-            border-radius: 6px;
         }
 
-        /* Markdown Content Styling */
-        .ai-content {
-            line-height: 1.7;
-        }
-        .ai-content h1, .ai-content h2, .ai-content h3 {
-            color: #2D3748;
-            margin-top: 20px;
-        }
-        .ai-content strong {
+        .score-val {
+            font-size: 2.5rem;
+            font-weight: 800;
             color: var(--primary);
         }
-        .ai-content ul {
-            background: #F0FFF4;
-            padding: 20px 40px;
-            border-radius: 10px;
-            border-left: 5px solid var(--primary);
+
+        .chart-box {
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
         }
 
-        /* Loading Spinner */
+        .ai-content {
+            background: #F0FFF4;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+            line-height: 1.7;
+        }
+
         .loader {
             display: none;
             text-align: center;
-            padding: 40px;
-        }
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: auto;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Mobile Responsive */
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .progress-bar-bg { width: 50%; }
+            padding: 20px;
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <header>
-        <h1>🌱 AgriSmart Planner</h1>
-        <p>AI-Powered Crop & Soil Intelligence</p>
-    </header>
+    <div class="navbar">
+        <div><strong>AgroAI</strong></div>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="predict.html">Spoilage Predictor</a>
+            <a href="crop_planner.html" style="border-bottom: 2px solid white;">Crop Planner</a>
+        </div>
+    </div>
 
-    <div class="card">
-        <div class="form-grid">
-            <div>
-                <label>🌾 Last Crop Grown</label>
-                <input type="text" id="last_crop" placeholder="e.g. Rice">
+    <div class="container">
+        <div class="card">
+            <h2>🌱 AI Crop Rotation Planner</h2>
+
+            <div class="form-grid">
+                <div>
+                    <label>Last Crop</label>
+                    <input id="last_crop" placeholder="e.g. Wheat, Rice">
+                </div>
+                <div>
+                    <label>Region</label>
+                    <input id="region" placeholder="e.g. Punjab">
+                </div>
+                <div>
+                    <label>Soil Type</label>
+                    <select id="soil_type">
+                        <option>Alluvial Soil</option>
+                        <option>Black Soil</option>
+                        <option>Red Soil</option>
+                        <option>Clay</option>
+                        <option>Loam</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Rainfall</label>
+                    <select id="rainfall">
+                        <option>Moderate</option>
+                        <option>High</option>
+                        <option>Low</option>
+                    </select>
+                </div>
+                <div style="grid-column: span 2;">
+                    <label>Season</label>
+                    <select id="season">
+                        <option>Kharif (Monsoon)</option>
+                        <option>Rabi (Winter)</option>
+                        <option>Zaid (Summer)</option>
+                    </select>
+                </div>
+                <button onclick="generatePlan()">Generate Plan</button>
             </div>
-            <div>
-                <label>🧪 Soil Type</label>
-                <select id="soil_type">
-                    <option value="Alluvial Soil">Alluvial Soil</option>
-                    <option value="Black Soil">Black Soil</option>
-                    <option value="Red Soil">Red Soil</option>
-                    <option value="Clay Soil">Clay Soil</option>
-                </select>
+
+            <div id="loader" class="loader">
+                <p>AI is analyzing soil nutrients...</p>
             </div>
-            <div>
-                <label>💧 Rainfall Conditions</label>
-                <select id="rainfall">
-                    <option value="High">High (>200mm)</option>
-                    <option value="Medium">Medium (100-200mm)</option>
-                    <option value="Low">Low (<100mm)</option>
-                </select>
-            </div>
-            <div>
-                <label>🌤️ Growing Season</label>
-                <select id="season">
-                    <option value="Kharif">Kharif (Monsoon)</option>
-                    <option value="Rabi">Rabi (Winter)</option>
-                    <option value="Zaid">Zaid (Summer)</option>
-                </select>
+
+            <div id="result">
+                <div class="score-badge">
+                    <div style="text-transform: uppercase; font-size: 0.85rem; font-weight: 700; color: #718096;">Soil
+                        Health Score</div>
+                    <div id="score-text" class="score-val">0/100</div>
+                </div>
+
+                <div class="chart-box">
+                    <canvas id="soilChart"></canvas>
+                </div>
+
+                <div id="ai-output" class="ai-content"></div>
             </div>
         </div>
-        <button onclick="generatePlan()">Generate AI Crop Plan</button>
     </div>
 
-    <div class="loader" id="loader">
-        <div class="spinner"></div>
-        <p style="margin-top:15px; color: #718096;">Consulting Agricultural AI Models...</p>
-    </div>
+    <script>
+        let myChart = null;
 
-    <div id="result-section" class="card">
-        
-        <div class="soil-meter-container">
-            <div class="soil-info">
-                <h3>Soil Regeneration Score</h3>
-                <span>Based on history & soil type</span>
-            </div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="soil-bar"></div>
-            </div>
-            <h2 id="soil-score-text" style="color:var(--primary); margin:0;">0%</h2>
-        </div>
+        async function generatePlan() {
+            const payload = {
+                last_crop: document.getElementById("last_crop").value,
+                region: document.getElementById("region").value,
+                soil_type: document.getElementById("soil_type").value,
+                rainfall: document.getElementById("rainfall").value,
+                season: document.getElementById("season").value
+            };
 
-        <hr style="border:0; border-top:1px solid #eee; margin: 20px 0;">
+            if (!payload.last_crop) return alert("Please enter the previous crop.");
 
-        <div id="ai-output" class="ai-content"></div>
+            document.getElementById("loader").style.display = "block";
+            document.getElementById("result").style.display = "none";
 
-    </div>
-</div>
+            try {
+                // 1. Fetch from Backend (Updated URL)
+                const res = await fetch("http://127.0.0.1:8000/crop_planner", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
 
-<script>
-    async function generatePlan() {
-        // 1. Get Values
-        const last_crop = document.getElementById("last_crop").value;
-        const soil_type = document.getElementById("soil_type").value;
-        const rainfall = document.getElementById("rainfall").value;
-        const season = document.getElementById("season").value;
+                if (!res.ok) throw new Error("Backend Error");
 
-        // Validation
-        if (!last_crop) { alert("Please enter the last crop grown!"); return; }
+                // 2. Direct JSON access (The Fix)
+                // We no longer double-parse. The backend sends a real object now.
+                const result = await res.json();
 
-        // 2. UI: Show Loader, Hide Result
-        document.getElementById("loader").style.display = "block";
-        document.getElementById("result-section").style.display = "none";
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("result").style.display = "block";
 
-        try {
-            // 3. Call API
-            const response = await fetch("http://localhost:8000/agent/plan", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ last_crop, soil_type, rainfall, season })
-            });
+                // 3. Update UI
+                document.getElementById("score-text").innerText = `${result.soil_score}/100`;
 
-            const data = await response.json();
+                let md = `### 🚜 Recommended: ${result.recommended_crops.join(", ")}\n\n`;
+                md += `**Reasoning:** ${result.reasoning}\n\n---\n\n`;
+                md += result.rotation_advice;
+                document.getElementById("ai-output").innerHTML = marked.parse(md);
 
-            // 4. Update UI
-            document.getElementById("loader").style.display = "none";
-            document.getElementById("result-section").style.display = "block";
+                // 4. Update Chart
+                if (myChart) myChart.destroy();
+                myChart = new Chart(document.getElementById("soilChart"), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Health', 'Gap'],
+                        datasets: [{
+                            data: [result.soil_score, 100 - result.soil_score],
+                            backgroundColor: ['#2F855A', '#EDF2F7'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { cutout: "75%" }
+                });
 
-            // A) Animate Soil Bar
-            // Note: If your API returns "soil_score" or just "score", adjust here. 
-            // Based on previous files, I assume "soil_score".
-            const score = data.soil_score || 0; 
-            document.getElementById("soil-score-text").innerText = score + "/100";
-            document.getElementById("soil-bar").style.width = score + "%";
-
-            // B) Render Markdown Text using marked.js
-            // Note: Check if your API returns "analysis", "plan", or "response". 
-            // I am assuming "analysis" based on your previous python files.
-            const rawText = data.analysis || data.response || "No analysis received.";
-            document.getElementById("ai-output").innerHTML = marked.parse(rawText);
-
-        } catch (error) {
-            console.error(error);
-            document.getElementById("loader").style.display = "none";
-            alert("Error connecting to AI Agent. Is the backend running?");
+            } catch (e) {
+                console.error(e);
+                alert("Error: " + e.message);
+                document.getElementById("loader").style.display = "none";
+            }
         }
-    }
-</script>
-
+    </script>
 </body>
+
 </html>

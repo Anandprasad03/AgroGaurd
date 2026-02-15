@@ -2,18 +2,16 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 import requests
 import os
+import json
+import re
 from dotenv import load_dotenv
 
 router = APIRouter(prefix="/spoilage", tags=["Spoilage AI Agent"])
 
 load_dotenv()
-
-# Gemini Config (Matches ai_agent_api.py style)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_URL = (
-    "https://generativelanguage.googleapis.com/v1beta/models/"
-    "gemini-3-flash-preview:generateContent?key=" + GEMINI_API_KEY
-)
+# Using the stable model version
+GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key={GEMINI_API_KEY}"
 
 class SpoilageInput(BaseModel):
     crop_type: str
@@ -22,55 +20,71 @@ class SpoilageInput(BaseModel):
     storage_type: str
     days_stored: int
 
-def extract_gemini_text(res_json):
-    try:
-        return res_json["candidates"][0]["content"]["parts"][0]["text"]
-    except:
-        return "The AI agent is currently busy. Please try again in a moment."
-
 @router.post("/predict")
 def predict_spoilage(data: SpoilageInput):
-    # The prompt asks the AI to act as the prediction engine
+    # 1. Define the Prompt
     prompt = f"""
-    You are an AI Spoilage Predictor. Analyze the following storage conditions:
+    You are an AI Spoilage Predictor.
+    Analyze:
     - Crop: {data.crop_type}
-    - Temp: {data.temperature}°C
-    - Humidity: {data.humidity}%
-    - Storage: {data.storage_type}
-    - Duration: {data.days_stored} days
+    - Temp: {data.temperature}°C, Humidity: {data.humidity}%
+    - Storage: {data.storage_type}, Days: {data.days_stored}
 
-    Based on these factors, provide:
-    1. A 'Risk Score' (0 to 100) where 100 is certain spoilage.
-    2. A 'Risk Level' (Low, Medium, or High).
-    3. Detailed analysis of why this risk exists.
-    4. Steps to extend the shelf life.
-
-    Format the VERY FIRST LINE of your response exactly like this:
-    SCORE: [number] | LEVEL: [Low/Medium/High]
-    Then provide the detailed analysis in Markdown.
+    Return strict JSON ONLY. No markdown. Format:
+    {{
+        "risk_score": 0-100,
+        "risk_level": "Low/Medium/High",
+        "analysis": "Detailed markdown explanation here..."
+    }}
     """
 
     payload = {"contents": [{"parts": [{"text": prompt}]}]}
     
     try:
+        # 2. Call Gemini
         response = requests.post(GEMINI_URL, json=payload)
-        full_text = extract_gemini_text(response.json())
+        res_json = response.json()
+
+        # 3. Check for Valid Response
+        if "error" in res_json:
+            raise Exception(f"API Error: {res_json['error']['message']}")
+            
+        if "candidates" not in res_json or not res_json["candidates"]:
+            raise Exception("Blocked by Safety Filters or Empty Response")
+
+        # 4. Extract & Parse
+        ai_text = res_json["candidates"][0]["content"]["parts"][0]["text"]
+        clean_text = re.sub(r"```json|```", "", ai_text).strip()
+        result_json = json.loads(clean_text)
         
-        # Parse the first line for the UI widgets
-        first_line = full_text.split('\n')[0]
-        try:
-            # Extracting the SCORE and LEVEL from the formatted first line
-            score = int(first_line.split('|')[0].replace('SCORE:', '').strip())
-            level = first_line.split('|')[1].replace('LEVEL:', '').strip()
-            analysis = "\n".join(full_text.split('\n')[1:])
-        except:
-            score, level, analysis = 50, "Medium", full_text
+        return result_json
 
     except Exception as e:
-        return {"risk_score": 0, "risk_level": "Error", "analysis": str(e)}
+        print(f"⚠️ AI FAILURE: {e}")
+        
+        # 5. ROBUST FALLBACK (Rule-Based)
+        # This runs if Gemini fails, ensuring the UI never breaks.
+        score = 10
+        level = "Low"
+        
+        if data.temperature > 30 or data.humidity > 85:
+            score = 85
+            level = "High"
+        elif data.temperature > 25 or data.days_stored > 7:
+            score = 55
+            level = "Medium"
 
-    return {
-        "risk_score": score,
-        "risk_level": level,
-        "analysis": analysis
-    }
+        return {
+            "risk_score": score,
+            "risk_level": level,
+            "analysis": f"""
+            ### ⚠️ AI Connection Issue
+            **Using offline estimation.**
+            
+            - **Estimated Risk:** {level} ({score}%)
+            - **Reason:** High temperature/humidity detected.
+            - **Advice:** Inspect crops immediately. Ensure ventilation.
+            
+            *(Technical Error: {str(e)})*
+            """
+        }

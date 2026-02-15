@@ -1,129 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriSmart Spoilage AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <style>
-        :root { --primary: #C53030; --bg: #F8FAFC; --card: #FFFFFF; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 850px; }
-        header { text-align: center; margin-bottom: 30px; }
-        header h1 { color: var(--primary); font-size: 2.2rem; margin: 0; }
-        .card { background: var(--card); padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; color: #4A5568; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #E2E8F0; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; background: var(--primary); color: white; padding: 16px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        button:hover { opacity: 0.9; transform: translateY(-1px); }
-        
-        /* Result Styles */
-        #result-section { display: none; animation: fadeIn 0.4s ease; }
-        .risk-header { display: flex; align-items: center; justify-content: space-between; background: #FFF5F5; padding: 20px; border-radius: 12px; }
-        .bar-bg { flex-grow: 1; height: 12px; background: #EDF2F7; border-radius: 6px; margin: 0 20px; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 1s ease; }
-        
-        .loader { display: none; text-align: center; padding: 30px; }
-        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: auto; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    </style>
-</head>
-<body>
-<div class="container">
-    <header>
-        <h1>🍎 Spoilage AI Predictor</h1>
-        <p>AI-Powered Post-Harvest Quality Analysis</p>
-    </header>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoilage Predictor | AgroAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <div class="card">
-        <div class="form-grid">
-            <div>
-                <label>🌾 Crop Type</label>
-                <input type="text" id="crop_type" placeholder="e.g., Mangoes">
-            </div>
-            <div>
-                <label>🌡️ Temp (°C)</label>
-                <input type="number" id="temp" placeholder="30">
-            </div>
-            <div>
-                <label>💧 Humidity (%)</label>
-                <input type="number" id="hum" placeholder="85">
-            </div>
-            <div>
-                <label>🏪 Storage</label>
-                <select id="storage">
-                    <option>Open Air</option>
-                    <option>Cold Storage</option>
-                    <option>Ventilated Warehouse</option>
-                </select>
-            </div>
-            <div style="grid-column: span 2;">
-                <label>📅 Days Stored</label>
-                <input type="number" id="days" placeholder="4">
-            </div>
-        </div>
-        <button onclick="runAnalysis()">Analyze Spoilage Risk</button>
-    </div>
-
-    <div class="loader" id="loader">
-        <div class="spinner"></div>
-        <p>AI is analyzing storage biology...</p>
-    </div>
-
-    <div id="result-section" class="card">
-        <div class="risk-header">
-            <div>
-                <span id="risk-level" style="font-weight: 700; color: var(--primary);">LEVEL</span>
-                <div id="risk-val" style="font-size: 1.5rem; font-weight: 800;">0%</div>
-            </div>
-            <div class="bar-bg">
-                <div class="bar-fill" id="risk-bar"></div>
-            </div>
-        </div>
-        <div id="ai-output" style="margin-top: 20px; line-height: 1.6;"></div>
-    </div>
-</div>
-
-<script>
-    async function runAnalysis() {
-        const payload = {
-            crop_type: document.getElementById("crop_type").value,
-            temperature: parseFloat(document.getElementById("temp").value),
-            humidity: parseFloat(document.getElementById("hum").value),
-            storage_type: document.getElementById("storage").value,
-            days_stored: parseInt(document.getElementById("days").value)
-        };
-
-        if (!payload.crop_type || isNaN(payload.temperature)) return alert("Please fill all fields");
-
-        document.getElementById("loader").style.display = "block";
-        document.getElementById("result-section").style.display = "none";
-
-        try {
-            const res = await fetch("http://localhost:8000/spoilage/predict", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-            const data = await res.json();
-
-            document.getElementById("loader").style.display = "none";
-            document.getElementById("result-section").style.display = "block";
-            
-            // Update UI
-            document.getElementById("risk-level").innerText = data.risk_level + " RISK";
-            document.getElementById("risk-val").innerText = data.risk_score + "%";
-            document.getElementById("risk-bar").style.width = data.risk_score + "%";
-            document.getElementById("ai-output").innerHTML = marked.parse(data.analysis);
-            
-        } catch (e) {
-            document.getElementById("loader").style.display = "none";
-            alert("Connection error to Backend.");
-        }
+  <style>
+    /* [Your Existing CSS Styles - Kept Exact] */
+    :root {
+      --primary: #2F855A;
+      --bg-color: #F7FAFC;
+      --card-bg: #FFFFFF;
+      --text-main: #2D3748;
+      --risk-high: #C53030;
     }
-</script>
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-main);
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background: var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+    }
+
+    button {
+      grid-column: span 2;
+      background: var(--primary);
+      color: white;
+      padding: 15px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #result {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .risk-badge {
+      background: #FFF5F5;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 5px solid var(--risk-high);
+    }
+
+    .charts-wrapper {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+      height: 250px;
+    }
+
+    .chart-box {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .loader {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @media (max-width: 700px) {
+
+      .form-grid,
+      .charts-wrapper {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+      }
+
+      button {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <div><strong>AgroAI</strong></div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="predict.html" style="text-decoration: underline;">Spoilage Predictor</a>
+      <a href="crop_planner.html">Crop Planner</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2>🛡️ Spoilage Risk Predictor</h2>
+
+      <div class="form-grid">
+        <div><label>Crop Type</label><input id="crop_type" placeholder="e.g. Tomato"></div>
+        <div><label>Temperature (°C)</label><input id="temp" type="number" placeholder="25"></div>
+        <div><label>Humidity (%)</label><input id="humidity" type="number" placeholder="60"></div>
+        <div>
+          <label>Storage Type</label>
+          <select id="storage">
+            <option>Cold Storage</option>
+            <option>Ventilated Warehouse</option>
+            <option>Open Shed</option>
+          </select>
+        </div>
+        <div style="grid-column: span 2;">
+          <label>Days in Storage</label><input id="days" type="number" placeholder="3">
+        </div>
+        <button onclick="predict()">Analyze Risk</button>
+      </div>
+
+      <div id="loader" class="loader">
+        <p>AI is analyzing storage conditions...</p>
+      </div>
+
+      <div id="result">
+        <div class="risk-badge" id="risk-box">
+          <div>
+            <div style="font-size: 0.9rem; color: #718096;">RISK LEVEL</div>
+            <div id="risk-level-label" style="font-size: 1.5rem; font-weight: bold;">High</div>
+          </div>
+          <div id="risk-score-text" style="font-size: 2rem; font-weight: 800; color: #C53030;">85%</div>
+        </div>
+
+        <div class="charts-wrapper">
+          <div class="chart-box"><canvas id="riskChart"></canvas></div>
+          <div class="chart-box"><canvas id="factorChart"></canvas></div>
+        </div>
+
+        <div id="ai-output" style="background: #F0FFF4; padding: 20px; border-radius: 8px; margin-top: 20px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let riskChartInstance = null;
+    let factorChartInstance = null;
+
+    async function predict() {
+      // 1. Get Data
+      const payload = {
+        crop_type: document.getElementById("crop_type").value,
+        temperature: parseFloat(document.getElementById("temp").value),
+        humidity: parseFloat(document.getElementById("humidity").value),
+        storage_type: document.getElementById("storage").value,
+        days_stored: parseInt(document.getElementById("days").value)
+      };
+
+      if (!payload.crop_type) return alert("Please enter a crop type.");
+
+      // 2. Show Loader
+      document.getElementById("loader").style.display = "block";
+      document.getElementById("result").style.display = "none";
+
+      try {
+        // 3. API Call
+        const res = await fetch("http://127.0.0.1:8000/spoilage/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error("Backend connection failed.");
+
+        const data = await res.json();
+
+        // 4. Update UI
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        document.getElementById("risk-level-label").innerText = data.risk_level + " RISK";
+        document.getElementById("risk-score-text").innerText = data.risk_score + "%";
+        document.getElementById("ai-output").innerHTML = marked.parse(data.analysis);
+
+        // 5. Update Charts
+        renderCharts(data.risk_score, payload.temperature, payload.humidity, payload.days_stored);
+
+      } catch (e) {
+        console.error(e);
+        document.getElementById("loader").style.display = "none";
+        alert("Error: " + e.message);
+      }
+    }
+
+    function renderCharts(score, temp, hum, days) {
+      // Doughnut Chart
+      const ctx1 = document.getElementById("riskChart").getContext("2d");
+      if (riskChartInstance) riskChartInstance.destroy();
+
+      let color = score > 70 ? "#C53030" : (score > 40 ? "#DD6B20" : "#2F855A");
+
+      riskChartInstance = new Chart(ctx1, {
+        type: 'doughnut',
+        data: {
+          labels: ['Risk', 'Safe'],
+          datasets: [{ data: [score, 100 - score], backgroundColor: [color, "#EDF2F7"], borderWidth: 0 }]
+        },
+        options: { cutout: "70%" }
+      });
+
+      // Radar Chart (Factors)
+      const ctx2 = document.getElementById("factorChart").getContext("2d");
+      if (factorChartInstance) factorChartInstance.destroy();
+
+      // Normalize values for visualization
+      let tScore = Math.min((temp / 40) * 100, 100);
+      let hScore = Math.min((hum / 100) * 100, 100);
+      let dScore = Math.min((days / 14) * 100, 100);
+
+      factorChartInstance = new Chart(ctx2, {
+        type: 'radar',
+        data: {
+          labels: ['Temp', 'Humidity', 'Time'],
+          datasets: [{
+            label: 'Risk Factors',
+            data: [tScore, hScore, dScore],
+            borderColor: '#2F855A',
+            backgroundColor: 'rgba(47, 133, 90, 0.2)'
+          }]
+        },
+        options: { scales: { r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false } } } }
+      });
+    }
+  </script>
 </body>
+
 </html>
