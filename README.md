@@ -125,4 +125,4 @@ Contributions are what make the open-source community such an amazing place to l
 **Project Link:** [https://github.com/Anandprasad03/AgroGuard](https://github.com/Anandprasad03/AgroGuard)
 
 
-                  Built with ❤️ for Farmers
+                                    Built with ❤️ for Farmers
