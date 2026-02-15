@@ -2,13 +2,17 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 import requests
 import random
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 router = APIRouter(prefix="/agent", tags=["Crop Planning AI Agent"])
 
 # ---------------------------
 # GEMINI API CONFIG
 # ---------------------------
-GEMINI_API_KEY = "AIzaSyAIpXtsFM5mjE0KjuOYqjr4e-T-LJnrxFY"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
     "gemini-3-flash-preview:generateContent?key=" + GEMINI_API_KEY
