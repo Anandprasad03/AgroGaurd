@@ -40,8 +40,8 @@ The system provides actionable data to improve crop yields and ensure sustainabl
 | Component | Technology |
 | :--- | :--- |
 | **Backend** | Python, FastAPI, Uvicorn |
-| **AI Engine** | Google Gemini 1.5 Flash (Generative AI) |
-| **Frontend** | HTML5, CSS3, JavaScript (Vanilla) |
+| **AI Engine** | Google Gemini 3 Flash Preview (Generative AI) |
+| **Frontend** | HTML5, CSS3, JavaScript |
 | **Visualization** | Chart.js |
 | **Data Processing** | Pandas, JSON |
 
