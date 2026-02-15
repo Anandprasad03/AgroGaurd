@@ -1,19 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Spoilage Prediction</title>
-  <link rel="stylesheet" href=".\assets\style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart Spoilage AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root { --primary: #C53030; --bg: #F8FAFC; --card: #FFFFFF; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 850px; }
+        header { text-align: center; margin-bottom: 30px; }
+        header h1 { color: var(--primary); font-size: 2.2rem; margin: 0; }
+        .card { background: var(--card); padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; color: #4A5568; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #E2E8F0; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; background: var(--primary); color: white; padding: 16px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+        
+        /* Result Styles */
+        #result-section { display: none; animation: fadeIn 0.4s ease; }
+        .risk-header { display: flex; align-items: center; justify-content: space-between; background: #FFF5F5; padding: 20px; border-radius: 12px; }
+        .bar-bg { flex-grow: 1; height: 12px; background: #EDF2F7; border-radius: 6px; margin: 0 20px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 1s ease; }
+        
+        .loader { display: none; text-align: center; padding: 30px; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: auto; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
 </head>
 <body>
-<header>...</header>
+<div class="container">
+    <header>
+        <h1>🍎 Spoilage AI Predictor</h1>
+        <p>AI-Powered Post-Harvest Quality Analysis</p>
+    </header>
 
-<main>
-  <section>
-    <h2>Spoilage Prediction</h2>
-    <p>Upload data to predict crop spoilage.</p>
-  </section>
-</main>
+    <div class="card">
+        <div class="form-grid">
+            <div>
+                <label>🌾 Crop Type</label>
+                <input type="text" id="crop_type" placeholder="e.g., Mangoes">
+            </div>
+            <div>
+                <label>🌡️ Temp (°C)</label>
+                <input type="number" id="temp" placeholder="30">
+            </div>
+            <div>
+                <label>💧 Humidity (%)</label>
+                <input type="number" id="hum" placeholder="85">
+            </div>
+            <div>
+                <label>🏪 Storage</label>
+                <select id="storage">
+                    <option>Open Air</option>
+                    <option>Cold Storage</option>
+                    <option>Ventilated Warehouse</option>
+                </select>
+            </div>
+            <div style="grid-column: span 2;">
+                <label>📅 Days Stored</label>
+                <input type="number" id="days" placeholder="4">
+            </div>
+        </div>
+        <button onclick="runAnalysis()">Analyze Spoilage Risk</button>
+    </div>
 
-<footer>© 2026 AgriSmart</footer>
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p>AI is analyzing storage biology...</p>
+    </div>
+
+    <div id="result-section" class="card">
+        <div class="risk-header">
+            <div>
+                <span id="risk-level" style="font-weight: 700; color: var(--primary);">LEVEL</span>
+                <div id="risk-val" style="font-size: 1.5rem; font-weight: 800;">0%</div>
+            </div>
+            <div class="bar-bg">
+                <div class="bar-fill" id="risk-bar"></div>
+            </div>
+        </div>
+        <div id="ai-output" style="margin-top: 20px; line-height: 1.6;"></div>
+    </div>
+</div>
+
+<script>
+    async function runAnalysis() {
+        const payload = {
+            crop_type: document.getElementById("crop_type").value,
+            temperature: parseFloat(document.getElementById("temp").value),
+            humidity: parseFloat(document.getElementById("hum").value),
+            storage_type: document.getElementById("storage").value,
+            days_stored: parseInt(document.getElementById("days").value)
+        };
+
+        if (!payload.crop_type || isNaN(payload.temperature)) return alert("Please fill all fields");
+
+        document.getElementById("loader").style.display = "block";
+        document.getElementById("result-section").style.display = "none";
+
+        try {
+            const res = await fetch("http://localhost:8000/spoilage/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("result-section").style.display = "block";
+            
+            // Update UI
+            document.getElementById("risk-level").innerText = data.risk_level + " RISK";
+            document.getElementById("risk-val").innerText = data.risk_score + "%";
+            document.getElementById("risk-bar").style.width = data.risk_score + "%";
+            document.getElementById("ai-output").innerHTML = marked.parse(data.analysis);
+            
+        } catch (e) {
+            document.getElementById("loader").style.display = "none";
+            alert("Connection error to Backend.");
+        }
+    }
+</script>
 </body>
 </html>
