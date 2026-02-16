@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 
 router = APIRouter(prefix="/spoilage", tags=["Spoilage AI Agent"])
 
+SPOILAGE_CACHE = {}
+
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 # Using the stable model version
@@ -22,6 +24,10 @@ class SpoilageInput(BaseModel):
 
 @router.post("/predict")
 def predict_spoilage(data: SpoilageInput):
+    cache_key = f"{data.crop_type}-{round(data.temperature, 1)}-{round(data.humidity, 1)}-{data.storage_type}-{data.days_stored}"
+    if cache_key in SPOILAGE_CACHE:
+        print(f"⚡ Serving Spoilage Data from Cache for: {cache_key}")
+        return SPOILAGE_CACHE[cache_key]
     # 1. Define the Prompt
     prompt = f"""
     You are an AI Spoilage Predictor.
@@ -57,6 +63,7 @@ def predict_spoilage(data: SpoilageInput):
         clean_text = re.sub(r"```json|```", "", ai_text).strip()
         result_json = json.loads(clean_text)
         
+        SPOILAGE_CACHE[cache_key] = result_json
         return result_json
 
     except Exception as e:

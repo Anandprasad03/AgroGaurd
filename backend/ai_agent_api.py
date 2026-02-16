@@ -5,6 +5,10 @@ import os
 import json
 import re
 from dotenv import load_dotenv
+import hashlib 
+
+# 1. Create a simple global dictionary acting as memory
+RESPONSE_CACHE = {}
 
 load_dotenv()
 
@@ -22,6 +26,14 @@ class AgentInput(BaseModel):
 
 @router.post("/")
 def plan_crop(data: AgentInput):
+    # Create cache key
+    cache_key = f"{data.last_crop}-{data.soil_type}-{data.rainfall}-{data.season}"
+
+    # Serve from cache if exists
+    if cache_key in RESPONSE_CACHE:
+        print("⚡ Serving from Cache (Instant!)")
+        return RESPONSE_CACHE[cache_key]
+    
     # 1. Construct Prompt
     prompt = f"""
     Act as an expert Agronomist.
@@ -60,6 +72,7 @@ def plan_crop(data: AgentInput):
         clean_text = re.sub(r"```json|```", "", ai_text).strip()
         result_obj = json.loads(clean_text)
 
+        RESPONSE_CACHE[cache_key] = result_obj 
         return result_obj
 
     except Exception as e:
