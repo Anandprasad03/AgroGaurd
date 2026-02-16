@@ -24,7 +24,7 @@ class AgentInput(BaseModel):
     season: str
     region: str = "Unknown"
 
-@router.post("/")
+@router.post("")
 def plan_crop(data: AgentInput):
     # Create cache key
     cache_key = f"{data.last_crop}-{data.soil_type}-{data.rainfall}-{data.season}"

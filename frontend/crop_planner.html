@@ -4,268 +4,499 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crop Planner | AgroAI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Agroguard | Crop Planner</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;600&display=swap"
+        rel="stylesheet">
 
     <style>
-        /* Theme Variables */
         :root {
             --primary: #2F855A;
-            --bg-color: #F7FAFC;
-            --card-bg: #FFFFFF;
-            --text-main: #2D3748;
-            --border: #E2E8F0;
+            --primary-dark: #22543d;
+            --accent: #38B2AC;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --text-dark: #2D3748;
+            --text-light: #718096;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
+            background: #f7fafc;
+            color: var(--text-dark);
+            overflow-x: hidden;
         }
 
-nav a {
-  color: white;
-  margin: 0 10px;
-  text-decoration: none;
-  font-weight: bold;
-}
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fff;
-  padding: 12px 30px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  
-}
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #2c7a7b;
-}
-
-.logo img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  border-radius: 25px;
-}
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-.nav-links a,
-.dropdown button {
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  color: #333;
-  text-decoration: none;
-}
-.nav-right {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.nav-right input {
-  padding: 6px 10px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-}
-
-.lang {
-  cursor: pointer;
-}
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
+        /* --- Navigation --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 5%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
-        .card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border);
-        }
-
-        h2 {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
             color: var(--primary);
-            margin-top: 0;
-            border-bottom: 2px solid #EDF2F7;
-            padding-bottom: 15px;
         }
 
+        .logo img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            /* Using the same bg for consistency, or you can change it to a field image */
+            background: url("assets/png's/predictio_bg.png") no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 50px 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(47, 133, 90, 0.3) 100%);
+            z-index: 1;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            gap: 30px;
+        }
+
+        /* --- Glass Card --- */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card-header h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-dark);
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .card-header p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* --- Form --- */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px;
         }
 
-        label {
-            display: block;
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            transition: color 0.3s;
         }
 
         input,
         select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            box-sizing: border-box;
-            background: #FAFAFA;
+            padding: 14px 14px 14px 45px;
+            /* Space for icon */
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            background: #fff;
+            font-size: 15px;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            outline: none;
+            appearance: none;
         }
 
-        button {
-            grid-column: span 2;
-            background: var(--primary);
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 20px;
+        input:focus,
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.15);
         }
 
-        button:hover {
-            opacity: 0.9;
-        }
-
-        #result {
-            display: none;
-            margin-top: 30px;
-        }
-
-        .score-badge {
-            background: #F0FFF4;
-            border: 1px solid #C6F6D5;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .score-val {
-            font-size: 2.5rem;
-            font-weight: 800;
+        .input-wrapper:focus-within i {
             color: var(--primary);
         }
 
-        .chart-box {
-            height: 250px;
+        .full {
+            grid-column: span 2;
+        }
+
+        /* --- Button --- */
+        .btn-primary {
+            grid-column: span 2;
+            margin-top: 10px;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, #276749 100%);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(47, 133, 90, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* --- Loader --- */
+        #loader {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* --- Results Section --- */
+        #result {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .score-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+            text-align: center;
+        }
+
+        .score-title {
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .score-value {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chart-container {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            margin-bottom: 25px;
+            height: 250px;
+        }
+
+        .ai-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 6px solid var(--primary);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .ai-box h3 {
+            color: var(--primary-dark);
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .ai-content {
-            background: #F0FFF4;
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 5px solid var(--primary);
             line-height: 1.7;
+            color: #4a5568;
         }
 
-        .loader {
-            display: none;
-            text-align: center;
-            padding: 20px;
+        .ai-content strong {
+            color: var(--primary-dark);
+        }
+
+        .ai-content ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .ai-content li {
+            margin-bottom: 5px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<header class="navbar">
-  <div class="logo">
-  <img src="assets/logo.png" alt="Logo">
-  <span>Agroguard</span>
-</div>
+    <header class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Logo">
+            <span>Agroguard</span>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="predict.html">Predict</a>
+            <a href="crop_planner.html" class="active">Planner</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
 
+    <div class="hero">
+        <div class="main-container">
 
-  <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="predict.html">Spoilage Prediction</a>
-    <a href="crop_planner.html">Crop Planner</a>
-    <a href="about.html">About</a>
-  </nav>
+            <div class="card" id="input-card">
+                <div class="card-header">
+                    <h2>🌱 AI Crop Planner</h2>
+                    <p>Optimize your rotation for better yield and soil health</p>
+                </div>
 
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Last Harvested Crop</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-seedling"></i>
+                            <input type="text" id="last_crop" placeholder="e.g. Wheat, Rice">
+                        </div>
+                    </div>
 
-</header>
-    <div class="container">
-        <div class="card">
-            <h2>🌱 AI Crop Rotation Planner</h2>
+                    <div class="input-group">
+                        <label>Region</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" id="region" placeholder="e.g. Punjab">
+                        </div>
+                    </div>
 
-            <div class="form-grid">
-                <div>
-                    <label>Last Crop</label>
-                    <input id="last_crop" placeholder="e.g. Wheat, Rice">
+                    <div class="input-group">
+                        <label>Soil Type</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-layer-group"></i>
+                            <select id="soil_type">
+                                <option>Alluvial Soil</option>
+                                <option>Black Soil</option>
+                                <option>Red Soil</option>
+                                <option>Clay</option>
+                                <option>Loam</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Rainfall Level</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-cloud-rain"></i>
+                            <select id="rainfall">
+                                <option>Moderate</option>
+                                <option>High</option>
+                                <option>Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group full">
+                        <label>Current Season</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-sun"></i>
+                            <select id="season">
+                                <option>Kharif (Monsoon)</option>
+                                <option>Rabi (Winter)</option>
+                                <option>Zaid (Summer)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary full" onclick="generatePlan()">
+                        <i class="fas fa-wand-magic-sparkles"></i> Generate Rotation Plan
+                    </button>
                 </div>
-                <div>
-                    <label>Region</label>
-                    <input id="region" placeholder="e.g. Punjab">
-                </div>
-                <div>
-                    <label>Soil Type</label>
-                    <select id="soil_type">
-                        <option>Alluvial Soil</option>
-                        <option>Black Soil</option>
-                        <option>Red Soil</option>
-                        <option>Clay</option>
-                        <option>Loam</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Rainfall</label>
-                    <select id="rainfall">
-                        <option>Moderate</option>
-                        <option>High</option>
-                        <option>Low</option>
-                    </select>
-                </div>
-                <div style="grid-column: span 2;">
-                    <label>Season</label>
-                    <select id="season">
-                        <option>Kharif (Monsoon)</option>
-                        <option>Rabi (Winter)</option>
-                        <option>Zaid (Summer)</option>
-                    </select>
-                </div>
-                <button onclick="generatePlan()">Generate Plan</button>
             </div>
 
-            <div id="loader" class="loader">
-                <p>AI is analyzing soil nutrients...</p>
+            <div class="card" id="loader">
+                <div class="spinner"></div>
+                <h3>Analyzing Soil & Seasons...</h3>
+                <p style="color: #718096; margin-top: 5px;">Consulting AI Agronomist...</p>
             </div>
 
-            <div id="result">
-                <div class="score-badge">
-                    <div style="text-transform: uppercase; font-size: 0.85rem; font-weight: 700; color: #718096;">Soil
-                        Health Score</div>
-                    <div id="score-text" class="score-val">0/100</div>
+            <div class="card" id="result">
+
+                <div class="score-card">
+                    <div class="score-title">Projected Soil Health Score</div>
+                    <div id="score-text" class="score-value">0/100</div>
                 </div>
 
-                <div class="chart-box">
+                <div class="chart-container">
                     <canvas id="soilChart"></canvas>
                 </div>
 
-                <div id="ai-output" class="ai-content"></div>
+                <div class="ai-box">
+                    <h3><i class="fas fa-robot"></i> Agronomist's Report</h3>
+                    <div id="ai-output" class="ai-content"></div>
+                </div>
+
+                <button class="btn-primary" style="margin-top: 25px; background: #718096;" onclick="resetForm()">
+                    Plan Another Cycle
+                </button>
             </div>
+
         </div>
     </div>
 
@@ -283,11 +514,12 @@ nav a {
 
             if (!payload.last_crop) return alert("Please enter the previous crop.");
 
+            // UI Transitions
+            document.getElementById("input-card").style.display = "none";
             document.getElementById("loader").style.display = "block";
             document.getElementById("result").style.display = "none";
 
             try {
-                // 1. Fetch from Backend (Updated URL)
                 const res = await fetch("http://127.0.0.1:8000/crop_planner", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -296,14 +528,12 @@ nav a {
 
                 if (!res.ok) throw new Error("Backend Error");
 
-                // 2. Direct JSON access (The Fix)
-                // We no longer double-parse. The backend sends a real object now.
                 const result = await res.json();
 
                 document.getElementById("loader").style.display = "none";
                 document.getElementById("result").style.display = "block";
 
-                // 3. Update UI
+                // Update Text
                 document.getElementById("score-text").innerText = `${result.soil_score}/100`;
 
                 let md = `### 🚜 Recommended: ${result.recommended_crops.join(", ")}\n\n`;
@@ -311,7 +541,7 @@ nav a {
                 md += result.rotation_advice;
                 document.getElementById("ai-output").innerHTML = marked.parse(md);
 
-                // 4. Update Chart
+                // Update Chart
                 if (myChart) myChart.destroy();
                 myChart = new Chart(document.getElementById("soilChart"), {
                     type: 'doughnut',
@@ -323,16 +553,29 @@ nav a {
                             borderWidth: 0
                         }]
                     },
-                    options: { cutout: "75%" }
+                    options: {
+                        cutout: "75%",
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
                 });
 
             } catch (e) {
                 console.error(e);
                 alert("Error: " + e.message);
                 document.getElementById("loader").style.display = "none";
+                document.getElementById("input-card").style.display = "block";
             }
         }
+
+        function resetForm() {
+            document.getElementById("result").style.display = "none";
+            document.getElementById("input-card").style.display = "block";
+            // Optional: Clear inputs
+            // document.getElementById("last_crop").value = "";
+        }
     </script>
+
 </body>
 
 </html>
