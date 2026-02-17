@@ -61,7 +61,8 @@ AgroGuard
     ├── assets/               # CSS, Images, Videos
     ├── crop_planner.html     # AI Rotation Interface
     ├── predict.html          # Spoilage Prediction Interface
-    └── index.html            # Landing Page
+    ├── index.html            # Landing Page
+    └── about.html            # About the project
 
 ## 🚀 Getting Started
 
@@ -121,7 +122,7 @@ Contributions are what make the open-source community such an amazing place to l
 ---
 
 ## 📞 Contact
-
+**Email:** (gietuinnovatex@gmail.com)
 **Project Link:** [https://github.com/Anandprasad03/AgroGuard](https://github.com/Anandprasad03/AgroGuard)
 
 
