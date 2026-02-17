@@ -1,0 +1,43 @@
+# --- Dependencies & Environments ---
+node_modules/
+package-lock.json
+yarn.lock
+venv/
+env/
+.venv/
+bin/
+lib/
+# Ignore your API keys and secrets 
+.env
+.env.local
+.env.*.local
+secrets.json
+config/secrets.yml
+
+# --- Python Specific ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- IDE & OS Files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Build & Logs ---
+dist/
+build/
+*.log
+tmp/
+temp/
+
+# --- Database ---
+*.db
+*.sqlite
+*.sqlite3
