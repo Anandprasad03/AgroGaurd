@@ -130,6 +130,7 @@ body {
 .hero-content h1 span {
   color: #48bb78;
   background: linear-gradient(120deg, #48bb78 0%, #81e6d9 100%);
+  background-clip: text;   
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -191,7 +192,7 @@ body {
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  border: 2px solid #e2e8f0;
   transition: transform 0.3s;
 }
 
@@ -238,7 +239,7 @@ body {
 /* common label style */
 .label {
   position: absolute;
-  background: white;
+  background: var(--glass-card);
   color: rgba(0, 0, 0, 0.7);
   padding: 6px 14px;
   border-radius: 18px;
@@ -309,7 +310,7 @@ body {
 /* --- Challenges Section --- */
 .challenges {
   padding: 80px 5%;
-  background: #fff;
+  background: var(--glass-card);
 }
 
 .challenges h2 {
@@ -329,7 +330,7 @@ body {
 }
 
 .challenge-card {
-  background: #fff;
+  background: var(--glass-card);
   border-radius: 20px;
   padding: 35px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -361,10 +362,31 @@ body {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
+/*top scrolling button*/
+#scrollTopBtn{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 25px;
+  height: 20px;
+  background: var(--primary);
+  color: var(--glass-card);
+  border: none;
+  border-radius: 3px;
+  font-size: 26px;
+  cursor: pointer;
+  display: none;
+  z-index: 9999;
+}
+#scrollTopBtn:hover {
+  background: var(--primary);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
 /* Footer */
 footer {
   background: linear-gradient(120deg, #48bb78 0%, #81e6d9 100%);
-  color: rgb(0, 0, 0);
+  color: var(--text-dark);
   text-align: center;
   padding: 10px;
   margin-top: 10px;
