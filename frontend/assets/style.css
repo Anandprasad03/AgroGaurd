@@ -130,7 +130,7 @@ body {
 .hero-content h1 span {
   color: #48bb78;
   background: linear-gradient(120deg, #48bb78 0%, #81e6d9 100%);
-  background-clip: text;   
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -245,6 +245,9 @@ body {
   border-radius: 18px;
   font-size: 13px;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   transition:
     transform 0.6s ease,
     background 0.6s ease;
@@ -363,7 +366,7 @@ body {
 }
 
 /*top scrolling button*/
-#scrollTopBtn{
+#scrollTopBtn {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -380,7 +383,7 @@ body {
 }
 #scrollTopBtn:hover {
   background: var(--primary);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Footer */
