@@ -29,9 +29,18 @@ The system provides actionable data to improve crop yields and ensure sustainabl
 * **Dynamic Visualizations:** Interactive Radar and Doughnut charts to visualize risk factors.
 * **Robust AI Fallback:** System continues to work with "Safe Mode" estimation even if the AI service is temporarily down.
 
-### 📊 3. Smart Dashboard
+
+### 📈 3. Market Price & Profit Predictor 
+* **Price Forecasting:** Predicts next-month crop prices based on current market price, season, and region.
+* **Trend Analysis:** Generates a 5-month price trend for better selling and storage decisions.
+* **Profit Guidance:** Provides AI-based recommendations on whether farmers should sell now or store for higher returns.
+* **Graphical Insights:** Interactive charts to visualize price movement and expected profit.
+
+### 📊 4. Smart Dashboard
 * **User-Friendly Interface:** Clean, responsive UI built with HTML5 & CSS3.
 * **Data Visualization:** Integrated Chart.js for instant graphical feedback.
+
+
 
 ---
 
