@@ -63,6 +63,7 @@ AgroGuard
 ├── backend/
 │   ├── ai_agent_api.py       # AI Logic for Crop Planning
 │   ├── spoilage_api.py       # AI Logic for Spoilage Prediction
+    ├── price_api.py          # AI Logic for Market Price Prediction
 │   └── main.py               # FastAPI Entry Point
 ├── data/                     # Static data resources
 ├── docs/                     # Design documents & wireframes
@@ -71,6 +72,7 @@ AgroGuard
     ├── crop_planner.html     # AI Rotation Interface
     ├── predict.html          # Spoilage Prediction Interface
     ├── index.html            # Landing Page
+    ├── price_prediction.html   # Market Price Prediction Interface
     └── about.html            # About the project
 
 ## 🚀 Getting Started
@@ -110,13 +112,6 @@ Follow these steps to set up the project locally.
 
 ---
 
-## 📸 Screenshots
-
-| Landing Page | Crop Planner | Spoilage Predictor |
-| :---: | :---: | :---: |
-| <img src="docs/dashboard_wireframe.png" width="200" alt="Landing"> | <img src="frontend/assets/png's/soil-health.png" width="200" alt="Planner"> | <img src="frontend/assets/png's/sustainable.png" width="200" alt="Predictor"> |
-
----
 
 ## 🤝 Contributing
 
