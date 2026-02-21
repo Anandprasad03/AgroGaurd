@@ -52,7 +52,7 @@
 
         <div class="stats-grid">
           <div class="stat">
-            <span class="count" data-target="35">0</span
+            <span class="count" data-target="90">0</span
             ><span class="unit">%</span>
             <p style="margin: 0; margin-top: 10px; font-weight: 600">
               Reduction in Spoilage
@@ -60,15 +60,15 @@
           </div>
 
           <div class="stat">
-            <span class="count" data-target="40">0</span
+            <span class="count" data-target="60">0</span
             ><span class="unit">%</span>
             <p style="margin: 0; margin-top: 10px; font-weight: 600">
-              Faster Delivery
+              Logistics Accuracy
             </p>
           </div>
 
           <div class="stat">
-            <span class="count" data-target="25">0</span
+            <span class="count" data-target="85">0</span
             ><span class="unit">%</span>
             <p style="margin: 0; margin-top: 10px; font-weight: 600">
               Price Prediction Accuracy
@@ -84,7 +84,7 @@
           </div>
 
           <div class="stat">
-            <span class="count" data-target="45">0</span
+            <span class="count" data-target="75">0</span
             ><span class="unit">%</span>
             <p style="margin: 0; margin-top: 10px; font-weight: 600">
               Better Soil Health
@@ -419,7 +419,7 @@
     </footer>
 
     <script>
-      /* --- Counters Animation --- */
+      /* Counters Animation  */
       document.addEventListener("DOMContentLoaded", () => {
         const counters = document.querySelectorAll(".count");
         const observer = new IntersectionObserver(
@@ -449,7 +449,7 @@
         );
         counters.forEach((c) => observer.observe(c));
 
-        /* --- Cards Animation --- */
+        /*  Cards Animation  */
         const cards = document.querySelectorAll(".challenge-card");
         const cardObserver = new IntersectionObserver(
           (entries) => {
