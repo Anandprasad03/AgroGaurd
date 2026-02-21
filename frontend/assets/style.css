@@ -22,7 +22,7 @@ body {
   overflow-x: hidden;
 }
 
-/* --- Nav bar css --- */
+/*  Navbar */
 .navbar {
   display: flex;
   align-items: center;
@@ -88,7 +88,7 @@ body {
   width: 100%;
 }
 
-/* --- Hero Section --- */
+/*  Hero Section */
 .hero {
   position: relative;
   width: 100%;
@@ -162,7 +162,7 @@ body {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* --- Stats Section --- */
+/*  Stats Section */
 .stats {
   padding: 80px 5%;
   background: #fff;
@@ -214,7 +214,7 @@ body {
   font-weight: 700;
 }
 
-/* --- Diagram Section (CAREFULLY POSITIONED DO NOT TOUCH specially ANAND ) --- */
+/*  Diagram Section (CAREFULLY POSITIONED DO NOT TOUCH specially ANAND ) */
 .value {
   padding: 50px;
   background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
@@ -259,59 +259,25 @@ body {
   background: linear-gradient(120deg, #48bb78 0%, #81e6d9 100%);
 }
 
-.l1 {
-  top: 30px;
-  left: -40px;
-} /* Yield & quality improvement */
-.l2 {
-  top: 160px;
-  left: -150px;
-} /* Crop loss management */
-.l3 {
-  top: 325px;
-  left: -240px;
-} /* Manage market or price volatility */
-.l4 {
-  top: 500px;
-  left: -10px;
-} /* Resilient sourcing */
-.l5 {
-  top: -15px;
-  right: 100px;
-} /* Ensure regenerative & sustainable practices */
-.l6 {
-  top: 160px;
-  right: -270px;
-} /* Ensure traceability, certification & compliance */
-.l7 {
-  top: 330px;
-  right: -180px;
-} /* Building climate resilience */
-.l8 {
-  top: 570px;
-  right: -20px;
-} /* Ensure risk coverage & access to finance */
-.l9 {
-  top: 40px;
-  left: 450px;
-} /* Chain efficiency */
-.l10 {
-  top: 570px;
-  left: 150px;
-} /* Surety of supply */
-.l11 {
-  top: 500px;
-  left: 490px;
-} /* Market Expansion */
+.l1 {top: 30px; left: -40px;} /* Yield & quality improvement */
+.l2 {top: 160px;left: -150px;} /* Crop loss management */
+.l3 {top: 325px;left: -240px;} /* Manage market or price volatility */
+.l4 {top: 500px;left: -10px;} /* Resilient sourcing */
+.l5 {top: -15px;right: 100px;} /* Ensure regenerative & sustainable practices */
+.l6 {top: 160px; right: -270px;} /* Ensure traceability, certification & compliance */
+.l7 {top: 330px;right: -180px;} /* Building climate resilience */
+.l8 {top: 570px;right: -20px;} /* Ensure risk coverage & access to finance */
+.l9 {top: 40px;left: 450px;} /* Chain efficiency */
+.l10 {top: 570px;left: 150px;} /* Surety of supply */
+.l11 {top: 500px;left: 490px;} /* Market Expansion */
 
-/* Image size control */
 .value_label_png {
   width: 22px;
   height: 22px;
   object-fit: contain;
 }
 
-/* --- Jury/Competitive Edge Section --- */
+
 .why-choose-us {
   padding: 80px 5%;
   background: var(--bg-color, #f7fafc);
@@ -372,10 +338,6 @@ body {
   transition: all 0.2s ease;
 }
 
-/* Row Hover Effect */
-.comparison-table tbody tr:hover td {
-  background: rgba(255, 255, 255, 0.5);
-}
 
 .comparison-table th {
   font-family: "Poppins", sans-serif;
@@ -384,7 +346,7 @@ body {
   border-bottom: 2px solid #cbd5e0;
 }
 
-/* Feature Name Column */
+
 .feature-name {
   font-weight: 600;
   color: var(--text-dark, #2d3748);
@@ -396,7 +358,7 @@ body {
   margin-right: 8px;
 }
 
-/* Traditional Column (Make it look slightly inferior) */
+
 .traditional-col {
   color: #a0aec0;
 }
@@ -429,12 +391,12 @@ body {
   font-size: 16px;
 }
 
-/* Remove bottom border on the last row */
+
 .comparison-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* --- Challenges Section --- */
+/* Challenges Section */
 .challenges {
   padding: 80px 5%;
   background: var(--glass-card);

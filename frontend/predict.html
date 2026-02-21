@@ -38,7 +38,6 @@
       overflow-x: hidden;
     }
 
-    /* --- AI Text Readability Enhancements --- */
     .ai-content {
       line-height: 1.8;
       color: #334155;
@@ -80,7 +79,7 @@
       margin: 20px 0;
     }
 
-    /* --- Navigation --- */
+    /*Navbar*/
     .navbar {
       display: flex;
       align-items: center;
@@ -146,7 +145,7 @@
       width: 100%;
     }
 
-    /* --- Hero Section --- */
+    /*  Hero Section  */
     .hero {
       width: 100%;
       min-height: 100vh;
@@ -180,7 +179,7 @@
       gap: 30px;
     }
 
-    /* --- Glass Card --- */
+    /*  Glass Card */
     .card {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(16px);
@@ -209,7 +208,7 @@
       font-size: 14px;
     }
 
-    /* --- Form --- */
+    /* Form */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -270,7 +269,7 @@
       grid-column: span 2;
     }
 
-    /* --- Button --- */
+    /*  Button */
     .btn-primary {
       grid-column: span 2;
       margin-top: 10px;
@@ -296,7 +295,7 @@
       box-shadow: 0 10px 20px rgba(47, 133, 90, 0.3);
     }
 
-    /* --- Loader --- */
+    /* Loader */
     #loader {
       display: none;
       text-align: center;
@@ -323,7 +322,7 @@
       }
     }
 
-    /* --- Results Section --- */
+    /* Results Section */
     #result {
       display: none;
       margin-top: 20px;
@@ -840,7 +839,9 @@
       try {
         const res = await fetch("http://127.0.0.1:8000/spoilage/predict", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify(payload),
         });
 
@@ -915,18 +916,20 @@
         type: "doughnut",
         data: {
           labels: ["Risk", "Safe"],
-          datasets: [
-            {
-              data: [score, 100 - score],
-              backgroundColor: [color, "#EDF2F7"],
-              borderWidth: 0,
-            },
-          ],
+          datasets: [{
+            data: [score, 100 - score],
+            backgroundColor: [color, "#EDF2F7"],
+            borderWidth: 0,
+          },],
         },
         options: {
           cutout: "75%",
           responsive: true,
-          plugins: { legend: { display: false } },
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
         },
       });
 
@@ -942,26 +945,32 @@
         type: "radar",
         data: {
           labels: ["Temp", "Humidity", "Time/Transit Days"],
-          datasets: [
-            {
-              label: "Risk Contribution",
-              data: [tScore, hScore, dScore],
-              borderColor: "#2F855A",
-              backgroundColor: "rgba(47, 133, 90, 0.2)",
-              pointBackgroundColor: "#2F855A",
-            },
-          ],
+          datasets: [{
+            label: "Risk Contribution",
+            data: [tScore, hScore, dScore],
+            borderColor: "#2F855A",
+            backgroundColor: "rgba(47, 133, 90, 0.2)",
+            pointBackgroundColor: "#2F855A",
+          },],
         },
         options: {
           scales: {
             r: {
               suggestedMin: 0,
               suggestedMax: 100,
-              ticks: { display: false },
-              grid: { color: "#e2e8f0" },
+              ticks: {
+                display: false
+              },
+              grid: {
+                color: "#e2e8f0"
+              },
             },
           },
-          plugins: { legend: { display: false } },
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
         },
       });
 
@@ -969,8 +978,16 @@
       const ctx3 = document.getElementById("logisticsChart").getContext("2d");
       if (logisticsChartInstance) logisticsChartInstance.destroy();
 
-      const transportModes = Object.keys(logisticsData || { "Refrigerated": 90, "Standard": 30, "Rail": 50 });
-      const viabilities = Object.values(logisticsData || { "Refrigerated": 90, "Standard": 30, "Rail": 50 });
+      const transportModes = Object.keys(logisticsData || {
+        "Refrigerated": 90,
+        "Standard": 30,
+        "Rail": 50
+      });
+      const viabilities = Object.values(logisticsData || {
+        "Refrigerated": 90,
+        "Standard": 30,
+        "Rail": 50
+      });
 
       logisticsChartInstance = new Chart(ctx3, {
         type: "bar",
@@ -991,18 +1008,24 @@
             y: {
               beginAtZero: true,
               max: 100,
-              grid: { color: "#e2e8f0" },
+              grid: {
+                color: "#e2e8f0"
+              },
               title: {
                 display: true,
                 text: 'Viability/Safety Score (%)'
               }
             },
             x: {
-              grid: { display: false }
+              grid: {
+                display: false
+              }
             }
           },
           plugins: {
-            legend: { display: false }
+            legend: {
+              display: false
+            }
           },
         },
       });
