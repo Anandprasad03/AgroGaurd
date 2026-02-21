@@ -44,7 +44,7 @@ def predict_market_price(data: PriceInput):
     1. "predicted_price": A specific number (float) for next month's expected price.
     2. "trend_months": A list of the next 5 months (strings, e.g. ["Nov", "Dec", "Jan"]).
     3. "trend_prices": A list of 5 predicted prices (floats) corresponding to those months.
-    4. "analysis": A detailed markdown analysis covering:
+    4. "analysis": A detailed markdown analysis covering with bullet points, emojis, and bold text. Avoid long single blocks of text.:
        - Factors affecting price (rain, supply, demand).
        - Profit/Loss sentiment (Should the farmer sell now or store?).
        - Global market influence if applicable.

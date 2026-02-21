@@ -49,7 +49,7 @@ def plan_crop(data: AgentInput):
         "soil_score": 85,
         "recommended_crops": ["Crop A", "Crop B"],
         "reasoning": "Why these crops fit...",
-        "rotation_advice": "Detailed guide..."
+        "rotation_advice": "Provide a detailed guide using short paragraphs, bullet points, and bold text for readability."
     }}
     """
 
@@ -70,7 +70,7 @@ def plan_crop(data: AgentInput):
         # 5. Clean & Parse JSON (The Critical Fix)
         # Remove ```json and ``` to prevent parsing errors
         clean_text = re.sub(r"```json|```", "", ai_text).strip()
-        result_obj = json.loads(clean_text)
+        result_obj = json.loads(clean_text, strict=False)
 
         RESPONSE_CACHE[cache_key] = result_obj 
         return result_obj
