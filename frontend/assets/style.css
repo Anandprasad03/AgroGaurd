@@ -22,7 +22,7 @@ body {
   overflow-x: hidden;
 }
 
-/* --- Navigation --- */
+/* --- Nav bar css --- */
 .navbar {
   display: flex;
   align-items: center;
@@ -62,8 +62,8 @@ body {
 .nav-links a {
   color: var(--text-dark);
   text-decoration: none;
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: 900;
+  font-size: 17px;
   transition: all 0.3s ease;
   position: relative;
 }
@@ -214,7 +214,7 @@ body {
   font-weight: 700;
 }
 
-/* --- Diagram Section (CAREFULLY POSITIONED) --- */
+/* --- Diagram Section (CAREFULLY POSITIONED DO NOT TOUCH specially ANAND ) --- */
 .value {
   padding: 50px;
   background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
@@ -365,27 +365,27 @@ body {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-/*top scrolling button*/
+/*scrolling to top button*/
 #scrollTopBtn {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   right: 20px;
-  width: 25px;
-  height: 20px;
-  background: var(--primary);
-  color: var(--glass-card);
+  width: 60px;
+  height: 60px;
   border: none;
-  border-radius: 3px;
-  font-size: 26px;
+  border-radius: 6px;
   cursor: pointer;
   display: none;
   z-index: 9999;
-}
-#scrollTopBtn:hover {
-  background: var(--primary);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  background: rgba(0, 0, 0, 0.00000003);
 }
 
+#scrollTopBtn img {
+  width: 88px;   
+  height: 88px;  
+  object-fit: contain;
+}
 /* Footer */
 footer {
   background: linear-gradient(120deg, #48bb78 0%, #81e6d9 100%);
