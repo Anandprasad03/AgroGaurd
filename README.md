@@ -80,6 +80,8 @@ AgroGuard
     ├── price_prediction.html   # Market Price Prediction Interface
     └── about.html            # About the project
 
+```
+
 ## 🚀 Getting Started
 
 Follow these steps to set up the project locally.
