@@ -310,6 +310,130 @@ body {
   height: 22px;
   object-fit: contain;
 }
+
+/* --- Jury/Competitive Edge Section --- */
+.why-choose-us {
+  padding: 80px 5%;
+  background: var(--bg-color, #f7fafc);
+  text-align: center;
+}
+
+.jury-badge {
+  display: inline-block;
+  background: rgba(47, 133, 90, 0.1);
+  color: var(--primary, #2f855a);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(47, 133, 90, 0.3);
+}
+
+.section-header h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 38px;
+  color: var(--primary-dark, #22543d);
+  margin-bottom: 15px;
+}
+
+.section-header p {
+  color: var(--text-light, #718096);
+  font-size: 16px;
+  max-width: 650px;
+  margin: 0 auto 40px auto;
+  line-height: 1.6;
+}
+
+.table-container {
+  max-width: 1050px;
+  margin: 0 auto;
+  overflow-x: auto;
+  background: var(--glass-bg, rgba(255, 255, 255, 0.85));
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.6));
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.comparison-table th, 
+.comparison-table td {
+  padding: 22px 25px;
+  border-bottom: 1px solid #edf2f7;
+  font-size: 15.5px;
+  transition: all 0.2s ease;
+}
+
+/* Row Hover Effect */
+.comparison-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.comparison-table th {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 2px solid #cbd5e0;
+}
+
+/* Feature Name Column */
+.feature-name {
+  font-weight: 600;
+  color: var(--text-dark, #2d3748);
+}
+.feature-name i {
+  color: var(--text-light, #718096);
+  width: 25px;
+  text-align: center;
+  margin-right: 8px;
+}
+
+/* Traditional Column (Make it look slightly inferior) */
+.traditional-col {
+  color: #a0aec0;
+}
+.bad-icon {
+  color: #fc8181;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+/* Agroguard Highlight Column */
+.comparison-table .highlight-col {
+  background: rgba(47, 133, 90, 0.03); 
+  color: var(--primary-dark, #22543d);
+  border-left: 2px solid var(--primary, #2f855a);
+  border-right: 2px solid var(--primary, #2f855a);
+}
+
+.comparison-table th.highlight-col {
+  background: linear-gradient(135deg, var(--primary) 0%, #276749 100%);
+  color: #ffffff;
+  border-radius: 24px 24px 0 0;
+  border: none;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(47, 133, 90, 0.3);
+}
+
+.good-icon {
+  color: var(--primary, #2f855a);
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Remove bottom border on the last row */
+.comparison-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
 /* --- Challenges Section --- */
 .challenges {
   padding: 80px 5%;
