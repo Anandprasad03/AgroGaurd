@@ -27,7 +27,9 @@ The system provides actionable data to improve crop yields and ensure sustainabl
 ### 🛡️ 2. Spoilage Risk Predictor
 * **Real-time Risk Assessment:** Calculates the probability of crop spoilage based on storage temperature, humidity, and time.
 * **Dynamic Visualizations:** Interactive Radar and Doughnut charts to visualize risk factors.
-* **Robust AI Fallback:** System continues to work with "Safe Mode" estimation even if the AI service is temporarily down.
+* **Actionable Alerts:** Provides clear recommendations to mitigate spoilage risks.
+* **Historical Data Analysis:** Tracks spoilage trends over time for better future planning.
+* **Multi-Crop Support:** Handles spoilage predictions for various crop types with tailored risk factors.
 
 
 ### 📈 3. Market Price & Profit Predictor 
@@ -74,6 +76,7 @@ AgroGuard
     ├── index.html            # Landing Page
     ├── price_prediction.html   # Market Price Prediction Interface
     └── about.html            # About the project
+```
 
 ## 🚀 Getting Started
 
@@ -86,13 +89,13 @@ Follow these steps to set up the project locally.
 ### Installation
 
 1.  **Clone the Repository**
-    ```bash
+    ```terminal
     git clone [https://github.com/Anandprasad03/AgroGuard.git](https://github.com/Anandprasad03/AgroGuard.git)
     cd AgroGuard
     ```
 
 2.  **Install Dependencies**
-    ```bash
+    ```terminal
     pip install fastapi uvicorn requests python-dotenv pydantic
     ```
 
@@ -103,7 +106,7 @@ Follow these steps to set up the project locally.
     ```
 
 4.  **Run the Backend**
-    ```bash
+    ```terminal
     uvicorn backend.main:app --reload
     ```
 
