@@ -28,6 +28,8 @@ The system provides actionable data to improve crop yields and ensure sustainabl
 * **Real-time Risk Assessment:** Calculates the probability of crop spoilage based on storage temperature, humidity, and time.
 * **Dynamic Visualizations:** Interactive Radar and Doughnut charts to visualize risk factors.
 * **Robust AI Fallback:** System continues to work with "Safe Mode" estimation even if the AI service is temporarily down.
+* **Smart Transport & Selling Optimization:** Recommends the best transport method and selling strategy based on crop type, current location, and selling destination to minimize spoilage and maximize profit.
+* **Route & Market Intelligence:** Suggests optimal routes, estimated travel time, and suitable markets to ensure crops reach the right destination in the best possible condition.
 
 
 ### 📈 3. Market Price & Profit Predictor 
@@ -35,6 +37,9 @@ The system provides actionable data to improve crop yields and ensure sustainabl
 * **Trend Analysis:** Generates a 5-month price trend for better selling and storage decisions.
 * **Profit Guidance:** Provides AI-based recommendations on whether farmers should sell now or store for higher returns.
 * **Graphical Insights:** Interactive charts to visualize price movement and expected profit.
+* **Market Intelligence & Profit Forecaster:** Forecasts price and profit based on the selected selling level — Local, National, or International markets — helping farmers choose the most profitable marketplace.
+* **Multi-Factor Price Prediction:** Calculates expected selling price and net profit by considering crop type, product category (organic, inorganic, biochemical, etc.), month of harvest, and base cost price.
+* **Strategic Selling Optimization:** Compares different market levels and provides data-driven insights on where and when to sell for maximum returns.
 
 ### 📊 4. Smart Dashboard
 * **User-Friendly Interface:** Clean, responsive UI built with HTML5 & CSS3.
