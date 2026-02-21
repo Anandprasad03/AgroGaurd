@@ -364,7 +364,7 @@ body {
   text-align: left;
 }
 
-.comparison-table th, 
+.comparison-table th,
 .comparison-table td {
   padding: 22px 25px;
   border-bottom: 1px solid #edf2f7;
@@ -408,7 +408,7 @@ body {
 
 /* Agroguard Highlight Column */
 .comparison-table .highlight-col {
-  background: rgba(47, 133, 90, 0.03); 
+  background: rgba(47, 133, 90, 0.03);
   color: var(--primary-dark, #22543d);
   border-left: 2px solid var(--primary, #2f855a);
   border-right: 2px solid var(--primary, #2f855a);
@@ -506,8 +506,8 @@ body {
 }
 
 #scrollTopBtn img {
-  width: 88px;   
-  height: 88px;  
+  width: 88px;
+  height: 88px;
   object-fit: contain;
 }
 /*footer*/
