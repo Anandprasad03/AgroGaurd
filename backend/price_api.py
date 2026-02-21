@@ -14,10 +14,8 @@ PRICE_CACHE = {}
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-# Using the stable model version
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key={GEMINI_API_KEY}"
 
-# ADDED: Pydantic Field validation for robust input handling
 class PriceInput(BaseModel):
     crop: str = Field(..., max_length=50, description="Name of the crop")
     market_level: str = Field(..., max_length=50, description="Local vs Export market")
@@ -25,17 +23,17 @@ class PriceInput(BaseModel):
     product_type: str = Field(..., max_length=50, description="Standard vs Organic")
     month: str = Field(..., max_length=50, description="Month of sale")
     cost_price: float = Field(..., ge=0, description="Cost price to calculate profit, must be >= 0")
+    language: str = Field("English", max_length=20, description="User's preferred language") # ADDED
 
 @router.post("")
 def predict_market_price(data: PriceInput):
-    # Create a unique key for caching
-    cache_key = f"{data.crop}-{data.market_level}-{data.location}-{data.product_type}-{data.month}-{data.cost_price}"
+    # Create a unique key for caching that includes language
+    cache_key = f"{data.crop}-{data.market_level}-{data.location}-{data.product_type}-{data.month}-{data.cost_price}-{data.language}"
     
     if cache_key in PRICE_CACHE:
         print(f"⚡ Serving Market Data from Cache: {cache_key}")
         return PRICE_CACHE[cache_key]
 
-    # Prompt Engineering with new priorities, Currency, and Profit logic:
     prompt = f"""
     Act as an Agricultural Data Simulator. Provide a simulated market analysis for educational purposes.
     
@@ -55,6 +53,10 @@ def predict_market_price(data: PriceInput):
     5. Provide 10 realistic prices for those markets.
     6. Provide 10 profit margins for those markets (Market Price - {data.cost_price}).
     
+    IMPORTANT LANGUAGE INSTRUCTION:
+    Translate ALL text values in the JSON (like 'top_10_names', 'analysis', and 'logistics_advice') into {data.language}. 
+    Do NOT translate the JSON keys (keep them exactly as "currency", "predicted_price", etc.).
+    
     RETURN ONLY JSON:
     {{
         "currency": "₹",
@@ -68,7 +70,6 @@ def predict_market_price(data: PriceInput):
     }}
     """
 
-    # ADDED: generationConfig to enforce JSON
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
@@ -80,8 +81,11 @@ def predict_market_price(data: PriceInput):
         response = requests.post(GEMINI_URL, json=payload)
         res_json = response.json()
         
-        if "candidates" not in res_json:
-            raise Exception("Invalid AI Response")
+        if "error" in res_json:
+             raise Exception(f"Google API Error: {res_json['error'].get('message', res_json['error'])}")
+
+        if "candidates" not in res_json or not res_json["candidates"]:
+             raise Exception("AI Response Blocked or Empty")
             
         ai_text = res_json["candidates"][0]["content"]["parts"][0]["text"]
         
@@ -95,8 +99,6 @@ def predict_market_price(data: PriceInput):
 
     except Exception as e:
         print(f"⚠️ Market AI Error: {e}")
-        # Fallback Data (Prevents UI Crash)
-        # Added a safeguard in case cost_price is 0 to avoid a zero dummy_price
         base_cost = data.cost_price if data.cost_price > 0 else 50.0 
         dummy_price = base_cost * 1.5 
         dummy_profit = dummy_price - base_cost 

@@ -1,558 +1,689 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agroguard | About Us</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
 
-    <style>
-      :root {
-        --primary: #2f855a;
-        --primary-dark: #22543d;
-        --accent: #38b2ac;
-        --glass-bg: rgba(255, 255, 255, 0.9);
-        --glass-border: rgba(255, 255, 255, 0.6);
-        --text-dark: #2d3748;
-        --text-light: #718096;
-        --bg-color: #f7fafc;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agroguard | About Us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;600;700&display=swap"
+    rel="stylesheet" />
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Inter", sans-serif;
-      }
+  <style>
+    :root {
+      --primary: #2f855a;
+      --primary-dark: #22543d;
+      --accent: #38b2ac;
+      --glass-bg: rgba(255, 255, 255, 0.9);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --text-dark: #2d3748;
+      --text-light: #718096;
+      --bg-color: #f7fafc;
+    }
 
-      body {
-        background: var(--bg-color);
-        color: var(--text-dark);
-        overflow-x: hidden;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
 
-      /* Navbarr */
-      .navbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 15px 5%;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        backdrop-filter: blur(10px);
-      }
+    body {
+      background: var(--bg-color);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
 
-      .logo {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-family: "Poppins", sans-serif;
-        font-size: 22px;
-        font-weight: 700;
-        color: var(--primary);
-      }
+    /* Navbarr */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 15px 5%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
 
-      .logo img {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Poppins", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+    }
 
-      .nav-links {
-        display: flex;
-        gap: 30px;
-      }
+    .logo img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
-      .nav-links a {
-        color: var(--text-dark);
-        text-decoration: none;
-        font-weight: 900;
-        font-size: 17px;
-        transition: all 0.3s ease;
-        position: relative;
-      }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
 
-      .nav-links a:hover,
-      .nav-links a.active {
-        color: var(--primary);
-      }
+    .nav-links a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 17px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
 
-      .nav-links a::after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: -4px;
-        left: 0;
-        background-color: var(--primary);
-        transition: width 0.3s;
-      }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
 
-      .nav-links a:hover::after {
-        width: 100%;
-      }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
 
-      /* Hero Section  */
-      .hero-header {
-        position: relative;
-        height: 60vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        background: url("assets/png's/predictio_bg.png") no-repeat center
-          center/cover;
-        margin-bottom: 50px;
-      }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
-      .hero-header::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(
-          135deg,
+    /* Hero Section  */
+    .hero-header {
+      position: relative;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: url("assets/png's/predictio_bg.png") no-repeat center center/cover;
+      margin-bottom: 50px;
+    }
+
+    .hero-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg,
           rgba(0, 0, 0, 0.7) 0%,
-          rgba(47, 133, 90, 0.5) 100%
-        );
-        z-index: 1;
-      }
+          rgba(47, 133, 90, 0.5) 100%);
+      z-index: 1;
+    }
 
-      .hero-content {
-        position: relative;
-        z-index: 2;
-        color: white;
-        max-width: 800px;
-        padding: 0 20px;
-      }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      max-width: 800px;
+      padding: 0 20px;
+    }
 
-      .hero-content h1 {
-        font-family: "Poppins", sans-serif;
-        font-size: 48px;
-        margin-bottom: 15px;
-        font-weight: 700;
-      }
+    .hero-content h1 {
+      font-family: "Poppins", sans-serif;
+      font-size: 48px;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
 
-      .pill-tag {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(5px);
-        padding: 8px 20px;
-        border-radius: 50px;
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-      }
+    .pill-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
 
-      .hero-subtext {
-        font-size: 18px;
-        line-height: 1.6;
-        opacity: 0.9;
-      }
+    .hero-subtext {
+      font-size: 18px;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
 
-      /*Content Section*/
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
+    /*Content Section*/
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-      .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 40px;
-        margin-bottom: 80px;
-      }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      margin-bottom: 80px;
+    }
 
-      /*   Cards   */
-      .glass-card {
-        background: #fff;
-        border-radius: 24px;
-        padding: 40px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        border: 1px solid #e2e8f0;
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
+    /*   Cards   */
+    .glass-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-      .glass-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(47, 133, 90, 0.15);
-        border-color: var(--primary);
-      }
+    .glass-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(47, 133, 90, 0.15);
+      border-color: var(--primary);
+    }
 
-      .icon-box {
-        width: 70px;
-        height: 70px;
-        background: #f0fff4;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 25px;
-        color: var(--primary);
-        font-size: 28px;
-        transition: all 0.3s;
-      }
+    .icon-box {
+      width: 70px;
+      height: 70px;
+      background: #f0fff4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      color: var(--primary);
+      font-size: 28px;
+      transition: all 0.3s;
+    }
 
-      .glass-card:hover .icon-box {
-        background: var(--primary);
-        color: #fff;
-      }
+    .glass-card:hover .icon-box {
+      background: var(--primary);
+      color: #fff;
+    }
 
-      .glass-card h3 {
-        font-family: "Poppins", sans-serif;
-        font-size: 22px;
-        color: var(--text-dark);
-        margin-bottom: 10px;
-      }
+    .glass-card h3 {
+      font-family: "Poppins", sans-serif;
+      font-size: 22px;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
 
-      .green-title {
-        color: var(--primary);
-        font-weight: 600;
-        font-size: 14px;
-        text-transform: uppercase;
-        margin-bottom: 15px;
-        letter-spacing: 0.5px;
-      }
+    .green-title {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+    }
 
-      .description {
-        color: var(--text-light);
-        line-height: 1.6;
-        margin-bottom: 25px;
-        flex-grow: 1;
-      }
+    .description {
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 25px;
+      flex-grow: 1;
+    }
 
-      .img-wrapper {
-        width: 100%;
-        height: 200px;
-        border-radius: 16px;
-        overflow: hidden;
-        margin-top: auto;
-      }
+    .img-wrapper {
+      width: 100%;
+      height: 200px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: auto;
+    }
 
-      .img-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-      }
+    .img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
 
-      .glass-card:hover .img-wrapper img {
-        transform: scale(1.05);
-      }
+    .glass-card:hover .img-wrapper img {
+      transform: scale(1.05);
+    }
 
-      /*  CTA Section */
-      .cta-section {
-        background: linear-gradient(135deg, var(--primary) 0%, #22543d 100%);
-        padding: 80px 20px;
-        text-align: center;
-        color: white;
-        margin-top: 50px;
-      }
+    /*  CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary) 0%, #22543d 100%);
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+      margin-top: 50px;
+    }
 
-      .cta-content h2 {
-        font-family: "Poppins", sans-serif;
-        font-size: 36px;
-        margin-bottom: 15px;
-      }
+    .cta-content h2 {
+      font-family: "Poppins", sans-serif;
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
 
-      .cta-bold {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        opacity: 0.95;
-      }
+    .cta-bold {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      opacity: 0.95;
+    }
 
-      .cta-text {
-        margin-bottom: 30px;
-        opacity: 0.8;
-      }
+    .cta-text {
+      margin-bottom: 30px;
+      opacity: 0.8;
+    }
 
-      .btn-white {
-        display: inline-block;
-        background: white;
-        color: var(--primary);
-        padding: 16px 32px;
-        border-radius: 50px;
-        font-weight: 600;
-        text-decoration: none;
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
-      }
+    .btn-white {
+      display: inline-block;
+      background: white;
+      color: var(--primary);
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    }
 
-      .btn-white:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      }
-      /*footer*/
-      .site-footer {
-        background: #1a202c;
-        color: #cbd5e0;
-        padding: 60px 20px 20px;
-        margin-top: 80px;
-      }
+    .btn-white:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
 
-      .footer-container {
-        max-width: 1200px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 40px;
-      }
+    /*footer*/
+    .site-footer {
+      background: #1a202c;
+      color: #cbd5e0;
+      padding: 60px 20px 20px;
+      margin-top: 80px;
+    }
 
-      .site-footer h3,
-      .site-footer h4 {
-        color: #ffffff;
-        margin-bottom: 15px;
-        font-family: "Poppins", sans-serif;
-      }
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+    }
 
-      .footer-about p {
-        line-height: 1.6;
-        font-size: 14px;
-      }
+    .site-footer h3,
+    .site-footer h4 {
+      color: #ffffff;
+      margin-bottom: 15px;
+      font-family: "Poppins", sans-serif;
+    }
 
-      .footer-links a {
-        display: block;
-        color: #cbd5e0;
-        text-decoration: none;
-        margin-bottom: 8px;
-        transition: color 0.3s;
-      }
+    .footer-about p {
+      line-height: 1.6;
+      font-size: 14px;
+    }
 
-      .footer-links a:hover {
-        color: #38b2ac;
-      }
+    .footer-links a {
+      display: block;
+      color: #cbd5e0;
+      text-decoration: none;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
 
-      .footer-contact p {
-        font-size: 14px;
-        margin-bottom: 8px;
-      }
+    .footer-links a:hover {
+      color: #38b2ac;
+    }
 
-      /* TEAM */
-      .footer-team .person {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
-      }
+    .footer-contact p {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
 
-      .footer-team span {
-        font-size: 14px;
-      }
+    /* TEAM */
+    .footer-team .person {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
 
-      .footer-team a {
-        color: #cbd5e0;
-        font-size: 16px;
-        transition: color 0.3s;
-      }
+    .footer-team span {
+      font-size: 14px;
+    }
 
-      .footer-team a:hover {
-        color: #38b2ac;
-      }
+    .footer-team a {
+      color: #cbd5e0;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
 
-      .footer-bottom {
-        text-align: center;
-        border-top: 1px solid #2d3748;
-        margin-top: 40px;
-        padding-top: 15px;
-        font-size: 13px;
-        color: #a0aec0;
-      }
-    </style>
-  </head>
+    .footer-team a:hover {
+      color: #38b2ac;
+    }
 
-  <body>
-    <header class="navbar">
-      <div class="logo">
-        <img src="assets/logo.png" alt="Logo" />
-        <span>Agroguard</span>
-      </div>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="predict.html" target="_blank">Predict</a>
-        <a href="price_prediction.html" target="_blank">Market</a>
-        <a href="crop_planner.html" target="_blank">Planner</a>
-        <a href="about.html" class="active">About</a>
-      </nav>
-    </header>
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid #2d3748;
+      margin-top: 40px;
+      padding-top: 15px;
+      font-size: 13px;
+      color: #a0aec0;
+    }
+  </style>
+</head>
 
-    <section class="hero-header">
-      <div class="hero-content">
-        <div class="pill-tag">Innovating Agriculture with AI</div>
-        <h1>About Us</h1>
-        <p class="hero-subtext">
-          The fusion of artificial intelligence and agriculture to minimize
-          post-harvest loss and promote sustainable farming for a better future.
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+      <span>Agroguard</span>
+    </div>
+    <nav class="nav-links">
+      <select id="languageSelect" onchange="changeLanguage()"
+        style="padding: 6px 10px; border-radius: 8px; border: 2px solid var(--primary); background: #f7fafc; color: var(--primary-dark); font-weight: 600; font-size: 14px; cursor: pointer; outline: none; margin-left: 15px;">
+        <option value="English">🇬🇧 English</option>
+        <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+        <option value="Marathi">🇮🇳 Marathi (मराठी)</option>
+        <option value="Odia">🇮🇳 Odia (ଓଡ଼ିଆ)</option>
+        <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+      </select>
+      <a href="index.html">Home</a>
+      <a href="predict.html" target="_blank">Predict</a>
+      <a href="price_prediction.html" target="_blank">Market</a>
+      <a href="crop_planner.html" target="_blank">Planner</a>
+      <a href="about.html" class="active">About</a>
+    </nav>
+  </header>
+
+  <section class="hero-header">
+    <div class="hero-content">
+      <div class="pill-tag">Innovating Agriculture with AI</div>
+      <h1>About Us</h1>
+      <p class="hero-subtext">
+        The fusion of artificial intelligence and agriculture to minimize
+        post-harvest loss and promote sustainable farming for a better future.
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="info-grid">
+      <div class="glass-card">
+        <div class="icon-box"><i class="fa-solid fa-leaf"></i></div>
+        <h3>Our Mission</h3>
+        <p class="green-title">Reduce Spoilage, Restore Soil</p>
+        <p class="description">
+          Empowering farmers by predicting spoilage risks and optimizing crop
+          planning. We use AI to reduce post-harvest waste and ensure
+          long-term land productivity.
         </p>
+        <div class="img-wrapper">
+          <img src="assets/png's/first.jpg" alt="Vibrant healthy crop fields" />
+        </div>
       </div>
-    </section>
 
-    <div class="container">
-      <div class="info-grid">
-        <div class="glass-card">
-          <div class="icon-box"><i class="fa-solid fa-leaf"></i></div>
-          <h3>Our Mission</h3>
-          <p class="green-title">Reduce Spoilage, Restore Soil</p>
-          <p class="description">
-            Empowering farmers by predicting spoilage risks and optimizing crop
-            planning. We use AI to reduce post-harvest waste and ensure
-            long-term land productivity.
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="assets/png's/first.jpg"
-              alt="Vibrant healthy crop fields"
-            />
-          </div>
+      <div class="glass-card">
+        <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
+        <h3>The Vision</h3>
+        <p class="green-title">Market Intelligence</p>
+        <p class="description">
+          Integrating market demand and price volatility trends to provide
+          risk-aware decision dashboards that ensure farmers sell at the most
+          profitable time.
+        </p>
+        <div class="img-wrapper">
+          <img src="assets/png's/second.avif" alt="Digital agriculture dashboard" />
         </div>
+      </div>
 
-        <div class="glass-card">
-          <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
-          <h3>The Vision</h3>
-          <p class="green-title">Market Intelligence</p>
-          <p class="description">
-            Integrating market demand and price volatility trends to provide
-            risk-aware decision dashboards that ensure farmers sell at the most
-            profitable time.
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="assets/png's/second.avif"
-              alt="Digital agriculture dashboard"
-            />
-          </div>
-        </div>
-
-        <div class="glass-card">
-          <div class="icon-box"><i class="fa-solid fa-arrows-rotate"></i></div>
-          <h3>Why Choose Us?</h3>
-          <p class="green-title">Scientific Rotation</p>
-          <p class="description">
-            We go beyond profit. Our AI models long-term soil regeneration and
-            optimal crop rotation to ensure your land remains productive for
-            generations.
-          </p>
-          <div class="img-wrapper">
-            <img
-              src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=600&q=80"
-              alt="Sustainable crop rotation"
-            />
-          </div>
+      <div class="glass-card">
+        <div class="icon-box"><i class="fa-solid fa-arrows-rotate"></i></div>
+        <h3>Why Choose Us?</h3>
+        <p class="green-title">Scientific Rotation</p>
+        <p class="description">
+          We go beyond profit. Our AI models long-term soil regeneration and
+          optimal crop rotation to ensure your land remains productive for
+          generations.
+        </p>
+        <div class="img-wrapper">
+          <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=600&q=80"
+            alt="Sustainable crop rotation" />
         </div>
       </div>
     </div>
+  </div>
 
-    <section class="cta-section">
-      <div class="cta-content">
-        <h2>Join Our Journey</h2>
-        <p class="cta-bold">Growing a Sustainable Future Together</p>
-        <p class="cta-text">
-          Partner with us to transform agriculture through intelligent
-          solutions.
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Join Our Journey</h2>
+      <p class="cta-bold">Growing a Sustainable Future Together</p>
+      <p class="cta-text">
+        Partner with us to transform agriculture through intelligent
+        solutions.
+      </p>
+      <a href="mailto:gietuinnovatex@gmail.com" class="btn-white">Get in Touch</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>Agroguard</h3>
+        <p>
+          AI-powered agriculture platform focused on reducing post-harvest
+          losses and enabling sustainable crop planning.
         </p>
-        <a href="mailto:gietuinnovatex@gmail.com" class="btn-white"
-          >Get in Touch</a
-        >
       </div>
-    </section>
 
-    <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-about">
-          <h3>Agroguard</h3>
-          <p>
-            AI-powered agriculture platform focused on reducing post-harvest
-            losses and enabling sustainable crop planning.
-          </p>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="predict.html">Predict</a>
+        <a href="price_prediction.html">Market</a>
+        <a href="crop_planner.html">Planner</a>
+        <a href="about.html">About</a>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><i class="fa-solid fa-envelope"></i> gietuinnovatex@gmail.com</p>
+        <p><i class="fa-solid fa-location-dot"></i> India</p>
+      </div>
+
+      <div class="footer-team">
+        <h4>Team</h4>
+
+        <div class="person">
+          <span>Anand Prasad</span>
+          <a href="https://github.com/Anandprasad03" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/anandprasad03" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
         </div>
 
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <a href="index.html">Home</a>
-          <a href="predict.html">Predict</a>
-          <a href="price_prediction.html">Market</a>
-          <a href="crop_planner.html">Planner</a>
-          <a href="about.html">About</a>
+        <div class="person">
+          <span>Ashmit Akhouri</span>
+          <a href="https://github.com/ashmit-akhouri" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/ashmit-akhouri" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
         </div>
 
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <p><i class="fa-solid fa-envelope"></i> gietuinnovatex@gmail.com</p>
-          <p><i class="fa-solid fa-location-dot"></i> India</p>
+        <div class="person">
+          <span>Sanjay Saw</span>
+          <a href="https://github.com/sanjaysawdev" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/sanjaysawdev" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
         </div>
 
-        <div class="footer-team">
-          <h4>Team</h4>
-
-          <div class="person">
-            <span>Anand Prasad</span>
-            <a href="https://github.com/Anandprasad03" target="_blank"
-              ><i class="fa-brands fa-github"></i
-            ></a>
-            <a href="https://www.linkedin.com/in/anandprasad03" target="_blank"
-              ><i class="fa-brands fa-linkedin"></i
-            ></a>
-          </div>
-
-          <div class="person">
-            <span>Ashmit Akhouri</span>
-            <a href="https://github.com/ashmit-akhouri" target="_blank"
-              ><i class="fa-brands fa-github"></i
-            ></a>
-            <a href="https://www.linkedin.com/in/ashmit-akhouri" target="_blank"
-              ><i class="fa-brands fa-linkedin"></i
-            ></a>
-          </div>
-
-          <div class="person">
-            <span>Sanjay Saw</span>
-            <a href="https://github.com/sanjaysawdev" target="_blank"
-              ><i class="fa-brands fa-github"></i
-            ></a>
-            <a href="https://www.linkedin.com/in/sanjaysawdev" target="_blank"
-              ><i class="fa-brands fa-linkedin"></i
-            ></a>
-          </div>
-
-          <div class="person">
-            <span>Tarak Nath Dey</span>
-            <a href="https://github.com/Tarak-Nath-Dey" target="_blank"
-              ><i class="fa-brands fa-github"></i
-            ></a>
-            <a
-              href="https://www.linkedin.com/in/tarak-nath-dey-tnd1002"
-              target="_blank"
-              ><i class="fa-brands fa-linkedin"></i
-            ></a>
-          </div>
+        <div class="person">
+          <span>Tarak Nath Dey</span>
+          <a href="https://github.com/Tarak-Nath-Dey" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/tarak-nath-dey-tnd1002" target="_blank"><i
+              class="fa-brands fa-linkedin"></i></a>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 Agroguard. All rights reserved.</div>
-    </footer>
-  </body>
+    </div>
+    <div class="footer-bottom">© 2026 Agroguard. All rights reserved.</div>
+  </footer>
+  <script>
+    const translations = {
+      English: {
+        heroTag: "Innovating Agriculture with AI",
+        heroTitle: "About Us",
+        heroSub: "The fusion of artificial intelligence and agriculture to minimize post-harvest loss and promote sustainable farming for a better future.",
+
+        c1Title: "Our Mission",
+        c1Sub: "Reduce Spoilage, Restore Soil",
+        c1Desc: "Empowering farmers by predicting spoilage risks and optimizing crop planning. We use AI to reduce post-harvest waste and ensure long-term land productivity.",
+
+        c2Title: "The Vision",
+        c2Sub: "Market Intelligence",
+        c2Desc: "Integrating market demand and price volatility trends to provide risk-aware decision dashboards that ensure farmers sell at the most profitable time.",
+
+        c3Title: "Why Choose Us?",
+        c3Sub: "Scientific Rotation",
+        c3Desc: "We go beyond profit. Our AI models long-term soil regeneration and optimal crop rotation to ensure your land remains productive for generations.",
+
+        ctaTitle: "Join Our Journey",
+        ctaBold: "Growing a Sustainable Future Together",
+        ctaText: "Partner with us to transform agriculture through intelligent solutions.",
+        ctaBtn: "Get in Touch"
+      },
+      Hindi: {
+        heroTag: "AI के साथ कृषि में नवाचार",
+        heroTitle: "हमारे बारे में",
+        heroSub: "फसल के बाद के नुकसान को कम करने और बेहतर भविष्य के लिए टिकाऊ खेती को बढ़ावा देने के लिए कृत्रिम बुद्धिमत्ता और कृषि का विलय।",
+
+        c1Title: "हमारा मिशन",
+        c1Sub: "खराब होने को कम करें, मिट्टी को बहाल करें",
+        c1Desc: "खराब होने के जोखिमों की भविष्यवाणी और फसल योजना को अनुकूलित करके किसानों को सशक्त बनाना। हम फसल के बाद के कचरे को कम करने और दीर्घकालिक भूमि उत्पादकता सुनिश्चित करने के लिए एआई का उपयोग करते हैं।",
+
+        c2Title: "दृष्टिकोण",
+        c2Sub: "बाजार की जानकारी",
+        c2Desc: "बाजार की मांग और मूल्य अस्थिरता के रुझान को एकीकृत करते हुए जोखिम-जागरूक निर्णय डैशबोर्ड प्रदान करना जो सुनिश्चित करता है कि किसान सबसे लाभदायक समय पर बेचें।",
+
+        c3Title: "हमें क्यों चुनें?",
+        c3Sub: "वैज्ञानिक फसल चक्र",
+        c3Desc: "हम लाभ से आगे जाते हैं। हमारे एआई मॉडल दीर्घकालिक मिट्टी पुनर्जनन और इष्टतम फसल चक्र सुनिश्चित करते हैं ताकि आपकी भूमि पीढ़ियों तक उत्पादक बनी रहे।",
+
+        ctaTitle: "हमारी यात्रा में शामिल हों",
+        ctaBold: "एक साथ एक सतत भविष्य बढ़ाना",
+        ctaText: "बुद्धिमान समाधानों के माध्यम से कृषि को बदलने के लिए हमारे साथ भागीदार बनें।",
+        ctaBtn: "संपर्क करें"
+      },
+      Marathi: {
+        heroTag: "एआय सह कृषी क्षेत्रात नवकल्पना",
+        heroTitle: "आमच्याबद्दल",
+        heroSub: "काढणीपश्चात नुकसान कमी करण्यासाठी आणि चांगल्या भविष्यासाठी शाश्वत शेतीला प्रोत्साहन देण्यासाठी कृत्रिम बुद्धिमत्ता आणि शेतीचा समन्वय.",
+
+        c1Title: "आमचे ध्येय",
+        c1Sub: "नासाडी कमी करा, माती सुधारा",
+        c1Desc: "नासाडीच्या धोक्याचा अंदाज घेऊन आणि पीक नियोजन ऑप्टिमाइझ करून शेतकऱ्यांना सक्षम करणे. आम्ही काढणीपश्चात कचरा कमी करण्यासाठी आणि दीर्घकालीन जमीन उत्पादकता सुनिश्चित करण्यासाठी AI वापरतो.",
+
+        c2Title: "दृष्टिकोन",
+        c2Sub: "बाजारपेठेची माहिती",
+        c2Desc: "बाजारपेठेतील मागणी आणि किमतीतील अस्थिरतेचा कल एकत्रित करून जोखीम-जागरूक निर्णय डॅशबोर्ड प्रदान करणे जे सुनिश्चित करतात की शेतकरी सर्वात फायदेशीर वेळी विक्री करतील.",
+
+        c3Title: "आम्हाला का निवडावे?",
+        c3Sub: "वैज्ञानिक पीक चक्र",
+        c3Desc: "आम्ही नफ्याच्या पलीकडे जातो. आमचे AI मॉडेल्स दीर्घकालीन माती पुनरुत्पादन आणि इष्टतम पीक रोटेशन सुनिश्चित करतात जेणेकरून तुमची जमीन पिढ्यानपिढ्या उत्पादक राहील.",
+
+        ctaTitle: "आमच्या प्रवासात सामील व्हा",
+        ctaBold: "एकत्रितपणे शाश्वत भविष्य वाढवणे",
+        ctaText: "बुद्धिमान उपायांद्वारे शेतीमध्ये परिवर्तन घडवण्यासाठी आमच्यासोबत भागीदारी करा.",
+        ctaBtn: "संपर्क साधा"
+      },
+      Odia: {
+        heroTag: "ଏଆଇ ସହିତ କୃଷିରେ ନବସୃଜନ",
+        heroTitle: "ଆମ ବିଷୟରେ",
+        heroSub: "ଅମଳ ପରବର୍ତ୍ତୀ କ୍ଷତି କମାଇବା ଏବଂ ଉତ୍ତମ ଭବିଷ୍ୟତ ପାଇଁ ସ୍ଥାୟୀ ଚାଷକୁ ପ୍ରୋତ୍ସାହିତ କରିବା ପାଇଁ କୃତ୍ରିମ ବୁଦ୍ଧିମତ୍ତା ଏବଂ କୃଷିର ମିଶ୍ରଣ |",
+
+        c1Title: "ଆମର ଲକ୍ଷ୍ୟ",
+        c1Sub: "ନଷ୍ଟ କମାନ୍ତୁ, ମାଟି ସୁଧାରନ୍ତୁ",
+        c1Desc: "ନଷ୍ଟ ହେବାର ଆଶଙ୍କା ପୂର୍ବାନୁମାନ କରିବା ଏବଂ ଫସଲ ଯୋଜନାକୁ ଅପ୍ଟିମାଇଜ୍ କରି କୃଷକମାନଙ୍କୁ ସଶକ୍ତ କରିବା | ଆମେ ଏଆଇ ବ୍ୟବହାର କରୁଛୁ।",
+
+        c2Title: "ଦୃଷ୍ଟିକୋଣ",
+        c2Sub: "ବଜାର ତଥ୍ୟ",
+        c2Desc: "ବଜାର ଚାହିଦା ଏବଂ ମୂଲ୍ୟ ଧାରାକୁ ଏକତ୍ର କରି କୃଷକମାନଙ୍କୁ ଉପଯୁକ୍ତ ସମୟରେ ବିକ୍ରି କରିବାରେ ସାହାଯ୍ୟ କରିବା।",
+
+        c3Title: "ଆମକୁ କାହିଁକି ବାଛିବେ?",
+        c3Sub: "ବୈଜ୍ଞାନିକ ଫସଲ ପର୍ଯ୍ୟାୟ",
+        c3Desc: "ଆମର ଏଆଇ ମଡେଲ୍ ଦୀର୍ଘକାଳୀନ ମାଟି ପୁନରୁଦ୍ଧାର ଏବଂ ସର୍ବୋତ୍ତମ ଫସଲ ପର୍ଯ୍ୟାୟ ନିଶ୍ଚିତ କରେ ଯାହା ଦ୍ୱାରା ଆପଣଙ୍କ ଜମି ପିଢି ପିଢି ଧରି ଉତ୍ପାଦନକ୍ଷମ ରହିବ |",
+
+        ctaTitle: "ଆମର ଯାତ୍ରାରେ ସାମିଲ ହୁଅନ୍ତୁ",
+        ctaBold: "ଏକତ୍ର ଏକ ସ୍ଥାୟୀ ଭବିଷ୍ୟତ ଗଢିବା",
+        ctaText: "ବୁଦ୍ଧିମାନ ସମାଧାନ ମାଧ୍ୟମରେ କୃଷିକୁ ରୂପାନ୍ତର କରିବାକୁ ଆମ ସହିତ ସହଭାଗୀ ହୁଅନ୍ତୁ |",
+        ctaBtn: "ଯୋଗାଯୋଗ କରନ୍ତୁ"
+      },
+      Telugu: {
+        heroTag: "AI తో వ్యవసాయంలో ఆవిష్కరణ",
+        heroTitle: "మా గురించి",
+        heroSub: "పంట కోత తర్వాత నష్టాన్ని తగ్గించడానికి మరియు మెరుగైన భవిష్యత్తు కోసం స్థిరమైన వ్యవసాయాన్ని ప్రోత్సహించడానికి ఆర్టిఫిషియల్ ఇంటెలిజెన్స్ మరియు వ్యవసాయం కలయిక.",
+
+        c1Title: "మా లక్ష్యం",
+        c1Sub: "చెడిపోవడాన్ని తగ్గించండి, నేలను పునరుద్ధరించండి",
+        c1Desc: "చెడిపోయే నష్టాలను అంచనా వేయడం మరియు పంట ప్రణాళికను ఆప్టిమైజ్ చేయడం ద్వారా రైతులను సాధికారపరచడం. పంట కోత తర్వాత వ్యర్థాలను తగ్గించడానికి మరియు దీర్ఘకాలిక భూమి ఉత్పాదకతను నిర్ధారించడానికి మేము AIని ఉపయోగిస్తాము.",
+
+        c2Title: "దృష్టి",
+        c2Sub: "మార్కెట్ ఇంటెలిజెన్స్",
+        c2Desc: "రైతులు అత్యంత లాభదాయకమైన సమయంలో విక్రయించేలా నిర్ధారించే రిస్క్-అవగాహన నిర్ణయ డాష్‌బోర్డ్‌లను అందించడానికి మార్కెట్ డిమాండ్ మరియు ధరల అస్థిరత పోకడలను సమగ్రపరచడం.",
+
+        c3Title: "మమ్మల్ని ఎందుకు ఎంచుకోవాలి?",
+        c3Sub: "శాస్త్రీయ భ్రమణం",
+        c3Desc: "మేము లాభానికి మించి వెళ్తాము. మా AI నమూనాలు దీర్ఘకాలిక నేల పునరుత్పత్తి మరియు సరైన పంట భ్రమణాన్ని నిర్ధారిస్తాయి, తద్వారా మీ భూమి తరతరాలుగా ఉత్పాదకంగా ఉంటుంది.",
+
+        ctaTitle: "మా ప్రయాణంలో చేరండి",
+        ctaBold: "కలిసి స్థిరమైన భవిష్యత్తును పెంచుకుందాం",
+        ctaText: "తెలివైన పరిష్కారాల ద్వారా వ్యవసాయాన్ని మార్చడానికి మాతో భాగస్వామి అవ్వండి.",
+        ctaBtn: "మమ్మల్ని సంప్రదించండి"
+      }
+    };
+
+    function changeLanguage() {
+      const lang = document.getElementById("languageSelect") ? document.getElementById("languageSelect").value : "English";
+      const t = translations[lang];
+
+      // Hero Section
+      document.querySelector(".pill-tag").innerText = t.heroTag;
+      document.querySelector(".hero-content h1").innerText = t.heroTitle;
+      document.querySelector(".hero-subtext").innerText = t.heroSub;
+
+      // Cards Section
+      const cards = document.querySelectorAll(".glass-card");
+      if (cards.length >= 3) {
+        // Card 1
+        cards[0].querySelector("h3").innerText = t.c1Title;
+        cards[0].querySelector(".green-title").innerText = t.c1Sub;
+        cards[0].querySelector(".description").innerText = t.c1Desc;
+        // Card 2
+        cards[1].querySelector("h3").innerText = t.c2Title;
+        cards[1].querySelector(".green-title").innerText = t.c2Sub;
+        cards[1].querySelector(".description").innerText = t.c2Desc;
+        // Card 3
+        cards[2].querySelector("h3").innerText = t.c3Title;
+        cards[2].querySelector(".green-title").innerText = t.c3Sub;
+        cards[2].querySelector(".description").innerText = t.c3Desc;
+      }
+
+      // CTA Section
+      document.querySelector(".cta-content h2").innerText = t.ctaTitle;
+      document.querySelector(".cta-bold").innerText = t.ctaBold;
+      document.querySelector(".cta-text").innerText = t.ctaText;
+      document.querySelector(".btn-white").innerText = t.ctaBtn;
+    }
+
+    // Initialize default language on load if the dropdown exists
+    window.onload = () => {
+      if (document.getElementById("languageSelect")) {
+        changeLanguage();
+      }
+    }
+  </script>
+</body>
+
 </html>

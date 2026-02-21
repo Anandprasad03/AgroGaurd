@@ -503,6 +503,14 @@
       <span>Agroguard</span>
     </div>
     <nav class="nav-links">
+      <select id="languageSelect" onchange="changeLanguage()"
+        style="padding: 8px 12px; border-radius: 8px; border: 2px solid var(--primary); background: #f7fafc; color: var(--primary-dark); font-weight: 600; font-size: 14px; cursor: pointer; outline: none;">
+        <option value="English">🇬🇧 English</option>
+        <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+        <option value="Marathi">🇮🇳 Marathi (मराठी)</option>
+        <option value="Odia">🇮🇳 Odia (ଓଡ଼ିଆ)</option>
+        <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+      </select>
       <a href="index.html">Home</a>
       <a href="predict.html" target="_blank">Predict</a>
       <a href="price_prediction.html" target="_blank">Market</a>
@@ -671,22 +679,25 @@
     let myChart = null;
 
     async function generatePlan() {
+      const selectedLanguage = document.getElementById("languageSelect") ? document.getElementById("languageSelect").value : "English";
+
       const payload = {
         last_crop: document.getElementById("last_crop").value,
         region: document.getElementById("region").value,
         soil_type: document.getElementById("soil_type").value,
         rainfall: document.getElementById("rainfall").value,
         season: document.getElementById("season").value,
+        language: selectedLanguage // Sending language to API
       };
 
       if (!payload.last_crop) return alert("Please enter the previous crop.");
 
-      // UI Transitions
       document.getElementById("input-card").style.display = "none";
       document.getElementById("loader").style.display = "block";
       document.getElementById("result").style.display = "none";
 
       try {
+        // Ensure this matches your FastAPI server port!
         const res = await fetch("http://127.0.0.1:8000/crop_planner", {
           method: "POST",
           headers: {
@@ -695,7 +706,6 @@
           body: JSON.stringify(payload),
         });
 
-        // Added Explicit Error Check for Validation Failures
         if (res.status === 422) {
           throw new Error("Input validation failed. Please ensure your inputs are not too long.");
         }
@@ -707,16 +717,13 @@
         document.getElementById("loader").style.display = "none";
         document.getElementById("result").style.display = "block";
 
-        // Update Text
-        document.getElementById("score-text").innerText =
-          `${result.soil_score}/100`;
+        document.getElementById("score-text").innerText = `${result.soil_score}/100`;
 
-        let md = `### 🚜 Recommended: ${result.recommended_crops.join(", ")}\n\n`;
-        md += `**Reasoning:** ${result.reasoning}\n\n---\n\n`;
+        let md = `### 🚜 ${getTranslation("recCrops")}: ${result.recommended_crops.join(", ")}\n\n`;
+        md += `**${getTranslation("reasoning")}:** ${result.reasoning}\n\n---\n\n`;
         md += result.rotation_advice;
         document.getElementById("ai-output").innerHTML = marked.parse(md);
 
-        // Update Chart
         if (myChart) myChart.destroy();
         myChart = new Chart(document.getElementById("soilChart"), {
           type: "doughnut",
@@ -745,6 +752,142 @@
     function resetForm() {
       document.getElementById("result").style.display = "none";
       document.getElementById("input-card").style.display = "block";
+    }
+
+    // --- FULL LANGUAGE TRANSLATION LOGIC ---
+    const translations = {
+      English: {
+        title: "AI Crop Planner",
+        desc: "Optimize your rotation for better yield and soil health",
+        lastCropLabel: "Last Harvested Crop",
+        lastCropPlaceholder: "e.g. Wheat, Rice",
+        regionLabel: "Region",
+        regionPlaceholder: "e.g. Punjab",
+        soilLabel: "Soil Type",
+        rainLabel: "Rainfall Level",
+        seasonLabel: "Current Season",
+        btnText: " Generate Rotation Plan",
+        replanBtn: "Plan Another Cycle",
+        recCrops: "Recommended",
+        reasoning: "Reasoning"
+      },
+      Hindi: {
+        title: "एआई फसल योजनाकार",
+        desc: "बेहतर उपज और मिट्टी के स्वास्थ्य के लिए रोटेशन को अनुकूलित करें",
+        lastCropLabel: "पिछली काटी गई फसल",
+        lastCropPlaceholder: "उदा. गेहूं, चावल",
+        regionLabel: "क्षेत्र",
+        regionPlaceholder: "उदा. पंजाब",
+        soilLabel: "मिट्टी का प्रकार",
+        rainLabel: "वर्षा का स्तर",
+        seasonLabel: "वर्तमान मौसम",
+        btnText: " रोटेशन योजना बनाएं",
+        replanBtn: "एक और चक्र की योजना बनाएं",
+        recCrops: "अनुशंसित",
+        reasoning: "कारण"
+      },
+      Marathi: {
+        title: "एआय पीक नियोजक",
+        desc: "उत्तम उत्पादन आणि मातीच्या आरोग्यासाठी रोटेशन ऑप्टिमाइझ करा",
+        lastCropLabel: "मागील काढलेले पीक",
+        lastCropPlaceholder: "उदा. गहू, तांदूळ",
+        regionLabel: "प्रदेश",
+        regionPlaceholder: "उदा. पंजाब",
+        soilLabel: "मातीचा प्रकार",
+        rainLabel: "पावसाची पातळी",
+        seasonLabel: "सध्याचा हंगाम",
+        btnText: " रोटेशन योजना तयार करा",
+        replanBtn: "दुसऱ्या चक्राची योजना करा",
+        recCrops: "शिफारस केलेले",
+        reasoning: "कारण"
+      },
+      Odia: {
+        title: "ଏଆଇ ଫସଲ ଯୋଜନାକାରୀ",
+        desc: "ଉନ୍ନତ ଅମଳ ଏବଂ ମାଟିର ସ୍ୱାସ୍ଥ୍ୟ ପାଇଁ ଆପଣଙ୍କର ରୋଟେସନ୍ ଅପ୍ଟିମାଇଜ୍ କରନ୍ତୁ",
+        lastCropLabel: "ପୂର୍ବରୁ ଅମଳ ହୋଇଥିବା ଫସଲ",
+        lastCropPlaceholder: "ଉଦା. ଗହମ, ଚାଉଳ",
+        regionLabel: "ଅଞ୍ଚଳ",
+        regionPlaceholder: "ଉଦା. ପଞ୍ଜାବ",
+        soilLabel: "ମାଟିର ପ୍ରକାର",
+        rainLabel: "ବୃଷ୍ଟିପାତ ସ୍ତର",
+        seasonLabel: "ବର୍ତ୍ତମାନର ଋତୁ",
+        btnText: " ରୋଟେସନ୍ ଯୋଜନା ପ୍ରସ୍ତୁତ କରନ୍ତୁ",
+        replanBtn: "ଅନ୍ୟ ଏକ ଚକ୍ର ଯୋଜନା କରନ୍ତୁ",
+        recCrops: "ପରାମର୍ଶିତ",
+        reasoning: "କାରଣ"
+      },
+      Telugu: {
+        title: "AI పంట ప్లానర్",
+        desc: "మెరుగైన దిగుబడి మరియు నేల ఆరోగ్యం కోసం మీ రొటేషన్‌ను ఆప్టిమైజ్ చేయండి",
+        lastCropLabel: "గతంలో కోసిన పంట",
+        lastCropPlaceholder: "ఉదా. గోధుమ, వరి",
+        regionLabel: "ప్రాంతం",
+        regionPlaceholder: "ఉదా. పంజాబ్",
+        soilLabel: "నేల రకం",
+        rainLabel: "వర్షపాతం స్థాయి",
+        seasonLabel: "ప్రస్తుత సీజన్",
+        btnText: " రొటేషన్ ప్లాన్‌ను రూపొందించండి",
+        replanBtn: "మరొక చక్రాన్ని ప్లాన్ చేయండి",
+        recCrops: "సిఫార్సు చేయబడినవి",
+        reasoning: "కారణం"
+      }
+    };
+
+    function getTranslation(key) {
+      const lang = document.getElementById("languageSelect") ? document.getElementById("languageSelect").value : "English";
+      return translations[lang][key];
+    }
+
+    function changeLanguage() {
+      const lang = document.getElementById("languageSelect").value;
+      const t = translations[lang];
+
+      // Update Title & Desc
+      document.querySelector(".card-header h2").innerHTML = `🌱 ${t.title}`;
+      document.querySelector(".card-header p").innerText = t.desc;
+
+      // Update Button
+      const generateBtn = document.querySelector(".btn-primary.full");
+      if (generateBtn) {
+        generateBtn.innerHTML = `<i class="fas fa-lightbulb"></i> ${t.btnText}`;
+      }
+
+      const replanBtns = document.querySelectorAll(".btn-primary");
+      replanBtns.forEach(btn => {
+        if (btn.innerText.includes("Plan Another") || btn.innerText.includes("योजना") || btn.innerText.includes("ଯୋଜନା") || btn.innerText.includes("ప్లాన్")) {
+          btn.innerText = t.replanBtn;
+        }
+      });
+
+      // Helper function for inputs
+      const updateField = (inputId, labelKey, placeholderKey) => {
+        const inputEl = document.getElementById(inputId);
+        if (inputEl) {
+          if (placeholderKey) inputEl.placeholder = t[placeholderKey];
+          const labelEl = inputEl.parentElement.previousElementSibling;
+          if (labelEl && labelEl.tagName.toLowerCase() === 'label') {
+            labelEl.innerText = t[labelKey];
+          }
+        }
+      };
+
+      updateField("last_crop", "lastCropLabel", "lastCropPlaceholder");
+      updateField("region", "regionLabel", "regionPlaceholder");
+      updateField("soil_type", "soilLabel", null);
+      updateField("rainfall", "rainLabel", null);
+      updateField("season", "seasonLabel", null);
+
+      // THE MAGIC FIX: Auto-update AI results if they are already visible!
+      if (document.getElementById("result").style.display === "block") {
+        generatePlan();
+      }
+    }
+
+    // Initialize default language on load
+    window.onload = () => {
+      if (document.getElementById("languageSelect")) {
+        changeLanguage();
+      }
     }
   </script>
 </body>

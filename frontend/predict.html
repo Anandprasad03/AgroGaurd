@@ -574,6 +574,14 @@
       <span>Agroguard</span>
     </div>
     <nav class="nav-links">
+      <select id="languageSelect" onchange="changeLanguage()"
+        style="padding: 8px 12px; border-radius: 8px; border: 2px solid var(--primary); background: #f7fafc; color: var(--primary-dark); font-weight: 600; font-size: 14px; cursor: pointer; outline: none;">
+        <option value="English">🇬🇧 English</option>
+        <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+        <option value="Marathi">🇮🇳 Marathi (मराठी)</option>
+        <option value="Odia">🇮🇳 Odia (ଓଡ଼ିଆ)</option>
+        <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+      </select>
       <a href="index.html">Home</a>
       <a href="predict.html" class="active" target="_blank">Predict</a>
       <a href="price_prediction.html" target="_blank">Market</a>
@@ -804,10 +812,12 @@
       const crop_type = document.getElementById("crop_type").value;
       if (!crop_type) return alert("Please enter the crop type.");
 
+      const selectedLanguage = document.getElementById("languageSelect").value;
+
       const payload = {
         action_type: currentAction,
         crop_type: crop_type,
-        // Grab numbers, default to 0 if empty
+        language: selectedLanguage,
         temperature: parseFloat(document.getElementById("temperature").value) || 0,
         humidity: parseFloat(document.getElementById("humidity").value) || 0,
         storage_type: document.getElementById("storage_type").value,
@@ -827,9 +837,8 @@
           body: JSON.stringify(payload)
         });
 
-        // ADDED: Catch FastAPI Validation Errors explicitly
         if (res.status === 422) {
-          throw new Error("Input validation failed. Please check for excessive text lengths or invalid numbers (e.g., negative humidity).");
+          throw new Error("Input validation failed. Please check for excessive text lengths or invalid numbers.");
         }
 
         if (!res.ok) throw new Error("Server Error");
@@ -838,26 +847,18 @@
         document.getElementById("loader").style.display = "none";
         document.getElementById("result").style.display = "block";
 
-        // 1. Render Gauge Chart
         renderGauge(data.risk_score, data.risk_level);
-
-        // 2. Cross Advice
         document.getElementById("cross-advice-text").innerHTML = marked.parse(data.cross_advice);
-
-        // 3. Main Analysis
         document.getElementById("ai-analysis").innerHTML = marked.parse(data.analysis);
 
-        // 4. Logistics Section Update
         if (currentAction === "Sell" || data.top_routes !== "N/A") {
           document.getElementById("logistics-section").style.display = "block";
           document.getElementById("ai-logistics").innerHTML = marked.parse(data.logistics_recommendation);
           document.getElementById("route-text").innerText = data.top_routes;
           document.getElementById("transit-days").innerText = data.average_transit_days;
           document.getElementById("route-temp").innerText = data.estimated_temp;
-
           renderLogisticsChart(data.logistics_viability);
         } else {
-          // Hide logistics deeply if just storing and AI didn't return route info
           document.getElementById("logistics-section").style.display = "none";
         }
 
@@ -873,9 +874,9 @@
       const ctx = document.getElementById("riskGauge").getContext("2d");
       if (gaugeChart) gaugeChart.destroy();
 
-      let color = "#2f855a"; // Green
-      if (score > 40) color = "#dd6b20"; // Orange
-      if (score > 70) color = "#c53030"; // Red
+      let color = "#2f855a";
+      if (score > 40) color = "#dd6b20";
+      if (score > 70) color = "#c53030";
 
       document.getElementById("gauge-center-text").innerText = score + "%";
       document.getElementById("gauge-center-text").style.color = color;
@@ -884,23 +885,9 @@
         type: "doughnut",
         data: {
           labels: ["Risk", "Safe"],
-          datasets: [{
-            data: [score, 100 - score],
-            backgroundColor: [color, "#edf2f7"],
-            borderWidth: 0,
-            circumference: 180,
-            rotation: 270
-          }]
+          datasets: [{ data: [score, 100 - score], backgroundColor: [color, "#edf2f7"], borderWidth: 0, circumference: 180, rotation: 270 }]
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          cutout: "80%",
-          plugins: {
-            legend: { display: false },
-            tooltip: { enabled: false }
-          }
-        }
+        options: { responsive: true, maintainAspectRatio: false, cutout: "80%", plugins: { legend: { display: false }, tooltip: { enabled: false } } }
       });
     }
 
@@ -908,50 +895,16 @@
       const ctx3 = document.getElementById("logisticsChart").getContext("2d");
       if (logisticsChartInstance) logisticsChartInstance.destroy();
 
-      const transportModes = Object.keys(logisticsData || {
-        "Refrigerated": 90,
-        "Standard": 30,
-        "Rail": 50
-      });
-      const viabilities = Object.values(logisticsData || {
-        "Refrigerated": 90,
-        "Standard": 30,
-        "Rail": 50
-      });
+      const transportModes = Object.keys(logisticsData || { "Refrigerated": 90, "Standard": 30, "Rail": 50 });
+      const viabilities = Object.values(logisticsData || { "Refrigerated": 90, "Standard": 30, "Rail": 50 });
 
       logisticsChartInstance = new Chart(ctx3, {
         type: "bar",
         data: {
           labels: transportModes,
-          datasets: [{
-            label: "Viability Score (%)",
-            data: viabilities,
-            backgroundColor: ["#38b2ac", "#2b6cb0", "#ecc94b"],
-            borderRadius: 6,
-            borderWidth: 0
-          }]
+          datasets: [{ label: "Viability Score (%)", data: viabilities, backgroundColor: ["#38b2ac", "#2b6cb0", "#ecc94b"], borderRadius: 6, borderWidth: 0 }]
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
-              grid: { color: "#e2e8f0" },
-              title: {
-                display: true,
-                text: 'Viability/Safety Score (%)'
-              }
-            },
-            x: {
-              grid: { display: false }
-            }
-          },
-          plugins: {
-            legend: { display: false }
-          }
-        }
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, max: 100, grid: { color: "#e2e8f0" }, title: { display: true, text: 'Viability/Safety Score (%)' } }, x: { grid: { display: false } } }, plugins: { legend: { display: false } } }
       });
     }
 
@@ -960,8 +913,152 @@
       document.getElementById("input-card").style.display = "block";
     }
 
-    // Initialize toggle on load
-    window.onload = () => setAction('Store');
+    // --- FULL LANGUAGE TRANSLATION LOGIC ---
+    const translations = {
+      English: {
+        title: "Spoilage Risk Predictor",
+        storeBtn: " I Want to Store",
+        sellBtn: " I Want to Sell/Transport",
+        analyzeBtn: " Analyze AI Risk",
+        cropLabel: "Crop / Produce",
+        cropPlaceholder: "e.g. Tomatoes, Apples",
+        tempLabel: "Storage Temperature (°C)",
+        tempPlaceholder: "e.g. 24",
+        humLabel: "Storage Humidity (%)",
+        humPlaceholder: "e.g. 60",
+        storageLabel: "Storage Type",
+        daysLabel: "Expected Days to Store",
+        daysPlaceholder: "e.g. 14",
+        locLabel: "Current Location",
+        locPlaceholder: "e.g. Farm, Nashik",
+        destLabel: "Selling Destination",
+        destPlaceholder: "e.g. Mumbai Market"
+      },
+      Hindi: {
+        title: "खराब होने की भविष्यवाणी और रणनीति",
+        storeBtn: " मैं इसे स्टोर करना चाहता हूँ",
+        sellBtn: " मैं बेचना/परिवहन करना चाहता हूँ",
+        analyzeBtn: " एआई जोखिम का विश्लेषण करें",
+        cropLabel: "फसल / उपज",
+        cropPlaceholder: "उदा. टमाटर, सेब",
+        tempLabel: "भंडारण तापमान (°C)",
+        tempPlaceholder: "उदा. 24",
+        humLabel: "भंडारण आर्द्रता (%)",
+        humPlaceholder: "उदा. 60",
+        storageLabel: "भंडारण प्रकार",
+        daysLabel: "भंडारण के संभावित दिन",
+        daysPlaceholder: "उदा. 14",
+        locLabel: "वर्तमान स्थान",
+        locPlaceholder: "उदा. खेत, नासिक",
+        destLabel: "बिक्री गंतव्य",
+        destPlaceholder: "उदा. मुंबई बाज़ार"
+      },
+      Marathi: {
+        title: "खराब होण्याची शक्यता आणि धोरण",
+        storeBtn: " मला साठवून ठेवायचे आहे",
+        sellBtn: " मला विकायचे/वाहतूक करायची आहे",
+        analyzeBtn: " एआय धोक्याचे विश्लेषण करा",
+        cropLabel: "पीक / उत्पादन",
+        cropPlaceholder: "उदा. टोमॅटो, सफरचंद",
+        tempLabel: "साठवण तापमान (°C)",
+        tempPlaceholder: "उदा. 24",
+        humLabel: "साठवण आर्द्रता (%)",
+        humPlaceholder: "उदा. 60",
+        storageLabel: "साठवणीचा प्रकार",
+        daysLabel: "साठवणीचे अंदाजित दिवस",
+        daysPlaceholder: "उदा. 14",
+        locLabel: "सध्याचे ठिकाण",
+        locPlaceholder: "उदा. शेत, नाशिक",
+        destLabel: "विक्रीचे ठिकाण",
+        destPlaceholder: "उदा. मुंबई मार्केट"
+      },
+      Odia: {
+        title: "ନଷ୍ଟ ପୂର୍ବାନୁମାନ ଏବଂ ରଣନୀତି",
+        storeBtn: " ମୁଁ ସଂରକ୍ଷଣ କରିବାକୁ ଚାହୁଁଛି",
+        sellBtn: " ମୁଁ ବିକ୍ରି/ପରିବହନ କରିବାକୁ ଚାହୁଁଛି",
+        analyzeBtn: " ଏଆଇ ବିପଦ ବିଶ୍ଳେଷଣ କରନ୍ତୁ",
+        cropLabel: "ଫସଲ / ଉତ୍ପାଦ",
+        cropPlaceholder: "ଉଦା. ଟମାଟୋ, ସେଓ",
+        tempLabel: "ସଂରକ୍ଷଣ ତାପମାତ୍ରା (°C)",
+        tempPlaceholder: "ଉଦା. 24",
+        humLabel: "ସଂରକ୍ଷଣ ଆର୍ଦ୍ରତା (%)",
+        humPlaceholder: "ଉଦା. 60",
+        storageLabel: "ସଂରକ୍ଷଣ ପ୍ରକାର",
+        daysLabel: "ସଂରକ୍ଷଣର ସମ୍ଭାବ୍ୟ ଦିନ",
+        daysPlaceholder: "ଉଦା. 14",
+        locLabel: "ବର୍ତ୍ତମାନର ସ୍ଥାନ",
+        locPlaceholder: "ଉଦା. ଫାର୍ମ, ନାସିକ",
+        destLabel: "ବିକ୍ରୟ ଗନ୍ତବ୍ୟସ୍ଥଳ",
+        destPlaceholder: "ଉଦା. ମୁମ୍ବାଇ ମାର୍କେଟ"
+      },
+      Telugu: {
+        title: "చెడిపోయే ముందస్తు అంచనా & వ్యూహం",
+        storeBtn: " నేను నిల్వ చేయాలనుకుంటున్నాను",
+        sellBtn: " నేను అమ్మాలనుకుంటున్నాను/రవాణా చేయాలనుకుంటున్నాను",
+        analyzeBtn: " AI ప్రమాదాన్ని విశ్లేషించండి",
+        cropLabel: "పంట / ఉత్పత్తి",
+        cropPlaceholder: "ఉదా. టొమాటోలు, ఆపిల్స్",
+        tempLabel: "నిల్వ ఉష్ణోగ్రత (°C)",
+        tempPlaceholder: "ఉదా. 24",
+        humLabel: "నిల్వ తేమ (%)",
+        humPlaceholder: "ఉదా. 60",
+        storageLabel: "నిల్వ రకం",
+        daysLabel: "నిల్వ చేయడానికి ఆశించిన రోజులు",
+        daysPlaceholder: "ఉదా. 14",
+        locLabel: "ప్రస్తుత ప్రదేశం",
+        locPlaceholder: "ఉదా. వ్యవసాయ క్షేత్రం, నాసిక్",
+        destLabel: "అమ్మకపు గమ్యం",
+        destPlaceholder: "ఉదా. ముంబై మార్కెట్"
+      }
+    };
+
+    function changeLanguage() {
+      const lang = document.getElementById("languageSelect").value;
+      const t = translations[lang];
+
+      // 1. Update Headings & Buttons (Preserving FontAwesome Icons)
+      document.querySelector(".card-header h2").innerHTML = `🛡️ ${t.title}`;
+      document.getElementById("btn-store").innerHTML = `<i class="fas fa-warehouse"></i> ${t.storeBtn}`;
+      document.getElementById("btn-sell").innerHTML = `<i class="fas fa-truck"></i> ${t.sellBtn}`;
+
+      const analyzeBtn = document.querySelector(".btn-primary");
+      if (analyzeBtn && !analyzeBtn.innerHTML.includes("Another")) {
+        analyzeBtn.innerHTML = `<i class="fas fa-brain"></i> ${t.analyzeBtn}`;
+      }
+
+      // 2. Helper function to update input placeholders and labels seamlessly
+      const updateField = (inputId, labelKey, placeholderKey) => {
+        const inputEl = document.getElementById(inputId);
+        if (inputEl) {
+          if (placeholderKey) inputEl.placeholder = t[placeholderKey];
+          // Navigate up to the wrapper and grab the label above it
+          const labelEl = inputEl.parentElement.previousElementSibling;
+          if (labelEl && labelEl.tagName.toLowerCase() === 'label') {
+            labelEl.innerText = t[labelKey];
+          }
+        }
+      };
+
+      // 3. Apply translations to all form fields
+      updateField("crop_type", "cropLabel", "cropPlaceholder");
+      updateField("temperature", "tempLabel", "tempPlaceholder");
+      updateField("humidity", "humLabel", "humPlaceholder");
+      updateField("storage_type", "storageLabel", null);
+      updateField("days_stored", "daysLabel", "daysPlaceholder");
+      updateField("current_location", "locLabel", "locPlaceholder");
+      updateField("selling_destination", "destLabel", "destPlaceholder");
+
+      // 4. THE MAGIC FIX: Auto-update AI results if they are already visible
+      if (document.getElementById("result").style.display === "block") {
+        predictSpoilage();
+      }
+    }
+    
+    // Initialize toggle and apply default language on load
+    window.onload = () => {
+      setAction('Store');
+      changeLanguage();
+    }
   </script>
 </body>
 

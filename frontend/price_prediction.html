@@ -516,6 +516,14 @@
       <span>Agroguard</span>
     </div>
     <nav class="nav-links">
+      <select id="languageSelect" onchange="changeLanguage()"
+        style="padding: 8px 12px; border-radius: 8px; border: 2px solid var(--primary); background: #f7fafc; color: var(--primary-dark); font-weight: 600; font-size: 14px; cursor: pointer; outline: none;">
+        <option value="English">🇬🇧 English</option>
+        <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+        <option value="Marathi">🇮🇳 Marathi (मराठी)</option>
+        <option value="Odia">🇮🇳 Odia (ଓଡ଼ିଆ)</option>
+        <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+      </select>
       <a href="index.html">Home</a>
       <a href="predict.html" target="_blank">Predict</a>
       <a href="price_prediction.html" class="active" target="_blank">Market</a>
@@ -718,17 +726,22 @@
       if (!crop || !location) return alert("Please fill in the Crop and Location fields.");
       if (!cost_price) cost_price = 0; // default if left empty
 
+      const selectedLanguage = document.getElementById("languageSelect") ? document.getElementById("languageSelect").value : "English";
+
       const payload = {
         crop: crop,
         cost_price: parseFloat(cost_price),
         location: location,
         month: document.getElementById("month").value,
         market_level: document.getElementById("market_level").value,
-        product_type: document.getElementById("product_type").value
+        product_type: document.getElementById("product_type").value,
+        language: selectedLanguage // Added Language Field
       };
 
       document.getElementById("input-card").style.display = "none";
       document.getElementById("loader").style.display = "block";
+      // Hide results while loading again
+      document.getElementById("result").style.display = "none";
 
       try {
         const res = await fetch("http://127.0.0.1:8000/price", {
@@ -737,7 +750,6 @@
           body: JSON.stringify(payload)
         });
 
-        // Catch FastAPI Validation Errors
         if (res.status === 422) {
           throw new Error("Input validation failed. Please check for excessive text or negative costs.");
         }
@@ -748,15 +760,13 @@
         document.getElementById("loader").style.display = "none";
         document.getElementById("result").style.display = "block";
 
-        // Set Top Metrics
         document.getElementById("val-price").innerText = `${data.currency} ${data.predicted_price}`;
         document.getElementById("val-profit").innerText = `${data.currency} ${data.predicted_profit}`;
 
-        // Render AI Markdown
         document.getElementById("ai-analysis").innerHTML = marked.parse(data.analysis || "No analysis available.");
         document.getElementById("ai-logistics").innerHTML = marked.parse(data.logistics_advice || "No logistics advice available.");
 
-        // Render Chart
+        // Re-render chart, which will now use translated Top 10 Names from API
         renderChart(data.top_10_names, data.top_10_prices, data.top_10_profits, data.currency);
 
       } catch (error) {
@@ -832,6 +842,137 @@
       document.getElementById("result").style.display = "none";
       document.getElementById("loader").style.display = "none";
       document.getElementById("input-card").style.display = "block";
+    }
+
+    // --- FULL LANGUAGE TRANSLATION LOGIC ---
+    const translations = {
+      English: {
+        title: "Market Price Predictor",
+        desc: "Find the best markets and estimate your profit margins",
+        cropLabel: "Crop / Produce",
+        cropPlaceholder: "e.g. Tomatoes, Apples",
+        costLabel: "Your Cost Price",
+        costPlaceholder: "Cost per Unit/Kg",
+        locLabel: "Origin Location",
+        locPlaceholder: "e.g. Nashik, California",
+        monthLabel: "Selling Month",
+        marketLabel: "Market Scope",
+        typeLabel: "Product Type",
+        btnText: " Analyze Market Opportunities",
+        checkAnotherBtn: " Check Another Crop"
+      },
+      Hindi: {
+        title: "बाजार मूल्य भविष्यवक्ता",
+        desc: "सर्वश्रेष्ठ बाजार खोजें और अपने लाभ मार्जिन का अनुमान लगाएं",
+        cropLabel: "फसल / उपज",
+        cropPlaceholder: "उदा. टमाटर, सेब",
+        costLabel: "आपकी लागत मूल्य",
+        costPlaceholder: "प्रति इकाई/किलो लागत",
+        locLabel: "मूल स्थान",
+        locPlaceholder: "उदा. नासिक, कैलिफोर्निया",
+        monthLabel: "बिक्री का महीना",
+        marketLabel: "बाजार का दायरा",
+        typeLabel: "उत्पाद का प्रकार",
+        btnText: " बाजार के अवसरों का विश्लेषण करें",
+        checkAnotherBtn: " दूसरी फसल की जाँच करें"
+      },
+      Marathi: {
+        title: "बाजारभाव अंदाजपत्रक",
+        desc: "सर्वोत्तम बाजारपेठा शोधा आणि तुमच्या नफ्याचा अंदाज घ्या",
+        cropLabel: "पीक / उत्पादन",
+        cropPlaceholder: "उदा. टोमॅटो, सफरचंद",
+        costLabel: "तुमची मूळ किंमत",
+        costPlaceholder: "प्रति युनिट/किलो खर्च",
+        locLabel: "मूळ ठिकाण",
+        locPlaceholder: "उदा. नाशिक, कॅलिफोर्निया",
+        monthLabel: "विक्रीचा महिना",
+        marketLabel: "बाजारपेठेची व्याप्ती",
+        typeLabel: "उत्पादनाचा प्रकार",
+        btnText: " बाजारातील संधींचे विश्लेषण करा",
+        checkAnotherBtn: " दुसरे पीक तपासा"
+      },
+      Odia: {
+        title: "ବଜାର ମୂଲ୍ୟ ପୂର୍ବାନୁମାନ",
+        desc: "ସର୍ବୋତ୍ତମ ବଜାର ଖୋଜନ୍ତୁ ଏବଂ ଆପଣଙ୍କର ଲାଭର ଅନୁମାନ କରନ୍ତୁ",
+        cropLabel: "ଫସଲ / ଉତ୍ପାଦ",
+        cropPlaceholder: "ଉଦା. ଟମାଟୋ, ସେଓ",
+        costLabel: "ଆପଣଙ୍କର ମୂଳ ଦାମ୍",
+        costPlaceholder: "ପ୍ରତି ୟୁନିଟ୍/କିଲୋଗ୍ରାମ୍ ମୂଲ୍ୟ",
+        locLabel: "ଉତ୍ପତ୍ତି ସ୍ଥାନ",
+        locPlaceholder: "ଉଦା. ନାସିକ, କାଲିଫର୍ଣ୍ଣିଆ",
+        monthLabel: "ବିକ୍ରୟ ମାସ",
+        marketLabel: "ବଜାର ପରିସର",
+        typeLabel: "ଉତ୍ପାଦର ପ୍ରକାର",
+        btnText: " ବଜାର ସୁଯୋଗର ବିଶ୍ଳେଷଣ କରନ୍ତୁ",
+        checkAnotherBtn: " ଅନ୍ୟ ଏକ ଫସଲ ଯାଞ୍ଚ କରନ୍ତୁ"
+      },
+      Telugu: {
+        title: "మార్కెట్ ధర అంచనా",
+        desc: "ఉత్తమ మార్కెట్లను కనుగొనండి మరియు మీ లాభాల మార్జిన్‌లను అంచనా వేయండి",
+        cropLabel: "పంట / ఉత్పత్తి",
+        cropPlaceholder: "ఉదా. టొమాటోలు, ఆపిల్స్",
+        costLabel: "మీ ఖర్చు ధర",
+        costPlaceholder: "యూనిట్/కిలోకు ఖర్చు",
+        locLabel: "మూల ప్రదేశం",
+        locPlaceholder: "ఉదా. నాసిక్, కాలిఫోర్నియా",
+        monthLabel: "అమ్మకం నెల",
+        marketLabel: "మార్కెట్ పరిధి",
+        typeLabel: "ఉత్పత్తి రకం",
+        btnText: " మార్కెట్ అవకాశాలను విశ్లేషించండి",
+        checkAnotherBtn: " మరొక పంటను తనిఖీ చేయండి"
+      }
+    };
+
+    function changeLanguage() {
+      const lang = document.getElementById("languageSelect").value;
+      const t = translations[lang];
+
+      // Title & Description
+      document.querySelector(".card-header h2").innerHTML = `📈 ${t.title}`;
+      document.querySelector(".card-header p").innerText = t.desc;
+
+      // Primary Button
+      const analyzeBtn = document.querySelector(".btn-primary:not(.btn-secondary)");
+      if (analyzeBtn) {
+        analyzeBtn.innerHTML = `<i class="fas fa-search-dollar"></i> ${t.btnText}`;
+      }
+
+      // Secondary Button
+      const checkAnotherBtn = document.querySelector(".btn-secondary");
+      if (checkAnotherBtn) {
+        checkAnotherBtn.innerHTML = `<i class="fas fa-redo"></i> ${t.checkAnotherBtn}`;
+      }
+
+      // Input helper
+      const updateField = (inputId, labelKey, placeholderKey) => {
+        const inputEl = document.getElementById(inputId);
+        if (inputEl) {
+          if (placeholderKey) inputEl.placeholder = t[placeholderKey];
+          const labelEl = inputEl.parentElement.previousElementSibling;
+          if (labelEl && labelEl.tagName.toLowerCase() === 'label') {
+            labelEl.innerText = t[labelKey];
+          }
+        }
+      };
+
+      updateField("crop", "cropLabel", "cropPlaceholder");
+      updateField("cost_price", "costLabel", "costPlaceholder");
+      updateField("location", "locLabel", "locPlaceholder");
+      updateField("month", "monthLabel", null);
+      updateField("market_level", "marketLabel", null);
+      updateField("product_type", "typeLabel", null);
+
+      // THE MAGIC FIX: Auto-update AI results if they are already visible!
+      if (document.getElementById("result").style.display === "block") {
+        predictPrice();
+      }
+    }
+
+    // Initialize default language on load
+    window.onload = () => {
+      if (document.getElementById("languageSelect")) {
+        changeLanguage();
+      }
     }
   </script>
 </body>

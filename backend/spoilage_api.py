@@ -12,13 +12,13 @@ SPOILAGE_CACHE = {}
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-# Using the stable model version
+# Keeping your requested model version
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key={GEMINI_API_KEY}"
 
-# ADDED: Pydantic Field validation for robust input handling
 class SpoilageInput(BaseModel):
     action_type: str = Field(..., max_length=20, description="Store or Sell")
     crop_type: str = Field(..., max_length=50, description="Name of the crop")
+    language: str = Field("English", max_length=20, description="User's preferred language") # ADDED LANGUAGE FIELD
     # Store-specific fields
     temperature: float = Field(0.0, ge=-50, le=100, description="Temperature in Celsius")
     humidity: float = Field(0.0, ge=0, le=100, description="Humidity percentage")
@@ -30,13 +30,12 @@ class SpoilageInput(BaseModel):
 
 @router.post("/predict")
 def predict_spoilage(data: SpoilageInput):
-    cache_key = f"{data.action_type}-{data.crop_type}-{round(data.temperature, 1)}-{round(data.humidity, 1)}-{data.storage_type}-{data.days_stored}-{data.current_location}-{data.selling_destination}"
+    cache_key = f"{data.action_type}-{data.crop_type}-{round(data.temperature, 1)}-{round(data.humidity, 1)}-{data.storage_type}-{data.days_stored}-{data.current_location}-{data.selling_destination}-{data.language}"
     
     if cache_key in SPOILAGE_CACHE:
-        print(f"⚡ Serving Spoilage Data from Cache: {cache_key}")
+        print(f"⚡ Serving Spoilage Data from Cache")
         return SPOILAGE_CACHE[cache_key]
 
-    # Dynamically build prompt based on Action Type
     if data.action_type == "Store":
         context = f"""
         Action: STORE
@@ -48,11 +47,11 @@ def predict_spoilage(data: SpoilageInput):
         """
         requirements = """
         Focus heavily on storage longevity, fungal/bacterial risk, and exact ventilation/cooling needs.
-        Output MUST include "risk_score" (0-100), "risk_level" (Low/Medium/High), "cross_advice" (Should they sell instead? Keep it brief), "analysis" (Markdown format), "logistics_recommendation" (N/A for Store).
+        Output MUST include "risk_score" (0-100), "risk_level" (Low/Medium/High), "cross_advice", "analysis" (Markdown format), "logistics_recommendation" (N/A for Store).
         Set "top_routes" to "N/A", "average_transit_days" to 0, "estimated_temp" to the input temp, and "estimated_humidity" to the input humidity.
-        Provide a "logistics_viability" dictionary with transport modes as keys (e.g., "Refrigerated", "Standard") and percentage viability (0-100) as values (even if storing, what *would* be viable if they sold).
+        Provide a "logistics_viability" dictionary with transport modes as keys (e.g., "Refrigerated", "Standard") and percentage viability (0-100) as values.
         """
-    else: # Sell
+    else: 
         context = f"""
         Action: SELL / TRANSPORT
         Crop: {data.crop_type}
@@ -61,10 +60,10 @@ def predict_spoilage(data: SpoilageInput):
         """
         requirements = """
         Focus heavily on transit time, road conditions, climate changes during transport, and best vehicle types.
-        Output MUST include "risk_score" (0-100), "risk_level" (Low/Medium/High), "cross_advice" (Should they store instead? Keep it brief), "analysis" (Markdown format), "logistics_recommendation" (Markdown format).
+        Output MUST include "risk_score" (0-100), "risk_level" (Low/Medium/High), "cross_advice", "analysis" (Markdown format), "logistics_recommendation" (Markdown format).
         Provide a string for "top_routes" (list format).
-        Provide integers/floats for "average_transit_days", "estimated_temp", and "estimated_humidity" (guess the climate along the route).
-        Provide a "logistics_viability" dictionary with transport modes as keys (e.g., "Refrigerated", "Standard", "Rail") and percentage viability (0-100) as values.
+        Provide integers/floats for "average_transit_days", "estimated_temp", and "estimated_humidity".
+        Provide a "logistics_viability" dictionary with transport modes as keys and percentage viability (0-100) as values.
         """
 
     prompt = f"""
@@ -72,6 +71,10 @@ def predict_spoilage(data: SpoilageInput):
     {context}
     
     {requirements}
+
+    IMPORTANT LANGUAGE INSTRUCTION:
+    Translate ALL text values in the JSON (like 'cross_advice', 'analysis', 'logistics_recommendation', and 'top_routes') into {data.language}. 
+    Do NOT translate the JSON keys (keep them exactly as "risk_score", "analysis", etc.).
     
     RETURN ONLY JSON:
     {{
@@ -88,23 +91,24 @@ def predict_spoilage(data: SpoilageInput):
     }}
     """
 
-    # ADDED: Enforce strict JSON output from Gemini
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {
-            "responseMimeType": "application/json"
-        }
+        "generationConfig": {"responseMimeType": "application/json"}
     }
 
     try:
         response = requests.post(GEMINI_URL, json=payload)
         res_json = response.json()
         
+        print(f"RAW GOOGLE RESPONSE: {res_json}") # Helps debug if API fails
+        
+        if "error" in res_json:
+             raise Exception(f"Google API Error: {res_json['error'].get('message', res_json['error'])}")
+        
         if "candidates" not in res_json:
-            raise Exception("Invalid AI Response")
+            raise Exception(f"Invalid AI Response. Raw JSON: {res_json}")
             
         ai_text = res_json["candidates"][0]["content"]["parts"][0]["text"]
-        
         clean_text = re.sub(r"```json|```", "", ai_text).strip()
         result_json = json.loads(clean_text)
         
@@ -113,22 +117,16 @@ def predict_spoilage(data: SpoilageInput):
 
     except Exception as e:
         print(f"⚠️ Spoilage AI Error: {e}")
-        # Advanced Fallback Logic based on raw inputs
+        # Fallback logic
         eval_temp = data.temperature if data.action_type == "Store" else 28.0
         eval_hum = data.humidity if data.action_type == "Store" else 65.0
-        
-        score = 30
-        level = "Low"
-        cross_msg = "Conditions seem standard."
+        score, level, cross_msg = 30, "Low", "Conditions seem standard."
         
         if eval_temp > 30 or eval_hum > 85:
-            score = 85
-            level = "High"
-            if data.action_type == "Store":
-                cross_msg = "⚠️ **STRATEGIC WARNING:** Conditions are extremely harsh for storing. You should strongly consider **Selling** immediately or utilizing advanced cold-chain transport."
+            score, level = 85, "High"
+            if data.action_type == "Store": cross_msg = "⚠️ Conditions are extremely harsh for storing. Consider Selling immediately."
         elif eval_temp > 25 or (data.action_type == "Store" and data.days_stored > 7):
-            score = 55
-            level = "Medium"
+            score, level = 55, "Medium"
 
         return {
             "risk_score": score,
@@ -136,7 +134,7 @@ def predict_spoilage(data: SpoilageInput):
             "cross_advice": cross_msg,
             "analysis": f"### ⚠️ AI Connection Issue\n**Using offline estimation.**\n- **Estimated Risk:** {level} ({score}%)\n- **Advice:** Evaluate local conditions carefully.",
             "logistics_recommendation": "### 🚚 Offline Logistics\n- Ensure temperature control.\n- Avoid moisture accumulation.",
-            "top_routes": "1. Main Highway (Fastest - ~2 Days)\n2. Standard Rail (Economical - ~4 Days)\n3. Local Distributors (~1 Day)" if data.action_type == "Sell" else "N/A",
+            "top_routes": "1. Main Highway\n2. Standard Rail" if data.action_type == "Sell" else "N/A",
             "average_transit_days": 3 if data.action_type == "Sell" else 0,
             "estimated_temp": 28.0 if data.action_type == "Sell" else 0,
             "estimated_humidity": 65.0 if data.action_type == "Sell" else 0,

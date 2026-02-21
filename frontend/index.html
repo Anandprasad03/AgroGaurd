@@ -1,485 +1,724 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agroguard | Smart Farming</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets\style.css" />
-  </head>
 
-  <body>
-    <header class="navbar">
-      <div class="logo">
-        <img src="assets/logo.png" alt="Logo" />
-        <span>Agroguard</span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agroguard | Smart Farming</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets\style.css" />
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+      <span>Agroguard</span>
+    </div>
+    <nav class="nav-links">
+      <select id="languageSelect" onchange="changeLanguage()"
+        style="padding: 6px 10px; border-radius: 8px; border: 2px solid var(--primary); background: #f7fafc; color: var(--primary-dark); font-weight: 600; font-size: 14px; cursor: pointer; outline: none; margin-left: 15px;">
+        <option value="English">🇬🇧 English</option>
+        <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+        <option value="Marathi">🇮🇳 Marathi (मराठी)</option>
+        <option value="Odia">🇮🇳 Odia (ଓଡ଼ିଆ)</option>
+        <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+      </select>
+      <a href="index.html" class="active">Home</a>
+      <a href="predict.html" target="_blank">Predict</a>
+      <a href="price_prediction.html" target="_blank">Market</a>
+      <a href="crop_planner.html" target="_blank">Planner</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <video autoplay muted loop playsinline>
+        <source src="assets/bg_video.mp4" type="video/mp4" />
+      </video>
+
+      <div class="hero-content">
+        <h1>
+          Farming for the future <br />needs a <span>whole new</span> kind of
+          power
+        </h1>
+        <p>Agroguard Cloud - smart agriculture powered by AI.</p>
+        <a href="predict.html" class="hero-btn">Explore Agroguard</a>
       </div>
-      <nav class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="predict.html" target="_blank">Predict</a>
-        <a href="price_prediction.html" target="_blank">Market</a>
-        <a href="crop_planner.html" target="_blank">Planner</a>
-        <a href="about.html">About</a>
-      </nav>
-    </header>
+    </section>
 
-    <main>
-      <section class="hero">
-        <video autoplay muted loop playsinline>
-          <source src="assets/bg_video.mp4" type="video/mp4" />
-        </video>
+    <section class="stats">
+      <h2>We're not just another agri-tech company</h2>
+      <p>Smart agriculture impact in numbers</p>
 
-        <div class="hero-content">
-          <h1>
-            Farming for the future <br />needs a <span>whole new</span> kind of
-            power
-          </h1>
-          <p>Agroguard Cloud - smart agriculture powered by AI.</p>
-          <a href="predict.html" class="hero-btn">Explore Agroguard</a>
-        </div>
-      </section>
-
-      <section class="stats">
-        <h2>We're not just another agri-tech company</h2>
-        <p>Smart agriculture impact in numbers</p>
-
-        <div class="stats-grid">
-          <div class="stat">
-            <span class="count" data-target="90">0</span
-            ><span class="unit">%</span>
-            <p style="margin: 0; margin-top: 10px; font-weight: 600">
-              Reduction in Spoilage
-            </p>
-          </div>
-
-          <div class="stat">
-            <span class="count" data-target="60">0</span
-            ><span class="unit">%</span>
-            <p style="margin: 0; margin-top: 10px; font-weight: 600">
-              Logistics Accuracy
-            </p>
-          </div>
-
-          <div class="stat">
-            <span class="count" data-target="85">0</span
-            ><span class="unit">%</span>
-            <p style="margin: 0; margin-top: 10px; font-weight: 600">
-              Price Prediction Accuracy
-            </p>
-          </div>
-
-          <div class="stat">
-            <span class="count" data-target="30">0</span
-            ><span class="unit">%</span>
-            <p style="margin: 0; margin-top: 10px; font-weight: 600">
-              Profit Increase
-            </p>
-          </div>
-
-          <div class="stat">
-            <span class="count" data-target="75">0</span
-            ><span class="unit">%</span>
-            <p style="margin: 0; margin-top: 10px; font-weight: 600">
-              Better Soil Health
-            </p>
-          </div>
-        </div>
-      </section>
-      <section class="value">
-        <h2 class="diagram-title">Unlocking value with Digitization & AI</h2>
-        <div class="diagram">
-          <img src="assets\bg_img.png" class="bg" alt="diagram" />
-
-          <div class="label l1">
-            <img
-              src="assets/png's/sprinkler.png"
-              alt=""
-              class="value_label_png"
-            />Yield & quality improvement
-          </div>
-          <div class="label l2">
-            <img
-              src="assets/png's/corn.png"
-              alt=""
-              class="value_label_png"
-            />Crop loss management
-          </div>
-          <div class="label l3">
-            <img src="assets/png's/farmhouse.png" class="value_label_png" />
-            Manage market or price volatility
-          </div>
-          <div class="label l4">
-            <img src="assets/png's/hands.png" alt="" class="value_label_png" />
-            Resilient sourcing
-          </div>
-          <div class="label l5">
-            <img
-              src="assets/png's/lighting.png"
-              alt=""
-              class="value_label_png"
-            />Ensure regenerative & sustainable practices
-          </div>
-          <div class="label l6">
-            <img
-              src="assets/png's/sustainable.png"
-              alt=""
-              class="value_label_png"
-            />Ensure traceability, certification & compliance
-          </div>
-          <div class="label l7">
-            <img
-              src="assets/png's/organic.png"
-              alt=""
-              class="value_label_png"
-            />Building climate resilience
-          </div>
-          <div class="label l8">
-            <img
-              src="assets/png's/plant-pot.png"
-              alt=""
-              class="value_label_png"
-            />Ensure risk coverage & access to finance
-          </div>
-          <div class="label l9">
-            <img
-              src="assets/png's/soil-health.png"
-              alt=""
-              class="value_label_png"
-            />Chain efficiency
-          </div>
-          <div class="label l10">
-            <img
-              src="assets/png's/tea.png"
-              alt=""
-              class="value_label_png"
-            />Surety of supply
-          </div>
-          <div class="label l11">
-            <img
-              src="assets/png's/tractor.png"
-              alt=""
-              class="value_label_png"
-            />Market Expansion
-          </div>
-        </div>
-      </section>
-
-      <section class="why-choose-us">
-        <div class="section-header">
-          <span class="jury-badge"
-            ><i class="fa-solid fa-award"></i> The Competitive Edge</span
-          >
-          <h2>Why Agroguard Leads the Future</h2>
-          <p>
-            Transitioning from traditional guesswork to a scalable, AI-driven
-            agricultural ecosystem.
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="count" data-target="90">0</span><span class="unit">%</span>
+          <p style="margin: 0; margin-top: 10px; font-weight: 600">
+            Reduction in Spoilage
           </p>
         </div>
 
-        <div class="table-container">
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th>Evaluation Criteria</th>
-                <th class="traditional-col">
-                  Traditional Farming / Basic Apps
-                </th>
-                <th class="highlight-col">
-                  <img
-                    src="assets/logo.png"
-                    alt="Logo"
-                    style="
+        <div class="stat">
+          <span class="count" data-target="60">0</span><span class="unit">%</span>
+          <p style="margin: 0; margin-top: 10px; font-weight: 600">
+            Logistics Accuracy
+          </p>
+        </div>
+
+        <div class="stat">
+          <span class="count" data-target="85">0</span><span class="unit">%</span>
+          <p style="margin: 0; margin-top: 10px; font-weight: 600">
+            Price Prediction Accuracy
+          </p>
+        </div>
+
+        <div class="stat">
+          <span class="count" data-target="30">0</span><span class="unit">%</span>
+          <p style="margin: 0; margin-top: 10px; font-weight: 600">
+            Profit Increase
+          </p>
+        </div>
+
+        <div class="stat">
+          <span class="count" data-target="75">0</span><span class="unit">%</span>
+          <p style="margin: 0; margin-top: 10px; font-weight: 600">
+            Better Soil Health
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="value">
+      <h2 class="diagram-title">Unlocking value with Digitization & AI</h2>
+      <div class="diagram">
+        <img src="assets\bg_img.png" class="bg" alt="diagram" />
+
+        <div class="label l1">
+          <img src="assets/png's/sprinkler.png" alt="" class="value_label_png" />Yield & quality improvement
+        </div>
+        <div class="label l2">
+          <img src="assets/png's/corn.png" alt="" class="value_label_png" />Crop loss management
+        </div>
+        <div class="label l3">
+          <img src="assets/png's/farmhouse.png" class="value_label_png" />
+          Manage market or price volatility
+        </div>
+        <div class="label l4">
+          <img src="assets/png's/hands.png" alt="" class="value_label_png" />
+          Resilient sourcing
+        </div>
+        <div class="label l5">
+          <img src="assets/png's/lighting.png" alt="" class="value_label_png" />Ensure regenerative & sustainable
+          practices
+        </div>
+        <div class="label l6">
+          <img src="assets/png's/sustainable.png" alt="" class="value_label_png" />Ensure traceability, certification &
+          compliance
+        </div>
+        <div class="label l7">
+          <img src="assets/png's/organic.png" alt="" class="value_label_png" />Building climate resilience
+        </div>
+        <div class="label l8">
+          <img src="assets/png's/plant-pot.png" alt="" class="value_label_png" />Ensure risk coverage & access to
+          finance
+        </div>
+        <div class="label l9">
+          <img src="assets/png's/soil-health.png" alt="" class="value_label_png" />Chain efficiency
+        </div>
+        <div class="label l10">
+          <img src="assets/png's/tea.png" alt="" class="value_label_png" />Surety of supply
+        </div>
+        <div class="label l11">
+          <img src="assets/png's/tractor.png" alt="" class="value_label_png" />Market Expansion
+        </div>
+      </div>
+    </section>
+
+    <section class="why-choose-us">
+      <div class="section-header">
+        <span class="jury-badge"><i class="fa-solid fa-award"></i> The Competitive Edge</span>
+        <h2>Why Agroguard Leads the Future</h2>
+        <p>
+          Transitioning from traditional guesswork to a scalable, AI-driven
+          agricultural ecosystem.
+        </p>
+      </div>
+
+      <div class="table-container">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Evaluation Criteria</th>
+              <th class="traditional-col">
+                Traditional Farming / Basic Apps
+              </th>
+              <th class="highlight-col">
+                <img src="assets/logo.png" alt="Logo" style="
                       width: 26px;
                       vertical-align: middle;
                       margin-right: 8px;
                       border-radius: 50%;
-                    "
-                  />
-                  Agroguard AI Suite
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="feature-name">
-                  <i class="fa-solid fa-brain"></i> Core Intelligence
-                </td>
-                <td class="traditional-col">
-                  <i class="fa-solid fa-xmark bad-icon"></i> Relies on static
-                  data and intuition
-                </td>
-                <td class="highlight-col">
-                  <i class="fa-solid fa-check good-icon"></i>
-                  <strong>Generative AI </strong> contextual insights
-                </td>
-              </tr>
-              <tr>
-                <td class="feature-name">
-                  <i class="fa-solid fa-seedling"></i> Sustainability & SDGs
-                </td>
-                <td class="traditional-col">
-                  <i class="fa-solid fa-xmark bad-icon"></i> Chemical overuse &
-                  soil degradation
-                </td>
-                <td class="highlight-col">
-                  <i class="fa-solid fa-check good-icon"></i>
-                  <strong>Climate-Smart</strong> crop rotation & soil health
-                </td>
-              </tr>
-              <tr>
-                <td class="feature-name">
-                  <i class="fa-solid fa-coins"></i> Economic Impact
-                </td>
-                <td class="traditional-col">
-                  <i class="fa-solid fa-xmark bad-icon"></i> Reactive selling &
-                  high post-harvest waste
-                </td>
-                <td class="highlight-col">
-                  <i class="fa-solid fa-check good-icon"></i>
-                  <strong>Maximized ROI</strong> via predictive market pricing
-                </td>
-              </tr>
-              <tr>
-                <td class="feature-name">
-                  <i class="fa-solid fa-truck-fast"></i> Supply Chain /
-                  Logistics
-                </td>
-                <td class="traditional-col">
-                  <i class="fa-solid fa-xmark bad-icon"></i> Fixed shelf-life
-                  assumptions
-                </td>
-                <td class="highlight-col">
-                  <i class="fa-solid fa-check good-icon"></i>
-                  <strong>Real-time</strong> spoilage risk & urgency alerts
-                </td>
-              </tr>
-              <tr>
-                <td class="feature-name">
-                  <i class="fa-solid fa-mobile-screen"></i> Accessibility
-                </td>
-                <td class="traditional-col">
-                  <i class="fa-solid fa-xmark bad-icon"></i> Scattered tools
-                  requiring expert knowledge
-                </td>
-                <td class="highlight-col">
-                  <i class="fa-solid fa-check good-icon"></i>
-                  <strong>Unified Dashboard</strong> with readable markdown
-                  reports
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+                    " />
+                Agroguard AI Suite
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-name">
+                <i class="fa-solid fa-brain"></i> Core Intelligence
+              </td>
+              <td class="traditional-col">
+                <i class="fa-solid fa-xmark bad-icon"></i> Relies on static
+                data and intuition
+              </td>
+              <td class="highlight-col">
+                <i class="fa-solid fa-check good-icon"></i>
+                <strong>Generative AI </strong> contextual insights
+              </td>
+            </tr>
+            <tr>
+              <td class="feature-name">
+                <i class="fa-solid fa-seedling"></i> Sustainability & SDGs
+              </td>
+              <td class="traditional-col">
+                <i class="fa-solid fa-xmark bad-icon"></i> Chemical overuse &
+                soil degradation
+              </td>
+              <td class="highlight-col">
+                <i class="fa-solid fa-check good-icon"></i>
+                <strong>Climate-Smart</strong> crop rotation & soil health
+              </td>
+            </tr>
+            <tr>
+              <td class="feature-name">
+                <i class="fa-solid fa-coins"></i> Economic Impact
+              </td>
+              <td class="traditional-col">
+                <i class="fa-solid fa-xmark bad-icon"></i> Reactive selling &
+                high post-harvest waste
+              </td>
+              <td class="highlight-col">
+                <i class="fa-solid fa-check good-icon"></i>
+                <strong>Maximized ROI</strong> via predictive market pricing
+              </td>
+            </tr>
+            <tr>
+              <td class="feature-name">
+                <i class="fa-solid fa-truck-fast"></i> Supply Chain /
+                Logistics
+              </td>
+              <td class="traditional-col">
+                <i class="fa-solid fa-xmark bad-icon"></i> Fixed shelf-life
+                assumptions
+              </td>
+              <td class="highlight-col">
+                <i class="fa-solid fa-check good-icon"></i>
+                <strong>Real-time</strong> spoilage risk & urgency alerts
+              </td>
+            </tr>
+            <tr>
+              <td class="feature-name">
+                <i class="fa-solid fa-mobile-screen"></i> Accessibility
+              </td>
+              <td class="traditional-col">
+                <i class="fa-solid fa-xmark bad-icon"></i> Scattered tools
+                requiring expert knowledge
+              </td>
+              <td class="highlight-col">
+                <i class="fa-solid fa-check good-icon"></i>
+                <strong>Unified Dashboard</strong> with readable markdown
+                reports
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-      <section class="challenges">
-        <h2>Challenges We Solve</h2>
+    <section class="challenges">
+      <h2>Challenges We Solve</h2>
 
-        <div class="challenge-grid">
-          <div class="challenge-card">
-            <h3>Unpredictable Spoilage</h3>
-            <p>
-              Farmers lack tools to estimate how long crops will remain fresh,
-              leading to unnecessary waste.
-            </p>
-          </div>
-
-          <div class="challenge-card">
-            <h3>Inefficient Logistics</h3>
-            <p>
-              Delayed or poorly planned transportation causes crops to rot
-              before reaching markets.
-            </p>
-          </div>
-
-          <div class="challenge-card">
-            <h3>Unreliable Market Demand</h3>
-            <p>
-              Farmers sell without knowing future demand or price trends,
-              resulting in distress sales.
-            </p>
-          </div>
-
-          <div class="challenge-card">
-            <h3>Soil Degradation</h3>
-            <p>
-              Continuous cultivation of the same crops reduces nutrients and
-              increases pest risk.
-            </p>
-          </div>
-
-          <div class="challenge-card">
-            <h3>Poor Storage Decision-Making</h3>
-            <p>
-              Farmers choose storage methods without scientific guidance,
-              leading to unsuitable conditions and higher spoilage.
-            </p>
-          </div>
-
-          <div class="challenge-card">
-            <h3>Disconnected Planning</h3>
-            <p>
-              Crop selection, storage, and selling are planned separately,
-              increasing risk and reducing overall efficiency.
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!--top going button-->
-    <button id="scrollTopBtn">
-      <img
-        src="assets\png's\scroll_top_arrow.png"
-        alt=""
-        width="250px"
-        height="250px"
-      />
-    </button>
-
-    <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-about">
-          <h3>Agroguard</h3>
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h3>Unpredictable Spoilage</h3>
           <p>
-            AI-powered agriculture platform focused on reducing post-harvest
-            losses and enabling sustainable crop planning.
+            Farmers lack tools to estimate how long crops will remain fresh,
+            leading to unnecessary waste.
           </p>
         </div>
 
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <a href="index.html">Home</a>
-          <a href="predict.html">Predict</a>
-          <a href="price_prediction.html">Market</a>
-          <a href="crop_planner.html">Planner</a>
-          <a href="about.html">About</a>
+        <div class="challenge-card">
+          <h3>Inefficient Logistics</h3>
+          <p>
+            Delayed or poorly planned transportation causes crops to rot
+            before reaching markets.
+          </p>
         </div>
 
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <p><i class="fa-solid fa-envelope"></i> gietuinnovatex@gmail.com</p>
-          <p><i class="fa-solid fa-location-dot"></i> India</p>
+        <div class="challenge-card">
+          <h3>Unreliable Market Demand</h3>
+          <p>
+            Farmers sell without knowing future demand or price trends,
+            resulting in distress sales.
+          </p>
         </div>
 
-        <div class="footer-team">
-          <h4>Team</h4>
+        <div class="challenge-card">
+          <h3>Soil Degradation</h3>
+          <p>
+            Continuous cultivation of the same crops reduces nutrients and
+            increases pest risk.
+          </p>
+        </div>
 
-          <div class="person">
-            <span>Anand Prasad</span>
-            <a href="https://github.com/Anandprasad03" target="_blank"
-              ><i class="fa-brands fa-github"></i
-            ></a>
-            <a href="https://www.linkedin.com/in/anandprasad03" target="_blank"
-              ><i class="fa-brands fa-linkedin"></i
-            ></a>
-          </div>
+        <div class="challenge-card">
+          <h3>Poor Storage Decision-Making</h3>
+          <p>
+            Farmers choose storage methods without scientific guidance,
+            leading to unsuitable conditions and higher spoilage.
+          </p>
+        </div>
 
-          <div class="person">
-            <span>Ashmit Akhouri</span>
-            <a href="https://github.com/ashmit-akhouri" target="_blank"
-              ><i class="fa-brands fa-github"></i
-            ></a>
-            <a href="https://www.linkedin.com/in/ashmit-akhouri" target="_blank"
-              ><i class="fa-brands fa-linkedin"></i
-            ></a>
-          </div>
-
-          <div class="person">
-            <span>Sanjay Saw</span>
-            <a href="https://github.com/sanjaysawdev" target="_blank"
-              ><i class="fa-brands fa-github"></i
-            ></a>
-            <a href="https://www.linkedin.com/in/sanjaysawdev" target="_blank"
-              ><i class="fa-brands fa-linkedin"></i
-            ></a>
-          </div>
-
-          <div class="person">
-            <span>Tarak Nath Dey</span>
-            <a href="https://github.com/Tarak-Nath-Dey" target="_blank"
-              ><i class="fa-brands fa-github"></i
-            ></a>
-            <a
-              href="https://www.linkedin.com/in/tarak-nath-dey-tnd1002"
-              target="_blank"
-              ><i class="fa-brands fa-linkedin"></i
-            ></a>
-          </div>
+        <div class="challenge-card">
+          <h3>Disconnected Planning</h3>
+          <p>
+            Crop selection, storage, and selling are planned separately,
+            increasing risk and reducing overall efficiency.
+          </p>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 Agroguard. All rights reserved.</div>
-    </footer>
+    </section>
+  </main>
 
-    <script>
-      /* Counters Animation  */
-      document.addEventListener("DOMContentLoaded", () => {
-        const counters = document.querySelectorAll(".count");
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const counter = entry.target;
-                const target = +counter.dataset.target;
-                let current = 0;
-                const increment = target / 100;
+  <!--top going button-->
+  <button id="scrollTopBtn">
+    <img src="assets\png's\scroll_top_arrow.png" alt="" width="250px" height="250px" />
+  </button>
 
-                function update() {
-                  current += increment;
-                  if (current < target) {
-                    counter.textContent = Math.ceil(current);
-                    requestAnimationFrame(update);
-                  } else {
-                    counter.textContent = target;
-                  }
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>Agroguard</h3>
+        <p>
+          AI-powered agriculture platform focused on reducing post-harvest
+          losses and enabling sustainable crop planning.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="predict.html">Predict</a>
+        <a href="price_prediction.html">Market</a>
+        <a href="crop_planner.html">Planner</a>
+        <a href="about.html">About</a>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><i class="fa-solid fa-envelope"></i> gietuinnovatex@gmail.com</p>
+        <p><i class="fa-solid fa-location-dot"></i> India</p>
+      </div>
+
+      <div class="footer-team">
+        <h4>Team</h4>
+
+        <div class="person">
+          <span>Anand Prasad</span>
+          <a href="https://github.com/Anandprasad03" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/anandprasad03" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+
+        <div class="person">
+          <span>Ashmit Akhouri</span>
+          <a href="https://github.com/ashmit-akhouri" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/ashmit-akhouri" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+
+        <div class="person">
+          <span>Sanjay Saw</span>
+          <a href="https://github.com/sanjaysawdev" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/sanjaysawdev" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+
+        <div class="person">
+          <span>Tarak Nath Dey</span>
+          <a href="https://github.com/Tarak-Nath-Dey" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/tarak-nath-dey-tnd1002" target="_blank"><i
+              class="fa-brands fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Agroguard. All rights reserved.</div>
+  </footer>
+
+  <script>
+    /* Counters Animation  */
+    document.addEventListener("DOMContentLoaded", () => {
+      const counters = document.querySelectorAll(".count");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const counter = entry.target;
+              const target = +counter.dataset.target;
+              let current = 0;
+              const increment = target / 100;
+
+              function update() {
+                current += increment;
+                if (current < target) {
+                  counter.textContent = Math.ceil(current);
+                  requestAnimationFrame(update);
+                } else {
+                  counter.textContent = target;
                 }
-                update();
-                observer.unobserve(counter);
               }
-            });
-          },
-          { threshold: 0.5 },
-        );
-        counters.forEach((c) => observer.observe(c));
+              update();
+              observer.unobserve(counter);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      counters.forEach((c) => observer.observe(c));
 
-        /*  Cards Animation  */
-        const cards = document.querySelectorAll(".challenge-card");
-        const cardObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("animate");
-              }
-            });
-          },
-          { threshold: 0.2 },
-        );
-        cards.forEach((c) => cardObserver.observe(c));
-      });
-    </script>
+      /*  Cards Animation  */
+      const cards = document.querySelectorAll(".challenge-card");
+      const cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate");
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+      cards.forEach((c) => cardObserver.observe(c));
+    });
+  </script>
 
-    <!--scroll top button-->
-    <script>
-      const scrollBtn = document.getElementById("scrollTopBtn");
+  <!--scroll top button-->
+  <script>
+    const scrollBtn = document.getElementById("scrollTopBtn");
 
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 200) {
-          scrollBtn.style.display = "block";
-        } else {
-          scrollBtn.style.display = "none";
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) {
+        scrollBtn.style.display = "block";
+      } else {
+        scrollBtn.style.display = "none";
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+
+  <script>
+    const translations = {
+      English: {
+        heroTitle: "Farming for the future <br />needs a <span>whole new</span> kind of power",
+        heroSub: "Agroguard Cloud - smart agriculture powered by AI.",
+        heroBtn: "Explore Agroguard",
+
+        statsTitle: "We're not just another agri-tech company",
+        statsSub: "Smart agriculture impact in numbers",
+        stat1: "Reduction in Spoilage",
+        stat2: "Logistics Accuracy",
+        stat3: "Price Prediction Accuracy",
+        stat4: "Profit Increase",
+        stat5: "Better Soil Health",
+
+        valueTitle: "Unlocking value with Digitization & AI",
+        l1: " Yield & quality improvement",
+        l2: " Crop loss management",
+        l3: " Manage market or price volatility",
+        l4: " Resilient sourcing",
+        l5: " Ensure regenerative & sustainable practices",
+        l6: " Ensure traceability, certification & compliance",
+        l7: " Building climate resilience",
+        l8: " Ensure risk coverage & access to finance",
+        l9: " Chain efficiency",
+        l10: " Surety of supply",
+        l11: " Market Expansion",
+
+        whyTitle: "Why Agroguard Leads the Future",
+        whySub: "Transitioning from traditional guesswork to a scalable, AI-driven agricultural ecosystem.",
+
+        chalTitle: "Challenges We Solve",
+        c1Title: "Unpredictable Spoilage",
+        c1Desc: "Farmers lack tools to estimate how long crops will remain fresh, leading to unnecessary waste.",
+        c2Title: "Inefficient Logistics",
+        c2Desc: "Delayed or poorly planned transportation causes crops to rot before reaching markets.",
+        c3Title: "Unreliable Market Demand",
+        c3Desc: "Farmers sell without knowing future demand or price trends, resulting in distress sales.",
+        c4Title: "Soil Degradation",
+        c4Desc: "Continuous cultivation of the same crops reduces nutrients and increases pest risk.",
+        c5Title: "Poor Storage Decision-Making",
+        c5Desc: "Farmers choose storage methods without scientific guidance, leading to unsuitable conditions and higher spoilage.",
+        c6Title: "Disconnected Planning",
+        c6Desc: "Crop selection, storage, and selling are planned separately, increasing risk and reducing overall efficiency."
+      },
+      Hindi: {
+        heroTitle: "भविष्य की खेती के लिए <br />एक <span>बिल्कुल नई</span> शक्ति की आवश्यकता है",
+        heroSub: "एग्रोगार्ड क्लाउड - एआई द्वारा संचालित स्मार्ट कृषि।",
+        heroBtn: "एग्रोगार्ड एक्सप्लोर करें",
+
+        statsTitle: "हम केवल एक और एग्री-टेक कंपनी नहीं हैं",
+        statsSub: "स्मार्ट कृषि प्रभाव आँकड़ों में",
+        stat1: "खराब होने में कमी",
+        stat2: "लॉजिस्टिक्स सटीकता",
+        stat3: "मूल्य भविष्यवाणी सटीकता",
+        stat4: "लाभ में वृद्धि",
+        stat5: "बेहतर मिट्टी का स्वास्थ्य",
+
+        valueTitle: "डिजिटलीकरण और एआई के साथ मूल्य अनलॉक करना",
+        l1: " उपज और गुणवत्ता में सुधार",
+        l2: " फसल हानि प्रबंधन",
+        l3: " बाजार या मूल्य अस्थिरता का प्रबंधन",
+        l4: " लचीली सोर्सिंग",
+        l5: " पुनर्योजी और टिकाऊ प्रथाएं सुनिश्चित करें",
+        l6: " ट्रेसेबिलिटी और अनुपालन सुनिश्चित करें",
+        l7: " जलवायु लचीलापन निर्माण",
+        l8: " जोखिम कवरेज और वित्त पहुंच सुनिश्चित करें",
+        l9: " श्रृंखला दक्षता",
+        l10: " आपूर्ति की निश्चितता",
+        l11: " बाजार विस्तार",
+
+        whyTitle: "एग्रोगार्ड भविष्य का नेतृत्व क्यों करता है",
+        whySub: "पारंपरिक अनुमान से स्केलेबल, एआई-संचालित कृषि पारिस्थितिकी तंत्र में संक्रमण।",
+
+        chalTitle: "चुनौतियां जिन्हें हम हल करते हैं",
+        c1Title: "अप्रत्याशित खराबी",
+        c1Desc: "किसानों के पास फसल ताजा रहने का अनुमान लगाने के उपकरणों की कमी है, जिससे अनावश्यक बर्बादी होती है।",
+        c2Title: "अकुशल रसद",
+        c2Desc: "विलंबित या खराब नियोजित परिवहन के कारण फसलें बाजार पहुंचने से पहले ही सड़ जाती हैं।",
+        c3Title: "अविश्वसनीय बाजार मांग",
+        c3Desc: "भविष्य की मांग या मूल्य प्रवृत्तियों को जाने बिना बेचने से किसानों को मजबूरी में बिक्री करनी पड़ती है।",
+        c4Title: "मिट्टी का क्षरण",
+        c4Desc: "एक ही फसल की निरंतर खेती पोषक तत्वों को कम करती है और कीट जोखिम को बढ़ाती है।",
+        c5Title: "खराब भंडारण निर्णय",
+        c5Desc: "वैज्ञानिक मार्गदर्शन के बिना भंडारण के तरीकों को चुनने से अनुपयुक्त परिस्थितियां और अधिक खराबी होती है।",
+        c6Title: "असंगत योजना",
+        c6Desc: "फसल चयन, भंडारण और बिक्री की योजना अलग-अलग बनाई जाती है, जिससे जोखिम बढ़ता है और दक्षता कम होती है।"
+      },
+      Marathi: {
+        heroTitle: "भविष्यातील शेतीसाठी <br />एका <span>संपूर्ण नवीन</span> शक्तीची गरज आहे",
+        heroSub: "ॲग्रोगार्ड क्लाउड - एआय द्वारा समर्थित स्मार्ट कृषी.",
+        heroBtn: "ॲग्रोगार्ड एक्सप्लोर करा",
+
+        statsTitle: "आम्ही केवळ एक दुसरी ॲग्री-टेक कंपनी नाही",
+        statsSub: "आकडेवारीनुसार स्मार्ट शेतीचा प्रभाव",
+        stat1: "नासाडीत घट",
+        stat2: "लॉजिस्टिक्स अचूकता",
+        stat3: "किमतीचा अंदाज अचूकता",
+        stat4: "नफ्यात वाढ",
+        stat5: "मातीचे उत्तम आरोग्य",
+
+        valueTitle: "डिजिटायझेशन आणि एआय सह मूल्य अनलॉक करणे",
+        l1: " उत्पादन आणि गुणवत्ता सुधारणा",
+        l2: " पीक नुकसान व्यवस्थापन",
+        l3: " बाजार किंवा किंमत अस्थिरतेचे व्यवस्थापन",
+        l4: " लवचिक सोर्सिंग",
+        l5: " पुनरुत्पादक आणि टिकाऊ पद्धती सुनिश्चित करा",
+        l6: " शोधण्यायोग्यता आणि अनुपालन सुनिश्चित करा",
+        l7: " हवामान लवचिकता निर्माण",
+        l8: " जोखीम कव्हरेज आणि वित्त प्रवेश सुनिश्चित करा",
+        l9: " साखळी कार्यक्षमता",
+        l10: " पुरवठ्याची खात्री",
+        l11: " बाजार विस्तार",
+
+        whyTitle: "ॲग्रोगार्ड भविष्याचे नेतृत्व का करते",
+        whySub: "पारंपारिक अंदाजावरून स्केलेबल, एआय-चालित कृषी परिसंस्थेकडे संक्रमण.",
+
+        chalTitle: "आम्ही सोडवत असलेली आव्हाने",
+        c1Title: "अनपेक्षित नासाडी",
+        c1Desc: "पीक किती काळ ताजे राहील याचा अंदाज लावण्यासाठी शेतकऱ्यांकडे साधनांचा अभाव आहे, ज्यामुळे अनावश्यक कचरा होतो.",
+        c2Title: "अकार्यक्षम लॉजिस्टिक्स",
+        c2Desc: "विलंबित किंवा खराब नियोजन केलेल्या वाहतुकीमुळे पिके बाजारात पोहोचण्यापूर्वीच कुजतात.",
+        c3Title: "अविश्वसनीय बाजार मागणी",
+        c3Desc: "भविष्यातील मागणी किंवा किमतीचा कल न जाणता विक्री केल्याने शेतकऱ्यांचे मोठे नुकसान होते.",
+        c4Title: "मातीची धूप",
+        c4Desc: "एकाच पिकाची सतत लागवड केल्याने पोषक घटक कमी होतात आणि कीटकांचा धोका वाढतो.",
+        c5Title: "खराब साठवणूक निर्णय",
+        c5Desc: "वैज्ञानिक मार्गदर्शनाशिवाय साठवणुकीच्या पद्धती निवडल्यामुळे अयोग्य परिस्थिती निर्माण होते आणि अधिक नासाडी होते.",
+        c6Title: "विसंगतीपूर्ण नियोजन",
+        c6Desc: "पीक निवड, साठवणूक आणि विक्रीचे नियोजन स्वतंत्रपणे केले जाते, ज्यामुळे धोका वाढतो आणि कार्यक्षमता कमी होते."
+      },
+      Odia: {
+        heroTitle: "ଭବିଷ୍ୟତର ଚାଷ ପାଇଁ <br />ଏକ <span>ସମ୍ପୂର୍ଣ୍ଣ ନୂଆ</span> ଶକ୍ତି ଆବଶ୍ୟକ",
+        heroSub: "ଏଗ୍ରୋଗାର୍ଡ କ୍ଲାଉଡ୍ - ଏଆଇ ଦ୍ୱାରା ପରିଚାଳିତ ସ୍ମାର୍ଟ କୃଷି |",
+        heroBtn: "ଏଗ୍ରୋଗାର୍ଡ ଏକ୍ସପ୍ଲୋର୍ କରନ୍ତୁ",
+
+        statsTitle: "ଆମେ କେବଳ ଅନ୍ୟ ଏକ ଏଗ୍ରି-ଟେକ୍ କମ୍ପାନୀ ନୁହଁ",
+        statsSub: "ସଂଖ୍ୟାରେ ସ୍ମାର୍ଟ କୃଷିର ପ୍ରଭାବ",
+        stat1: "ନଷ୍ଟ ହ୍ରାସ",
+        stat2: "ଲଜିଷ୍ଟିକ୍ସ ସଠିକତା",
+        stat3: "ମୂଲ୍ୟ ପୂର୍ବାନୁମାନ ସଠିକତା",
+        stat4: "ଲାଭ ବୃଦ୍ଧି",
+        stat5: "ଉତ୍ତମ ମୃତ୍ତିକା ସ୍ୱାସ୍ଥ୍ୟ",
+
+        valueTitle: "ଡିଜିଟାଇଜେସନ୍ ଏବଂ ଏଆଇ ସହିତ ମୂଲ୍ୟ ଅନଲକ୍ କରିବା",
+        l1: " ଅମଳ ଏବଂ ଗୁଣବତ୍ତା ଉନ୍ନତି",
+        l2: " ଫସଲ କ୍ଷତି ପରିଚାଳନା",
+        l3: " ବଜାର କିମ୍ବା ମୂଲ୍ୟ ପରିବର୍ତ୍ତନର ପରିଚାଳନା",
+        l4: " ନମନୀୟ ସୋର୍ସିଂ",
+        l5: " ସ୍ଥାୟୀ ପ୍ରଣାଳୀ ନିଶ୍ଚିତ କରନ୍ତୁ",
+        l6: " ଅନୁପାଳନ ନିଶ୍ଚିତ କରନ୍ତୁ",
+        l7: " ଜଳବାୟୁ ସ୍ଥିରତା ନିର୍ମାଣ",
+        l8: " ବିପଦ କଭରେଜ୍ ଏବଂ ଅର୍ଥ ନିଶ୍ଚିତ କରନ୍ତୁ",
+        l9: " ଚେନ୍ ଦକ୍ଷତା",
+        l10: " ଯୋଗାଣର ନିଶ୍ଚିତତା",
+        l11: " ବଜାର ସମ୍ପ୍ରସାରଣ",
+
+        whyTitle: "ଏଗ୍ରୋଗାର୍ଡ କାହିଁକି ଭବିଷ୍ୟତର ନେତୃତ୍ୱ ନିଏ",
+        whySub: "ପାରମ୍ପାରିକ ଅନୁମାନରୁ ଏଆଇ-ଚାଳିତ କୃଷି ଇକୋସିଷ୍ଟମକୁ ପରିବର୍ତ୍ତନ |",
+
+        chalTitle: "ଆମେ ସମାଧାନ କରୁଥିବା ଆହ୍ୱାନଗୁଡିକ",
+        c1Title: "ଅପ୍ରତ୍ୟାଶିତ ନଷ୍ଟ",
+        c1Desc: "ଫସଲ କେତେ ସମୟ ସତେଜ ରହିବ ତାହା ଆକଳନ କରିବାକୁ କୃଷକମାନଙ୍କ ପାଖରେ ଉପକରଣର ଅଭାବ ରହିଛି, ଯାହା ଅଦରକାରୀ ବର୍ଜ୍ୟବସ୍ତୁ ସୃଷ୍ଟି କରେ |",
+        c2Title: "ଅକାର୍ଯ୍ୟକ୍ଷମ ଲଜିଷ୍ଟିକ୍ସ",
+        c2Desc: "ବିଳମ୍ବିତ କିମ୍ବା ଖରାପ ଯୋଜନାବଦ୍ଧ ପରିବହନ ହେତୁ ଫସଲ ବଜାରରେ ପହଞ୍ଚିବା ପୂର୍ବରୁ ପଚିଯାଏ |",
+        c3Title: "ଅବିଶ୍ୱସନୀୟ ବଜାର ଚାହିଦା",
+        c3Desc: "ଭବିଷ୍ୟତର ଚାହିଦା କିମ୍ବା ମୂଲ୍ୟ ଧାରା ନ ଜାଣି କୃଷକମାନେ ବିକ୍ରି କରନ୍ତି, ଯାହା କ୍ଷତିର କାରଣ ହୁଏ |",
+        c4Title: "ମୃତ୍ତିକା ଅବକ୍ଷୟ",
+        c4Desc: "ସମାନ ଫସଲର କ୍ରମାଗତ ଚାଷ ପୋଷକ ତତ୍ତ୍ୱ କମାଏ ଏବଂ କୀଟନାଶକ ଆଶଙ୍କା ବଢାଏ |",
+        c5Title: "ଖରାପ ସଂରକ୍ଷଣ ନିଷ୍ପତ୍ତି",
+        c5Desc: "ବୈଜ୍ଞାନିକ ମାର୍ଗଦର୍ଶନ ବିନା ସଂରକ୍ଷଣ ପଦ୍ଧତି ବାଛିବା ଅନୁପଯୁକ୍ତ ପରିସ୍ଥିତି ଏବଂ ଅଧିକ ନଷ୍ଟ ସୃଷ୍ଟି କରେ |",
+        c6Title: "ବିଚ୍ଛିନ୍ନ ଯୋଜନା",
+        c6Desc: "ଫସଲ ଚୟନ, ସଂରକ୍ଷଣ, ଏବଂ ବିକ୍ରୟ ଅଲଗା ଭାବରେ ଯୋଜନା କରାଯାଏ, ଯାହା ବିପଦ ବଢାଏ ଏବଂ ଦକ୍ଷତା କମାଏ |"
+      },
+      Telugu: {
+        heroTitle: "భవిష్యత్ వ్యవసాయానికి <br />ఒక <span>సరికొత్త</span> శక్తి అవసరం",
+        heroSub: "ఆగ్రోగార్డ్ క్లౌడ్ - AI ద్వారా నడిచే స్మార్ట్ వ్యవసాయం.",
+        heroBtn: "ఆగ్రోగార్డ్‌ను అన్వేషించండి",
+
+        statsTitle: "మేము కేవలం మరొక అగ్రి-టెక్ కంపెనీ కాదు",
+        statsSub: "సంఖ్యల్లో స్మార్ట్ వ్యవసాయ ప్రభావం",
+        stat1: "చెడిపోవడంలో తగ్గింపు",
+        stat2: "లాజిస్టిక్స్ ఖచ్చితత్వం",
+        stat3: "ధర అంచనా ఖచ్చితత్వం",
+        stat4: "లాభం పెంపు",
+        stat5: "మెరుగైన నేల ఆరోగ్యం",
+
+        valueTitle: "డిజిటలైజేషన్ & AI తో విలువను అన్‌లాక్ చేయడం",
+        l1: " దిగుబడి & నాణ్యత మెరుగుదల",
+        l2: " పంట నష్టం నిర్వహణ",
+        l3: " మార్కెట్ లేదా ధర అస్థిరతను నిర్వహించడం",
+        l4: " స్థిరమైన సోర్సింగ్",
+        l5: " పునరుత్పత్తి & స్థిరమైన పద్ధతులను నిర్ధారించండి",
+        l6: " ట్రేసబిలిటీ & సమ్మతిని నిర్ధారించండి",
+        l7: " వాతావరణ స్థితిస్థాపకతను నిర్మించడం",
+        l8: " రిస్క్ కవరేజ్ & ఫైనాన్స్ యాక్సెస్‌ని నిర్ధారించండి",
+        l9: " చైన్ సామర్థ్యం",
+        l10: " సరఫరా పూచీకత్తు",
+        l11: " మార్కెట్ విస్తరణ",
+
+        whyTitle: "ఆగ్రోగార్డ్ భవిష్యత్తును ఎందుకు నడిపిస్తుంది",
+        whySub: "సాంప్రదాయ అంచనాల నుండి స్కేలబుల్, AI-ఆధారిత వ్యవసాయ పర్యావరణ వ్యవస్థకు మారడం.",
+
+        chalTitle: "మేము పరిష్కరించే సవాళ్లు",
+        c1Title: "అనూహ్యమైన చెడిపోవడం",
+        c1Desc: "పంటలు ఎంతకాలం తాజాగా ఉంటాయో అంచనా వేయడానికి రైతుల వద్ద సాధనాలు లేవు, ఇది అనవసరమైన వ్యర్థాలకు దారితీస్తుంది.",
+        c2Title: "సమర్థవంతం కాని లాజిస్టిక్స్",
+        c2Desc: "ఆలస్యం లేదా సరిగ్గా ప్రణాళిక చేయని రవాణా కారణంగా పంటలు మార్కెట్‌లకు చేరుకోకముందే కుళ్ళిపోతాయి.",
+        c3Title: "నమ్మదగని మార్కెట్ డిమాండ్",
+        c3Desc: "భవిష్యత్ డిమాండ్ లేదా ధరల పోకడలు తెలియకుండా రైతులు విక్రయిస్తారు, దీనివల్ల నష్టాలు వస్తాయి.",
+        c4Title: "నేల క్షీణత",
+        c4Desc: "అదే పంటలను నిరంతరం సాగు చేయడం వల్ల పోషకాలు తగ్గుతాయి మరియు తెగుళ్ల ప్రమాదం పెరుగుతుంది.",
+        c5Title: "పేద నిల్వ నిర్ణయాలు",
+        c5Desc: "శాస్త్రీయ మార్గదర్శకత్వం లేకుండా నిల్వ పద్ధతులను ఎంచుకోవడం వల్ల అనుచిత పరిస్థితులు ఏర్పడతాయి మరియు ఎక్కువ చెడిపోతాయి.",
+        c6Title: "డిస్‌కనెక్ట్ చేయబడిన ప్లానింగ్",
+        c6Desc: "పంట ఎంపిక, నిల్వ మరియు విక్రయాలు విడిగా ప్రణాళిక చేయబడతాయి, ప్రమాదాన్ని పెంచుతాయి మరియు మొత్తం సామర్థ్యాన్ని తగ్గిస్తాయి."
+      }
+    };
+
+    function changeLanguage() {
+      const langElement = document.getElementById("languageSelect");
+      if (!langElement) return;
+
+      const lang = langElement.value;
+      const t = translations[lang];
+      if (!t) return;
+
+      // Update Hero Section
+      const heroTitle = document.querySelector(".hero-content h1");
+      if (heroTitle) heroTitle.innerHTML = t.heroTitle;
+      const heroSub = document.querySelector(".hero-content p");
+      if (heroSub) heroSub.innerText = t.heroSub;
+      const heroBtn = document.querySelector(".hero-btn");
+      if (heroBtn) heroBtn.innerText = t.heroBtn;
+
+      // Update Stats Section
+      const statsTitle = document.querySelector(".stats h2");
+      if (statsTitle) statsTitle.innerText = t.statsTitle;
+      const statsSub = document.querySelector(".stats > p");
+      if (statsSub) statsSub.innerText = t.statsSub;
+      const statLabels = document.querySelectorAll(".stat p");
+      if (statLabels.length >= 5) {
+        statLabels[0].innerText = t.stat1;
+        statLabels[1].innerText = t.stat2;
+        statLabels[2].innerText = t.stat3;
+        statLabels[3].innerText = t.stat4;
+        statLabels[4].innerText = t.stat5;
+      }
+
+      // Update Value Diagram
+      const valueTitle = document.querySelector(".diagram-title");
+      if (valueTitle) valueTitle.innerText = t.valueTitle;
+
+      const labelKeys = ['l1', 'l2', 'l3', 'l4', 'l5', 'l6', 'l7', 'l8', 'l9', 'l10', 'l11'];
+      for (let i = 0; i < 11; i++) {
+        const labelEl = document.querySelector(`.label.l${i + 1}`);
+        if (labelEl) {
+          const img = labelEl.querySelector('img');
+          labelEl.innerHTML = '';
+          if (img) labelEl.appendChild(img);
+          labelEl.appendChild(document.createTextNode(t[labelKeys[i]]));
         }
-      });
+      }
 
-      scrollBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    </script>
-  </body>
+      // Update Why Choose Us Section
+      const whyTitle = document.querySelector(".why-choose-us .section-header h2");
+      if (whyTitle) whyTitle.innerText = t.whyTitle;
+      const whySub = document.querySelector(".why-choose-us .section-header p");
+      if (whySub) whySub.innerText = t.whySub;
+
+      // Update Challenges Section
+      const chalTitle = document.querySelector(".challenges h2");
+      if (chalTitle) chalTitle.innerText = t.chalTitle;
+
+      const cCards = document.querySelectorAll(".challenge-card");
+      if (cCards.length >= 6) {
+        cCards[0].querySelector("h3").innerText = t.c1Title;
+        cCards[0].querySelector("p").innerText = t.c1Desc;
+        cCards[1].querySelector("h3").innerText = t.c2Title;
+        cCards[1].querySelector("p").innerText = t.c2Desc;
+        cCards[2].querySelector("h3").innerText = t.c3Title;
+        cCards[2].querySelector("p").innerText = t.c3Desc;
+        cCards[3].querySelector("h3").innerText = t.c4Title;
+        cCards[3].querySelector("p").innerText = t.c4Desc;
+        cCards[4].querySelector("h3").innerText = t.c5Title;
+        cCards[4].querySelector("p").innerText = t.c5Desc;
+        cCards[5].querySelector("h3").innerText = t.c6Title;
+        cCards[5].querySelector("p").innerText = t.c6Desc;
+      }
+    }
+
+    // Apply language if a selector exists on page load
+    window.addEventListener("DOMContentLoaded", () => {
+      if (document.getElementById("languageSelect")) {
+        changeLanguage();
+      }
+    });
+  </script>
+</body>
+
 </html>
