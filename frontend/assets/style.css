@@ -510,13 +510,77 @@ body {
   height: 88px;  
   object-fit: contain;
 }
-/* Footer */
-footer {
-  background: linear-gradient(120deg, #48bb78 0%, #81e6d9 100%);
-  color: var(--text-dark);
-  text-align: center;
-  padding: 10px;
-  margin-top: 10px;
+/*footer*/
+.site-footer {
+  background: #1a202c;
+  color: #cbd5e0;
+  padding: 60px 20px 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+}
+
+.site-footer h3,
+.site-footer h4 {
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-about p {
+  line-height: 1.6;
   font-size: 14px;
-  opacity: 0.9;
+}
+
+.footer-links a {
+  display: block;
+  color: #cbd5e0;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #38b2ac;
+}
+
+.footer-contact p {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* TEAM */
+.footer-team .person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.footer-team span {
+  font-size: 14px;
+}
+
+.footer-team a {
+  color: #cbd5e0;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.footer-team a:hover {
+  color: #38b2ac;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #2d3748;
+  margin-top: 40px;
+  padding-top: 15px;
+  font-size: 13px;
+  color: #a0aec0;
 }

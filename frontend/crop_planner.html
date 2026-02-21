@@ -420,6 +420,81 @@
     .ai-content li {
       margin-bottom: 5px;
     }
+
+    /*footer*/
+.site-footer {
+  background: #1a202c;
+  color: #cbd5e0;
+  padding: 60px 20px 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+}
+
+.site-footer h3,
+.site-footer h4 {
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-about p {
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.footer-links a {
+  display: block;
+  color: #cbd5e0;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #38b2ac;
+}
+
+.footer-contact p {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* TEAM */
+.footer-team .person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.footer-team span {
+  font-size: 14px;
+}
+
+.footer-team a {
+  color: #cbd5e0;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.footer-team a:hover {
+  color: #38b2ac;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #2d3748;
+  margin-top: 40px;
+  padding-top: 15px;
+  font-size: 13px;
+  color: #a0aec0;
+}
   </style>
 </head>
 
@@ -536,6 +611,67 @@
       </div>
     </div>
   </div>
+
+  <footer class="site-footer">
+  <div class="footer-container">
+
+    <div class="footer-about">
+      <h3>Agroguard</h3>
+      <p>
+        AI-powered agriculture platform focused on reducing post-harvest losses
+        and enabling sustainable crop planning.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="predict.html">Predict</a>
+      <a href="price_prediction.html">Market</a>
+      <a href="crop_planner.html">Planner</a>
+      <a href="about.html">About</a>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p><i class="fa-solid fa-envelope"></i> gietuinnovatex@gmail.com</p>
+      <p><i class="fa-solid fa-location-dot"></i> India</p>
+    </div>
+
+    <div class="footer-team">
+      <h4>Team</h4>
+
+      <div class="person">
+        <span>Anand Prasad</span>
+        <a href="https://github.com/Anandprasad03" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/anandprasad03" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+
+      <div class="person">
+        <span>Ashmit Akhouri</span>
+        <a href="https://github.com/ashmit-akhouri" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/ashmit-akhouri" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+
+      <div class="person">
+        <span>Sanjay Saw</span>
+        <a href="https://github.com/sanjaysawdev" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/sanjaysawdev" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+
+      <div class="person">
+        <span>Tarak Nath Dey</span>
+        <a href="https://github.com/Tarak-Nath-Dey" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/tarak-nath-dey-tnd1002" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    © 2026 Agroguard. All rights reserved.
+  </div>
+</footer>
 
   <script>
     let myChart = null;
