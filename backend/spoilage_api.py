@@ -100,7 +100,7 @@ def predict_spoilage(data: SpoilageInput):
         response = requests.post(GEMINI_URL, json=payload)
         res_json = response.json()
         
-        print(f"RAW GOOGLE RESPONSE: {res_json}") # Helps debug if API fails
+        # print(f"RAW GOOGLE RESPONSE: {res_json}") # Helps debug if API fails
         
         if "error" in res_json:
              raise Exception(f"Google API Error: {res_json['error'].get('message', res_json['error'])}")
