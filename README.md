@@ -6,6 +6,7 @@ Markdown
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python)
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat-square&logo=fastapi)
 ![AI](https://img.shields.io/badge/AI-Gemini%203%20Flash%20preview-orange?style=flat-square&logo=google)
+![Groq](https://img.shields.io/badge/AI_Chatbot-Groq%20Llama%203.1-f55036?style=flat-square)
 ![Multilingual](https://img.shields.io/badge/Multilingual-5%20Languages-9C27B0?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
 
@@ -39,6 +40,11 @@ AgroGuard is now fully accessible in **5 languages**: English, Hindi (हिं�
 * **Profit Estimation:** Accurately forecasts potential selling prices, calculating base costs and predicting ROI.
 * **Market Mapping:** Provides data-driven recommendations on top nearby hubs and local/export market levels.
 
+### 💬 4. Groq-Powered AI Assistant (NEW)
+* **Instant Answers:** A lightning-fast, floating chatbot available on every page, powered by Groq's `llama-3.1-8b-instant` model.
+* **Context-Aware & Multilingual:** Automatically detects the language selected in your UI and replies natively in that language.
+* **Optimized Advice:** Specifically tuned to deliver highly concise, bulleted responses to save farmers time and minimize token usage.
+
 ---
 
 ## 📂 Folder Structure
@@ -50,6 +56,7 @@ AgroGuard/
 ├── backend/
 │   ├── main.py                 # FastAPI application entry point & CORS configuration
 │   ├── ai_agent_api.py         # AI Crop Planner & Rotation Logic
+│   ├── chatbot_api.py          # Groq-Powered AI Chatbot Logic
 │   ├── price_api.py            # Market Price & Profit Prediction AI
 │   └── spoilage_api.py         # Storage/Logistics Risk Evaluation AI
 │
@@ -91,6 +98,7 @@ Follow these steps to set up the project locally.
     Create a `.env` file in the root directory `AgroGuard/` and add your API key:
     ```env
     GEMINI_API_KEY=your_google_api_key_here
+    GROQ_API_KEY=your_groq_api_key_here
     ```
 
 4.  **Run the Backend**

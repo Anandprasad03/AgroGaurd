@@ -1053,11 +1053,213 @@
         predictSpoilage();
       }
     }
-    
+
     // Initialize toggle and apply default language on load
     window.onload = () => {
       setAction('Store');
       changeLanguage();
+    }
+  </script>
+  <style>
+    /* Chatbot Styles */
+    #chatbot-fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: var(--primary, #2f855a);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    #chatbot-fab:hover {
+      transform: scale(1.1);
+    }
+
+    #chatbot-window {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 350px;
+      height: 450px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border, #e2e8f0);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      display: none;
+      /* Hidden by default */
+      flex-direction: column;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    #chatbot-header {
+      background: var(--primary, #2f855a);
+      color: white;
+      padding: 15px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #chatbot-close {
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    #chatbot-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .chat-msg {
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 15px;
+      line-height: 1.4;
+    }
+
+    .chat-msg.user {
+      background: var(--primary, #2f855a);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+    }
+
+    .chat-msg.bot {
+      background: #edf2f7;
+      color: #2d3748;
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+    }
+
+    #chatbot-input-area {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #e2e8f0;
+      background: white;
+    }
+
+    #chatbot-input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #cbd5e0;
+      border-radius: 20px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    #chatbot-send {
+      background: none;
+      border: none;
+      color: var(--primary, #2f855a);
+      font-size: 20px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+      display: none;
+      align-self: flex-start;
+      background: #edf2f7;
+      padding: 10px 15px;
+      border-radius: 15px;
+      border-bottom-left-radius: 2px;
+      font-style: italic;
+      color: #718096;
+      font-size: 12px;
+    }
+  </style>
+
+  <div id="chatbot-fab" onclick="toggleChatbot()">
+    <i class="fas fa-comment-dots"></i>
+  </div>
+
+  <div id="chatbot-window">
+    <div id="chatbot-header">
+      <span><i class="fas fa-robot"></i> AgroGuard Assistant</span>
+      <i class="fas fa-times" id="chatbot-close" onclick="toggleChatbot()"></i>
+    </div>
+    <div id="chatbot-messages">
+      <div class="chat-msg bot">Hello! I am your AgroGuard AI assistant. How can I help you with your farming today?
+      </div>
+    </div>
+    <div class="typing-indicator" id="chatbot-typing">Assistant is typing...</div>
+    <div id="chatbot-input-area">
+      <input type="text" id="chatbot-input" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+      <button id="chatbot-send" onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <script>
+    function toggleChatbot() {
+      const chatWindow = document.getElementById('chatbot-window');
+      chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function handleChatKeyPress(event) {
+      if (event.key === 'Enter') {
+        sendChatMessage();
+      }
+    }
+
+    async function sendChatMessage() {
+      const inputEl = document.getElementById('chatbot-input');
+      const message = inputEl.value.trim();
+      if (!message) return;
+
+      // Add user message to UI
+      addMessageToUI(message, 'user');
+      inputEl.value = '';
+
+      // Show typing indicator
+      document.getElementById('chatbot-typing').style.display = 'block';
+
+      // Grab language from the main navbar if it exists, otherwise default to English
+      const langSelect = document.getElementById('languageSelect');
+      const currentLang = langSelect ? langSelect.options[langSelect.selectedIndex].text : 'English';
+
+      try {
+        const response = await fetch('http://127.0.0.1:8000/chatbot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: message, language: currentLang })
+        });
+
+        const data = await response.json();
+        document.getElementById('chatbot-typing').style.display = 'none';
+        addMessageToUI(data.response, 'bot');
+      } catch (error) {
+        document.getElementById('chatbot-typing').style.display = 'none';
+        addMessageToUI("Error connecting to the AI. Please ensure the backend is running.", 'bot');
+      }
+    }
+
+    function addMessageToUI(text, sender) {
+      const messagesDiv = document.getElementById('chatbot-messages');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `chat-msg ${sender}`;
+      // Parse markdown bold formatting cleanly
+      msgDiv.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      messagesDiv.appendChild(msgDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to bottom
     }
   </script>
 </body>
