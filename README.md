@@ -5,82 +5,117 @@
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python)
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat-square&logo=fastapi)
 ![AI](https://img.shields.io/badge/AI-Gemini%201.5%20Flash-orange?style=flat-square&logo=google)
+![Multilingual](https://img.shields.io/badge/Multilingual-5%20Languages-9C27B0?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
 
 ---
 
 ## 📖 About The Project
 
-**AgroGuard** is an innovative agricultural management platform designed to empower modern farmers with real-time insights and automated security. Acting as a digital sentinel for your farmland, AgroGuard leverages **Generative AI** and **Machine Learning** to monitor crop health, predict spoilage risks, and optimize soil usage.
+**AgroGuard** is an innovative agricultural management platform designed to empower modern farmers with real-time insights and automated security. Acting as a digital sentinel for your farmland, AgroGuard leverages **Generative AI** and **Machine Learning** to monitor crop health, predict spoilage risks, optimize soil usage, and forecast market prices. 
 
-The system provides actionable data to improve crop yields and ensure sustainable farming practices by providing a robust defense against environmental threats through early detection and intelligent alerting.
+With our latest update, AgroGuard breaks language barriers, offering a fully localized experience to ensure every farmer gets access to cutting-edge technology in the language they understand best.
 
 ---
 
-## ✨ Key Features
+## ✨ Key Features & Recent Updates
 
-### 🤖 1. AI Crop Planner
+### 🌍 **Seamless Multilingual Support (NEW)**
+AgroGuard is now fully accessible in **5 languages**: English, Hindi (हिंदी), Marathi (मराठी), Odia (ଓଡ଼ିଆ), and Telugu (తెలుగు).
+* **Dynamic UI Translation:** Instantly switch languages across the entire frontend (HTML/JS) via the top navigation bar.
+* **Localized AI Responses:** The backend Gemini AI integration natively processes and generates farming plans, spoilage advice, and market predictions in your preferred language.
+* **Smart Language Caching:** Backend memory optimized with language-specific cache keys for ultra-fast query loading.
+
+### 🤖 1. AI Crop Planner (`crop_planner.html` / `ai_agent_api.py`)
 * **Intelligent Rotation:** Generates optimal crop rotation plans based on soil type, season, and previous harvest.
-* **Soil Health Analysis:** AI analyzes soil gaps and suggests nitrogen-fixing crops.
-* **Sustainability Scoring:** Visualizes the long-term impact of planting decisions.
+* **Data Visualization:** Renders interactive charts powered by `Chart.js` and clean Markdown outputs via `Marked.js`.
 
-### 🛡️ 2. Spoilage Risk Predictor
-* **Real-time Risk Assessment:** Calculates the probability of crop spoilage based on storage temperature, humidity, and time.
-* **Dynamic Visualizations:** Interactive Radar and Doughnut charts to visualize risk factors.
-* **Robust AI Fallback:** System continues to work with "Safe Mode" estimation even if the AI service is temporarily down.
-* **Smart Transport & Selling Optimization:** Recommends the best transport method and selling strategy based on crop type, current location, and selling destination to minimize spoilage and maximize profit.
-* **Route & Market Intelligence:** Suggests optimal routes, estimated travel time, and suitable markets to ensure crops reach the right destination in the best possible condition.
+### 📉 2. Spoilage & Logistics Predictor (`predict.html` / `spoilage_api.py`)
+* **Store vs. Sell Analysis:** Recommends whether to store crops or sell them immediately based on real-time temperature, humidity, and transit times.
+* **Risk Scoring:** Assigns a "Spoilage Risk Score" to help mitigate losses.
 
-
-### 📈 3. Market Price & Profit Predictor 
-* **Price Forecasting:** Predicts next-month crop prices based on current market price, season, and region.
-* **Trend Analysis:** Generates a 5-month price trend for better selling and storage decisions.
-* **Profit Guidance:** Provides AI-based recommendations on whether farmers should sell now or store for higher returns.
-* **Graphical Insights:** Interactive charts to visualize price movement and expected profit.
-* **Market Intelligence & Profit Forecaster:** Forecasts price and profit based on the selected selling level — Local, National, or International markets — helping farmers choose the most profitable marketplace.
-* **Multi-Factor Price Prediction:** Calculates expected selling price and net profit by considering crop type, product category (organic, inorganic, biochemical, etc.), month of harvest, and base cost price.
-* **Strategic Selling Optimization:** Compares different market levels and provides data-driven insights on where and when to sell for maximum returns.
-
-### 📊 4. Smart Dashboard
-* **User-Friendly Interface:** Clean, responsive UI built with HTML5 & CSS3.
-* **Data Visualization:** Integrated Chart.js for instant graphical feedback.
-
-
+### 💰 3. Market Price Forecaster (`price_prediction.html` / `price_api.py`)
+* **Profit Estimation:** Accurately forecasts potential selling prices, calculating base costs and predicting ROI.
+* **Market Mapping:** Provides data-driven recommendations on top nearby hubs and local/export market levels.
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Component | Technology |
-| :--- | :--- |
-| **Backend** | Python, FastAPI, Uvicorn |
-| **AI Engine** | Google Gemini 3 Flash Preview (Generative AI) |
-| **Frontend** | HTML5, CSS3, JavaScript |
-| **Visualization** | Chart.js |
-| **Data Processing** | Pandas, JSON |
+* **Frontend:** HTML5, CSS3, Vanilla JavaScript, Chart.js (Data Vis), Marked.js (Markdown Rendering)
+* **Backend:** Python, FastAPI, Uvicorn, Pydantic (Data Validation)
+* **AI Integration:** Google Gemini 1.5 Flash API
+* **Architecture:** RESTful APIs, CORS Middleware, Smart Dictionary Caching, Dotenv for secret management
 
 ---
 
-## 📂 Project Structure
+Markdown
+# 🌾 AgroGuard
+> **AI-Driven Smart Farming & Crop Protection System**
 
-```bash
-AgroGuard
+![Project Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)
+![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python)
+![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat-square&logo=fastapi)
+![AI](https://img.shields.io/badge/AI-Gemini%201.5%20Flash-orange?style=flat-square&logo=google)
+![Multilingual](https://img.shields.io/badge/Multilingual-5%20Languages-9C27B0?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
+
+---
+
+## 📖 About The Project
+
+**AgroGuard** is an innovative agricultural management platform designed to empower modern farmers with real-time insights and automated security. Acting as a digital sentinel for your farmland, AgroGuard leverages **Generative AI** and **Machine Learning** to monitor crop health, predict spoilage risks, optimize soil usage, and forecast market prices. 
+
+With our latest update, AgroGuard breaks language barriers, offering a fully localized experience to ensure every farmer gets access to cutting-edge technology in the language they understand best.
+
+---
+
+## ✨ Key Features & Recent Updates
+
+### 🌍 **Seamless Multilingual Support (NEW)**
+AgroGuard is now fully accessible in **5 languages**: English, Hindi (हिंदी), Marathi (मराठी), Odia (ଓଡ଼ିଆ), and Telugu (తెలుగు).
+* **Dynamic UI Translation:** Instantly switch languages across the entire frontend (HTML/JS) via the top navigation bar.
+* **Localized AI Responses:** The backend Gemini AI integration natively processes and generates farming plans, spoilage advice, and market predictions in your preferred language.
+* **Smart Language Caching:** Backend memory optimized with language-specific cache keys for ultra-fast query loading.
+
+### 🤖 1. AI Crop Planner (`crop_planner.html` / `ai_agent_api.py`)
+* **Intelligent Rotation:** Generates optimal crop rotation plans based on soil type, season, and previous harvest.
+* **Data Visualization:** Renders interactive charts powered by `Chart.js` and clean Markdown outputs via `Marked.js`.
+
+### 📉 2. Spoilage & Logistics Predictor (`predict.html` / `spoilage_api.py`)
+* **Store vs. Sell Analysis:** Recommends whether to store crops or sell them immediately based on real-time temperature, humidity, and transit times.
+* **Risk Scoring:** Assigns a "Spoilage Risk Score" to help mitigate losses.
+
+### 💰 3. Market Price Forecaster (`price_prediction.html` / `price_api.py`)
+* **Profit Estimation:** Accurately forecasts potential selling prices, calculating base costs and predicting ROI.
+* **Market Mapping:** Provides data-driven recommendations on top nearby hubs and local/export market levels.
+
+---
+
+## 📂 Folder Structure
+
+The project has been organized to cleanly separate the frontend UI from the backend AI logic:
+
+```text
+AgroGuard/
 ├── backend/
-│   ├── ai_agent_api.py       # AI Logic for Crop Planning
-│   ├── spoilage_api.py       # AI Logic for Spoilage Prediction
-    ├── price_api.py          # AI Logic for Market Price Prediction
-│   └── main.py               # FastAPI Entry Point
-├── data/                     # Static data resources
-├── docs/                     # Design documents & wireframes
-└── frontend/
-    ├── assets/               # CSS, Images, Videos
-    ├── crop_planner.html     # AI Rotation Interface
-    ├── predict.html          # Spoilage Prediction Interface
-    ├── index.html            # Landing Page
-    ├── price_prediction.html   # Market Price Prediction Interface
-    └── about.html            # About the project
-
+│   ├── main.py                 # FastAPI application entry point & CORS configuration
+│   ├── ai_agent_api.py         # AI Crop Planner & Rotation Logic
+│   ├── price_api.py            # Market Price & Profit Prediction AI
+│   └── spoilage_api.py         # Storage/Logistics Risk Evaluation AI
+│
+├── frontend/
+│   ├── index.html              # Main Landing Page
+│   ├── about.html              # About Us & Platform Information
+│   ├── crop_planner.html       # AI Crop Planning Dashboard
+│   ├── predict.html            # Spoilage & Logistics Predictor Dashboard
+│   ├── price_prediction.html   # Market Price & Profitability Dashboard
+│   └── assets/                 # CSS stylesheets and images (e.g., style.css, logo.png)
+│
+├── .env                        # Environment variables (API Keys)
+└── README.md                   # Project documentation
 ```
+
 
 ## 🚀 Getting Started
 
@@ -113,12 +148,12 @@ Follow these steps to set up the project locally.
     ```bash
     uvicorn backend.main:app --reload
     ```
+    *(Note: The server will run on `http://127.0.0.1:8000`)*
 
 5.  **Launch the App**
-    Open `frontend/index.html` in your browser.
+    Simply open `frontend/index.html` in your web browser to access the dashboard.
 
 ---
-
 
 ## 🤝 Contributing
 
@@ -132,9 +167,12 @@ Contributions are what make the open-source community such an amazing place to l
 
 ---
 
-## 📞 Contact
-**Email:** (gietuinnovatex@gmail.com)
-**Project Link:** [https://github.com/Anandprasad03/AgroGuard](https://github.com/Anandprasad03/AgroGuard)
+## 📜 License
 
+Distributed under the MIT License. See `LICENSE` for more information.
 
-                                    Built with ❤️ for Farmers
+---
+
+<p align="center">
+  <i>Built with ❤️ for sustainable farming.</i>
+</p>
