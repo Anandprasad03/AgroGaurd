@@ -22,45 +22,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ========================================= */
-/* PRINT & PDF EXPORT STYLES                 */
-/* ========================================= */
-@media print {
-
-  /* Hide everything we don't want in the PDF */
-  body * {
-    visibility: hidden;
-  }
-
-  /* Make ONLY the result container and its contents visible */
-  #result,
-  #result *,
-  #resultsArea,
-  #resultsArea * {
-    visibility: visible;
-  }
-
-  /* Move the result container to the absolute top-left of the PDF page */
-  #result,
-  #resultsArea {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
-    /* Remove shadows for a flat, printed look */
-  }
-
-  /* Hide the download buttons and floating icons */
-  .pdf-btn,
-  #weather-fab,
-  #chatbot-fab,
-  .navbar {
-    display: none !important;
-  }
-}
 
 /*  Navbar */
 .navbar {
