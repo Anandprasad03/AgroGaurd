@@ -48,25 +48,30 @@ def predict_market_price(data: PriceInput):
     Instructions:
     1. Determine the local currency symbol for {data.location} (e.g., '₹' for India, '$' for US).
     2. Estimate a realistic selling price in that currency.
-    3. Calculate 'predicted_profit' (selling price - {data.cost_price}).
-    4. Provide exactly 10 alternative markets/locations where this could be sold.
-    5. Provide 10 realistic prices for those markets.
-    6. Provide 10 profit margins for those markets (Market Price - {data.cost_price}).
+    3. Estimate all relevant expenditures (Taxes, Tariffs, GST, Transportation, and Handling) based on the Market Level and Type.
+    4. Calculate 'predicted_profit' (Selling Price - {data.cost_price} - Total Expenditures).
+    5. Provide exactly 10 alternative markets/locations where this could be sold.
+    6. Provide 10 realistic prices for those markets.
+    7. Provide 10 profit margins for those markets (Market Price - {data.cost_price} - Estimated Expenditures for that route).
+    
+    IMPORTANT FORMATTING INSTRUCTION:
+    The values for 'expenditure_breakdown', 'analysis', and 'logistics_advice' MUST be formatted exclusively as Markdown bullet points. Do NOT write paragraphs.
     
     IMPORTANT LANGUAGE INSTRUCTION:
-    Translate ALL text values in the JSON (like 'top_10_names', 'analysis', and 'logistics_advice') into {data.language}. 
+    Translate ALL text values in the JSON (like 'top_10_names', 'expenditure_breakdown', 'analysis', and 'logistics_advice') into {data.language}. 
     Do NOT translate the JSON keys (keep them exactly as "currency", "predicted_price", etc.).
     
     RETURN ONLY JSON:
     {{
         "currency": "₹",
         "predicted_price": 2500,
-        "predicted_profit": 500,
+        "predicted_profit": 350,
         "top_10_names": ["Market A", "Market B", ...],
         "top_10_prices": [2500, 2450, ...],
-        "top_10_profits": [500, 450, ...],
-        "analysis": "Short paragraph explaining price trends.",
-        "logistics_advice": "Short paragraph on transport tips to reach high-paying markets."
+        "top_10_profits": [350, 300, ...],
+        "expenditure_breakdown": "- GST (5%): 125\\n- Transport: 25... (strictly bullet points)",
+        "analysis": "- Price is expected to rise due to...\\n- High demand in... (strictly bullet points)",
+        "logistics_advice": "- Use cold storage for...\\n- Route via... (strictly bullet points)"
     }}
     """
 
@@ -101,7 +106,8 @@ def predict_market_price(data: PriceInput):
         print(f"⚠️ Market AI Error: {e}")
         base_cost = data.cost_price if data.cost_price > 0 else 50.0 
         dummy_price = base_cost * 1.5 
-        dummy_profit = dummy_price - base_cost 
+        dummy_expenditure = base_cost * 0.15 # 15% estimated expenditure fallback
+        dummy_profit = dummy_price - base_cost - dummy_expenditure
         
         return {
             "currency": "$",
@@ -110,6 +116,7 @@ def predict_market_price(data: PriceInput):
             "top_10_names": [f"{data.location} Hub", "North Region", "South Region", "East Region", "West Region", "Central", "Port A", "Port B", "Border 1", "Border 2"],
             "top_10_prices": [dummy_price + 5, dummy_price + 3, dummy_price + 2, dummy_price, dummy_price - 1, dummy_price - 2, dummy_price - 3, dummy_price - 4, dummy_price - 5, dummy_price - 6],
             "top_10_profits": [dummy_profit + 2, dummy_profit + 1, dummy_profit, dummy_profit - 1, dummy_profit - 2, dummy_profit - 3, dummy_profit - 4, dummy_profit - 5, dummy_profit - 6, dummy_profit - 7],
-            "analysis": "### ⚠️ AI Unreachable\nUsing estimated offline baseline based on your cost price.",
-            "logistics_advice": "Cannot generate dynamic routes at this time."
+            "expenditure_breakdown": "- Estimated Transport: 10%\n- Estimated Taxes: 5%\n*AI Unreachable, using fallbacks.*",
+            "analysis": "- ⚠️ AI Unreachable\n- Using estimated offline baseline based on your cost price.",
+            "logistics_advice": "- Cannot generate dynamic routes at this time.\n- Proceed with standard local logistics."
         }
