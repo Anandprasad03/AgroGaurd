@@ -725,11 +725,6 @@
           </div>
         </div>
 
-        <button class="pdf-btn" onclick="downloadBeautifulPDF('result', 'AgroGuard_Report.pdf')"
-          style="margin-bottom: 20px; width: 100%; background: #2d3748; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-          <i class="fas fa-file-pdf" style="color: #fc8181; margin-right: 8px;"></i> Download Professional PDF Report
-        </button>
-
         <button class="btn-primary" style="background: #718096" onclick="resetForm()">
           <i class="fas fa-redo"></i> Analyze Another Scenario
         </button>
@@ -918,7 +913,7 @@
       document.getElementById("input-card").style.display = "block";
     }
 
-    // --- FULL LANGUAGE TRANSLATION LOGIC ---
+    // FULL LANGUAGE TRANSLATION  
     const translations = {
       English: {
         title: "Spoilage Risk Predictor",
@@ -1102,7 +1097,7 @@
       border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
       display: none;
-      /* Hidden by default */
+     
       flex-direction: column;
       z-index: 1000;
       overflow: hidden;
@@ -1272,11 +1267,11 @@
       position: fixed;
       bottom: 30px;
       left: 30px;
-      /* Positioned on the left so it doesn't overlap chatbot */
+      
       width: 60px;
       height: 60px;
       background: #3182ce;
-      /* Nice weather blue */
+     
       color: white;
       border-radius: 50%;
       display: flex;
@@ -1294,7 +1289,7 @@
       background: #2b6cb0;
     }
     
-  </style>
+ </style>
 
   <div id="weather-fab" onclick="window.location.href='weather.html'" title="Check Weather">
     <i class="fas fa-cloud-sun-rain"></i>

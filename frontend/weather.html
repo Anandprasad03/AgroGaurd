@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
-    /* CORE THEME */
+   
     :root {
       --primary: #2f855a;
       --primary-hover: #276749;
@@ -27,7 +27,7 @@
       background: var(--bg);
       color: var(--text);
       margin: 0;
-      padding-top: 80px; /* match navbar height */      
+      padding-top: 80px;   
 
     }
 
@@ -396,10 +396,6 @@
 
     <div class="results" id="resultsArea">
 
-      <button class="pdf-btn" onclick="window.print()"
-        style="margin-bottom: 30px; width: 100%; background: #2d3748; color: white; padding: 16px; border-radius: 12px; font-weight: 600; justify-content: center;">
-        <i class="fas fa-file-pdf" style="color: #fc8181;"></i> Save Professional Forecast as PDF
-      </button>
 
       <div class="widget-grid" id="widgetGrid"></div>
 
@@ -525,16 +521,16 @@
           return;
         }
 
-        // Render beautiful widgets out of the markdown text
+   
         const widgetsHtml = data.bullet_points.map(pt => {
-          // Marked will turn "**Title:** Value" into "<strong>Title:</strong> Value"
+        
           let parsed = marked.parseInline(pt);
-          // Wrap it in our styled card
+         
           return `<div class="weather-card"><span>${parsed}</span></div>`;
         }).join('');
         document.getElementById('widgetGrid').innerHTML = widgetsHtml;
 
-        // Render Charts with matching theme colors
+       
         renderChart('hourlyChart', 'Temperature (°C)', data.hourly.labels, data.hourly.data, '#3182ce', hourlyChartInstance, (inst) => hourlyChartInstance = inst);
         renderChart('dailyChart', 'Max Temp (°C)', data.daily.labels, data.daily.data, '#2f855a', dailyChartInstance, (inst) => dailyChartInstance = inst);
 
@@ -557,19 +553,19 @@
             label: label,
             data: data,
             borderColor: color,
-            backgroundColor: color + '22', // Adds transparency to the fill
+            backgroundColor: color + '22', 
             borderWidth: 3,
             pointBackgroundColor: '#ffffff',
             pointBorderColor: color,
             pointBorderWidth: 2,
             pointRadius: 4,
             fill: true,
-            tension: 0.4 // Smooth, elegant curves
+            tension: 0.4 
           }]
         },
         options: {
           responsive: true,
-          plugins: { legend: { display: false } }, // Hide legend for cleaner look
+          plugins: { legend: { display: false } },
           scales: {
             x: { grid: { display: false } },
             y: { grid: { color: '#edf2f7' } }
