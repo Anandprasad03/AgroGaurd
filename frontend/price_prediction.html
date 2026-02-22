@@ -36,6 +36,7 @@
       color: var(--text-dark);
       overflow-x: hidden;
     }
+    
 
     /* AI Markdown Rendering Styles */
     .ai-content {
@@ -997,14 +998,16 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       z-index: 1000;
       transition: transform 0.3s ease;
     }
+
     #chatbot-fab:hover {
       transform: scale(1.1);
     }
+
     #chatbot-window {
       position: fixed;
       bottom: 100px;
@@ -1015,12 +1018,14 @@
       backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border, #e2e8f0);
       border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      display: none; /* Hidden by default */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      display: none;
+      /* Hidden by default */
       flex-direction: column;
       z-index: 1000;
       overflow: hidden;
     }
+
     #chatbot-header {
       background: var(--primary, #2f855a);
       color: white;
@@ -1030,10 +1035,12 @@
       justify-content: space-between;
       align-items: center;
     }
+
     #chatbot-close {
       cursor: pointer;
       font-size: 18px;
     }
+
     #chatbot-messages {
       flex: 1;
       padding: 15px;
@@ -1043,30 +1050,35 @@
       gap: 10px;
       font-size: 14px;
     }
+
     .chat-msg {
       max-width: 80%;
       padding: 10px 15px;
       border-radius: 15px;
       line-height: 1.4;
     }
+
     .chat-msg.user {
       background: var(--primary, #2f855a);
       color: white;
       align-self: flex-end;
       border-bottom-right-radius: 2px;
     }
+
     .chat-msg.bot {
       background: #edf2f7;
       color: #2d3748;
       align-self: flex-start;
       border-bottom-left-radius: 2px;
     }
+
     #chatbot-input-area {
       display: flex;
       padding: 10px;
       border-top: 1px solid #e2e8f0;
       background: white;
     }
+
     #chatbot-input {
       flex: 1;
       padding: 10px;
@@ -1075,6 +1087,7 @@
       outline: none;
       font-family: inherit;
     }
+
     #chatbot-send {
       background: none;
       border: none;
@@ -1083,6 +1096,7 @@
       margin-left: 10px;
       cursor: pointer;
     }
+
     /* Typing Indicator */
     .typing-indicator {
       display: none;
@@ -1107,7 +1121,8 @@
       <i class="fas fa-times" id="chatbot-close" onclick="toggleChatbot()"></i>
     </div>
     <div id="chatbot-messages">
-      <div class="chat-msg bot">Hello! I am your AgroGuard AI assistant. How can I help you with your farming today?</div>
+      <div class="chat-msg bot">Hello! I am your AgroGuard AI assistant. How can I help you with your farming today?
+      </div>
     </div>
     <div class="typing-indicator" id="chatbot-typing">Assistant is typing...</div>
     <div id="chatbot-input-area">
@@ -1150,7 +1165,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: message, language: currentLang })
         });
-        
+
         const data = await response.json();
         document.getElementById('chatbot-typing').style.display = 'none';
         addMessageToUI(data.response, 'bot');
@@ -1170,6 +1185,37 @@
       messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to bottom
     }
   </script>
+  <style>
+    #weather-fab {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      /* Positioned on the left so it doesn't overlap chatbot */
+      width: 60px;
+      height: 60px;
+      background: #3182ce;
+      /* Nice weather blue */
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    #weather-fab:hover {
+      transform: scale(1.1);
+      background: #2b6cb0;
+    }
+  </style>
+
+  <div id="weather-fab" onclick="window.location.href='weather.html'" title="Check Weather">
+    <i class="fas fa-cloud-sun-rain"></i>
+  </div>
 </body>
 
 </html>

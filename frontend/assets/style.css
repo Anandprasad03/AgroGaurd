@@ -22,6 +22,46 @@ body {
   overflow-x: hidden;
 }
 
+/* ========================================= */
+/* PRINT & PDF EXPORT STYLES                 */
+/* ========================================= */
+@media print {
+
+  /* Hide everything we don't want in the PDF */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Make ONLY the result container and its contents visible */
+  #result,
+  #result *,
+  #resultsArea,
+  #resultsArea * {
+    visibility: visible;
+  }
+
+  /* Move the result container to the absolute top-left of the PDF page */
+  #result,
+  #resultsArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    /* Remove shadows for a flat, printed look */
+  }
+
+  /* Hide the download buttons and floating icons */
+  .pdf-btn,
+  #weather-fab,
+  #chatbot-fab,
+  .navbar {
+    display: none !important;
+  }
+}
+
 /*  Navbar */
 .navbar {
   display: flex;
@@ -219,12 +259,14 @@ body {
   padding: 50px;
   background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
 }
+
 .diagram {
   position: relative;
   width: 600px;
   height: 600px;
   margin: auto;
 }
+
 .diagram-title {
   text-align: center;
   margin-bottom: 20px;
@@ -259,17 +301,72 @@ body {
   background: linear-gradient(120deg, #48bb78 0%, #81e6d9 100%);
 }
 
-.l1 {top: 30px; left: -40px;} /* Yield & quality improvement */
-.l2 {top: 160px;left: -150px;} /* Crop loss management */
-.l3 {top: 325px;left: -240px;} /* Manage market or price volatility */
-.l4 {top: 500px;left: -10px;} /* Resilient sourcing */
-.l5 {top: -15px;right: 100px;} /* Ensure regenerative & sustainable practices */
-.l6 {top: 160px; right: -270px;} /* Ensure traceability, certification & compliance */
-.l7 {top: 330px;right: -180px;} /* Building climate resilience */
-.l8 {top: 570px;right: -20px;} /* Ensure risk coverage & access to finance */
-.l9 {top: 40px;left: 450px;} /* Chain efficiency */
-.l10 {top: 570px;left: 150px;} /* Surety of supply */
-.l11 {top: 500px;left: 490px;} /* Market Expansion */
+.l1 {
+  top: 30px;
+  left: -40px;
+}
+
+/* Yield & quality improvement */
+.l2 {
+  top: 160px;
+  left: -150px;
+}
+
+/* Crop loss management */
+.l3 {
+  top: 325px;
+  left: -240px;
+}
+
+/* Manage market or price volatility */
+.l4 {
+  top: 500px;
+  left: -10px;
+}
+
+/* Resilient sourcing */
+.l5 {
+  top: -15px;
+  right: 100px;
+}
+
+/* Ensure regenerative & sustainable practices */
+.l6 {
+  top: 160px;
+  right: -270px;
+}
+
+/* Ensure traceability, certification & compliance */
+.l7 {
+  top: 330px;
+  right: -180px;
+}
+
+/* Building climate resilience */
+.l8 {
+  top: 570px;
+  right: -20px;
+}
+
+/* Ensure risk coverage & access to finance */
+.l9 {
+  top: 40px;
+  left: 450px;
+}
+
+/* Chain efficiency */
+.l10 {
+  top: 570px;
+  left: 150px;
+}
+
+/* Surety of supply */
+.l11 {
+  top: 500px;
+  left: 490px;
+}
+
+/* Market Expansion */
 
 .value_label_png {
   width: 22px;
@@ -351,6 +448,7 @@ body {
   font-weight: 600;
   color: var(--text-dark, #2d3748);
 }
+
 .feature-name i {
   color: var(--text-light, #718096);
   width: 25px;
@@ -362,6 +460,7 @@ body {
 .traditional-col {
   color: #a0aec0;
 }
+
 .bad-icon {
   color: #fc8181;
   margin-right: 8px;
@@ -472,6 +571,7 @@ body {
   height: 88px;
   object-fit: contain;
 }
+
 /*footer*/
 .site-footer {
   background: #1a202c;
