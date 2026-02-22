@@ -1,54 +1,3 @@
-# 🌾 AgroGuard
-> **AI-Driven Smart Farming & Crop Protection System**
-
-![Project Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)
-![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python)
-![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat-square&logo=fastapi)
-![AI](https://img.shields.io/badge/AI-Gemini%201.5%20Flash-orange?style=flat-square&logo=google)
-![Multilingual](https://img.shields.io/badge/Multilingual-5%20Languages-9C27B0?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
-
----
-
-## 📖 About The Project
-
-**AgroGuard** is an innovative agricultural management platform designed to empower modern farmers with real-time insights and automated security. Acting as a digital sentinel for your farmland, AgroGuard leverages **Generative AI** and **Machine Learning** to monitor crop health, predict spoilage risks, optimize soil usage, and forecast market prices. 
-
-With our latest update, AgroGuard breaks language barriers, offering a fully localized experience to ensure every farmer gets access to cutting-edge technology in the language they understand best.
-
----
-
-## ✨ Key Features & Recent Updates
-
-### 🌍 **Seamless Multilingual Support (NEW)**
-AgroGuard is now fully accessible in **5 languages**: English, Hindi (हिंदी), Marathi (मराठी), Odia (ଓଡ଼ିଆ), and Telugu (తెలుగు).
-* **Dynamic UI Translation:** Instantly switch languages across the entire frontend (HTML/JS) via the top navigation bar.
-* **Localized AI Responses:** The backend Gemini AI integration natively processes and generates farming plans, spoilage advice, and market predictions in your preferred language.
-* **Smart Language Caching:** Backend memory optimized with language-specific cache keys for ultra-fast query loading.
-
-### 🤖 1. AI Crop Planner (`crop_planner.html` / `ai_agent_api.py`)
-* **Intelligent Rotation:** Generates optimal crop rotation plans based on soil type, season, and previous harvest.
-* **Data Visualization:** Renders interactive charts powered by `Chart.js` and clean Markdown outputs via `Marked.js`.
-
-### 📉 2. Spoilage & Logistics Predictor (`predict.html` / `spoilage_api.py`)
-* **Store vs. Sell Analysis:** Recommends whether to store crops or sell them immediately based on real-time temperature, humidity, and transit times.
-* **Risk Scoring:** Assigns a "Spoilage Risk Score" to help mitigate losses.
-
-### 💰 3. Market Price Forecaster (`price_prediction.html` / `price_api.py`)
-* **Profit Estimation:** Accurately forecasts potential selling prices, calculating base costs and predicting ROI.
-* **Market Mapping:** Provides data-driven recommendations on top nearby hubs and local/export market levels.
-
----
-
-## 🛠️ Tech Stack
-
-* **Frontend:** HTML5, CSS3, Vanilla JavaScript, Chart.js (Data Vis), Marked.js (Markdown Rendering)
-* **Backend:** Python, FastAPI, Uvicorn, Pydantic (Data Validation)
-* **AI Integration:** Google Gemini 1.5 Flash API
-* **Architecture:** RESTful APIs, CORS Middleware, Smart Dictionary Caching, Dotenv for secret management
-
----
-
 Markdown
 # 🌾 AgroGuard
 > **AI-Driven Smart Farming & Crop Protection System**
@@ -56,7 +5,7 @@ Markdown
 ![Project Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python)
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat-square&logo=fastapi)
-![AI](https://img.shields.io/badge/AI-Gemini%201.5%20Flash-orange?style=flat-square&logo=google)
+![AI](https://img.shields.io/badge/AI-Gemini%203%20Flash%20preview-orange?style=flat-square&logo=google)
 ![Multilingual](https://img.shields.io/badge/Multilingual-5%20Languages-9C27B0?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
 
