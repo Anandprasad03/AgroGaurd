@@ -34,6 +34,7 @@
       color: var(--text-dark);
       overflow-x: hidden;
     }
+    
 
     /* Navbarr */
     .navbar {
@@ -886,6 +887,37 @@
       messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to bottom
     }
   </script>
+  <style>
+    #weather-fab {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      /* Positioned on the left so it doesn't overlap chatbot */
+      width: 60px;
+      height: 60px;
+      background: #3182ce;
+      /* Nice weather blue */
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    #weather-fab:hover {
+      transform: scale(1.1);
+      background: #2b6cb0;
+    }
+  </style>
+
+  <div id="weather-fab" onclick="window.location.href='weather.html'" title="Check Weather">
+    <i class="fas fa-cloud-sun-rain"></i>
+  </div>
 </body>
 
 </html>
