@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
-import requests
+import httpx
 import os
 import json
 import re
@@ -24,7 +24,7 @@ class AgentInput(BaseModel):
     language: str = Field("English", max_length=20, description="User's preferred language") # ADDED
 
 @router.post("")
-def plan_crop(data: AgentInput):
+async def plan_crop(data: AgentInput):
     # Create cache key including language
     cache_key = f"{data.last_crop}-{data.soil_type}-{data.rainfall}-{data.season}-{data.region}-{data.language}"
 
@@ -64,8 +64,9 @@ def plan_crop(data: AgentInput):
     }
 
     try:
-        response = requests.post(GEMINI_URL, json=payload)
-        res_json = response.json()
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            response = await client.post(GEMINI_URL, json=payload)
+            res_json = response.json()
 
         if "error" in res_json:
              raise Exception(f"Google API Error: {res_json['error'].get('message', res_json['error'])}")

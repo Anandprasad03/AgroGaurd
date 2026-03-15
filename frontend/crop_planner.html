@@ -591,9 +591,15 @@
       <div class="card" id="loader">
         <div class="spinner"></div>
         <h3>Analyzing Soil & Seasons...</h3>
-        <p style="color: #718096; margin-top: 5px">
+        <p style="color: #718096; margin-top: 5px" id="loader-msg">
           Consulting AI Agronomist...
         </p>
+        <script>
+          setTimeout(() => {
+            const msg = document.getElementById("loader-msg");
+            if (msg) msg.innerText = "Almost there... AI is thinking (this may take 10-15s)";
+          }, 5000);
+        </script>
       </div>
 
       <div class="card" id="result">
@@ -1123,6 +1129,14 @@
   <div id="weather-fab" onclick="window.location.href='weather.html'" title="Check Weather">
     <i class="fas fa-cloud-sun-rain"></i>
   </div>
+
+  <script>
+    // Keep Render backend warm — prevents cold start delay
+    setInterval(() => {
+      fetch("https://agrogaurd-1.onrender.com/")
+        .catch(() => { });
+    }, 10 * 60 * 1000);
+  </script>
 </body>
 
 </html>

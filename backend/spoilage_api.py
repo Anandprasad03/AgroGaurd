@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
-import requests
+import httpx
 import os
 import json
 import re
@@ -29,7 +29,7 @@ class SpoilageInput(BaseModel):
     selling_destination: str = Field("", max_length=100, description="Target destination")
 
 @router.post("/predict")
-def predict_spoilage(data: SpoilageInput):
+async def predict_spoilage(data: SpoilageInput):
     cache_key = f"{data.action_type}-{data.crop_type}-{round(data.temperature, 1)}-{round(data.humidity, 1)}-{data.storage_type}-{data.days_stored}-{data.current_location}-{data.selling_destination}-{data.language}"
     
     if cache_key in SPOILAGE_CACHE:
@@ -97,8 +97,9 @@ def predict_spoilage(data: SpoilageInput):
     }
 
     try:
-        response = requests.post(GEMINI_URL, json=payload)
-        res_json = response.json()
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            response = await client.post(GEMINI_URL, json=payload)
+            res_json = response.json()
         
         # print(f"RAW GOOGLE RESPONSE: {res_json}") # Helps debug if API fails
         

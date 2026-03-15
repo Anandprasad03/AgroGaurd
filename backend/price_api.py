@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
-import requests
+import httpx
 import os
 import json
 import re
@@ -26,7 +26,7 @@ class PriceInput(BaseModel):
     language: str = Field("English", max_length=20, description="User's preferred language") # ADDED
 
 @router.post("")
-def predict_market_price(data: PriceInput):
+async def predict_market_price(data: PriceInput):
     # Create a unique key for caching that includes language
     cache_key = f"{data.crop}-{data.market_level}-{data.location}-{data.product_type}-{data.month}-{data.cost_price}-{data.language}"
     
@@ -83,8 +83,9 @@ def predict_market_price(data: PriceInput):
     }
 
     try:
-        response = requests.post(GEMINI_URL, json=payload)
-        res_json = response.json()
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            response = await client.post(GEMINI_URL, json=payload)
+            res_json = response.json()
         
         if "error" in res_json:
              raise Exception(f"Google API Error: {res_json['error'].get('message', res_json['error'])}")

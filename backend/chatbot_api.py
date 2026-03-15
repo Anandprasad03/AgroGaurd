@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
-import requests
+import httpx
 import os
 from dotenv import load_dotenv
 
@@ -18,7 +18,7 @@ class ChatInput(BaseModel):
     language: str = Field("English", description="The current language of the app")
 
 @router.post("")
-def chat_with_bot(data: ChatInput):
+async def chat_with_bot(data: ChatInput):
     if not GROQ_API_KEY:
         return {"response": "Error: GROQ_API_KEY not found in environment variables."}
 
@@ -46,8 +46,9 @@ def chat_with_bot(data: ChatInput):
     }
 
     try:
-        response = requests.post(GROQ_URL, headers=headers, json=payload)
-        res_json = response.json()
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            response = await client.post(GROQ_URL, headers=headers, json=payload)
+            res_json = response.json()
 
         if "error" in res_json:
              raise Exception(res_json["error"]["message"])

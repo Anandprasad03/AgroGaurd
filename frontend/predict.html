@@ -1294,6 +1294,13 @@
   <div id="weather-fab" onclick="window.location.href='weather.html'" title="Check Weather">
     <i class="fas fa-cloud-sun-rain"></i>
   </div>
+  <script>
+    // Keep Render backend warm — prevents cold start delay
+    setInterval(() => {
+      fetch("https://agrogaurd-1.onrender.com/")
+        .catch(() => { });
+    }, 10 * 60 * 1000);
+  </script>
 </body>
 
 </html>
